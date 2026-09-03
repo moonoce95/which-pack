@@ -1,5 +1,5 @@
 {
-  "product": "Which Pack — AU cordless platform coverage",
+  "product": "Which Pack \u2014 AU cordless platform coverage",
   "updated": "2026-09-03",
   "rule": "has = official AU catalog/PDP found; missing = confirmed not on that platform voltage; unknown = not verified. Never invent.",
   "no_prices": true,
@@ -14,7 +14,7 @@
       "id": "dewalt_18v_au",
       "label": "DeWalt 18V XR (AU)",
       "region": "AU",
-      "voltage_note": "Branded 18V XR; US equivalent often sold as 20V MAX. Chargers are 230–240V locally (-XJ/-XE)."
+      "voltage_note": "Branded 18V XR; US equivalent often sold as 20V MAX. Chargers are 230\u2013240V locally (-XJ/-XE)."
     },
     {
       "id": "dewalt_flexvolt_au",
@@ -75,13 +75,15 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/plumbing/drain-cleaning/M18FDCPF8-0C.html"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=M18FDCPF8-0C&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/product/dcd200n-xj/18v-xr-brushless-drain-cleaner-bare-unit"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCD200N-XJ&tag=whichpackau-22"
         },
         "dewalt_flexvolt_au": {
           "status": "unknown",
@@ -98,7 +100,7 @@
           ]
         }
       },
-      "note": "Milwaukee AU also lists drum machines and chain snake. DeWalt AU DCD200N-XJ is 18V XR (one /product/ fetch is a JS homepage shell). Ryobi AU RDA1825 18V ONE+ 7.6m Drain Auger PDP confirmed. Makita LXT AU search for drain returned no product cards — left unknown (not missing). FLEXVOLT drain snake not found — left unknown.",
+      "note": "Milwaukee AU also lists drum machines and chain snake. DeWalt AU DCD200N-XJ is 18V XR (one /product/ fetch is a JS homepage shell). Ryobi AU RDA1825 18V ONE+ 7.6m Drain Auger PDP confirmed. Makita LXT AU search for drain returned no product cards \u2014 left unknown (not missing). FLEXVOLT drain snake not found \u2014 left unknown.",
       "sources": [
         "https://www.milwaukeetool.com.au/power-tools/plumbing/drain-cleaning/M18FDCPF8-0C.html",
         "https://www.dewalt.com.au/product/dcd200n-xj/18v-xr-brushless-drain-cleaner-bare-unit",
@@ -115,13 +117,15 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/carpentry/multi-tools-and-rotary-tools/M18FMT-0.html"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=M18FMT-0&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "has",
           "evidence": [
             "https://www.bunnings.com.au/dewalt-18v-xr-li-ion-3-speed-oscillating-multi-tool-dcs356n-xj-skin-only_p0138926"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DeWalt+18V+XR+%28AU%29+oscillating+multi-tool&tag=whichpackau-22"
         },
         "dewalt_flexvolt_au": {
           "status": "unknown",
@@ -131,7 +135,8 @@
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/multi-tools/dtm52zx3-18v-brushless-multi-tool"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DTM52ZX3&tag=whichpackau-22"
         },
         "ryobi_one_au": {
           "status": "has",
@@ -158,25 +163,29 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/system/m18/"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=Milwaukee+M18+%28AU%29+18V-platform+lawn+mower&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcmwsp156w2-xe/dewalt-2x18v-xr-self-propelled-lawn-mower-2-x-8ah"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCMWSP156W2-XE&tag=whichpackau-22"
         },
         "dewalt_flexvolt_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/product/dcmwp500n-xj/54v-xr-flexvolt-push-lawn-mower-tool-only"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCMWP500N-XJ&tag=whichpackau-22"
         },
         "makita_lxt_au": {
           "status": "has",
           "evidence": [
             "https://makita.com.au/outdoor-power-equipment/lxt-18v-36v/lawn-mowers/dlm432z-18vx2-lawn-mower-430mm-17"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DLM432Z&tag=whichpackau-22"
         },
         "ryobi_one_au": {
           "status": "has",
@@ -204,7 +213,8 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/saws/table-saws/M18FTS210-0.html"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=M18FTS210-0&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "missing",
@@ -216,7 +226,8 @@
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/product/dcs7485n-xj/54v-xr-flexvolt-210mm-table-saw-bare-unit"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCS7485N-XJ&tag=whichpackau-22"
         },
         "makita_lxt_au": {
           "status": "missing",
@@ -251,7 +262,8 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/system/m18/"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=Milwaukee+M18+%28AU%29+grease+gun&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "unknown",
@@ -265,7 +277,8 @@
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/applicators/grease-guns/dgp180zbk-18v-grease-gun"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DGP180ZBK&tag=whichpackau-22"
         },
         "ryobi_one_au": {
           "status": "has",
@@ -274,7 +287,7 @@
           ]
         }
       },
-      "note": "DeWalt AU DCGG581N-XE appears in search index as 18V XR 450g grease gun but official /product/ fetch returned homepage chrome and /en-au/product/ 404 — left unknown, not has.",
+      "note": "DeWalt AU DCGG581N-XE appears in search index as 18V XR 450g grease gun but official /product/ fetch returned homepage chrome and /en-au/product/ 404 \u2014 left unknown, not has.",
       "sources": [
         "https://www.milwaukeetool.com.au/system/m18/",
         "https://makita.com.au/cordless/lxt-18v-36v/applicators/grease-guns/dgp180zbk-18v-grease-gun",
@@ -291,13 +304,15 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/speciality-tools/heat-tools/M18BHG-0.html"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=M18BHG-0&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dce530n-xj/18v-xr-heat-gun-tool-only"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCE530N-XJ&tag=whichpackau-22"
         },
         "dewalt_flexvolt_au": {
           "status": "unknown",
@@ -307,7 +322,8 @@
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/specialty/heat-guns/dhg181zk-18v-heat-gun"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DHG181ZK&tag=whichpackau-22"
         },
         "ryobi_one_au": {
           "status": "has",
@@ -316,7 +332,7 @@
           ]
         }
       },
-      "note": "Makita AU DHG181ZK 18V Heat Gun confirmed via official LXT specialty PDP. DeWalt DCE530N-XJ 18V XR heat gun now confirmed on official AU PDP (was retailer-only). FLEXVOLT heat gun not on a sitting OEM PDP — left unknown.",
+      "note": "Makita AU DHG181ZK 18V Heat Gun confirmed via official LXT specialty PDP. DeWalt DCE530N-XJ 18V XR heat gun now confirmed on official AU PDP (was retailer-only). FLEXVOLT heat gun not on a sitting OEM PDP \u2014 left unknown.",
       "sources": [
         "https://www.milwaukeetool.com.au/power-tools/speciality-tools/heat-tools/M18BHG-0.html",
         "https://www.dewalt.com.au/en-au/product/dce530n-xj/18v-xr-heat-gun-tool-only",
@@ -334,25 +350,29 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/system/m18/"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=Milwaukee+M18+%28AU%29+circular+saw&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/product/dcs570n-xe/18v-xr-brushless-184mm-circular-saw-tool-only"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCS570N-XE&tag=whichpackau-22"
         },
         "dewalt_flexvolt_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcs577n-xj/54v-xr-flexvolt-190-mm-high-torque-circular-saw-tool-only"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCS577N-XJ&tag=whichpackau-22"
         },
         "makita_lxt_au": {
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/saws"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=Makita+LXT+18V+%28AU%29+circular+saw&tag=whichpackau-22"
         },
         "ryobi_one_au": {
           "status": "has",
@@ -381,13 +401,15 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/system/m18/"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=Milwaukee+M18+%28AU%29+impact+wrench&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcf891n-xj/18v-xr-brushless-12-hog-ring-mid-torque-impact-wrench-bare-unit"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCF891N-XJ&tag=whichpackau-22"
         },
         "dewalt_flexvolt_au": {
           "status": "unknown",
@@ -397,7 +419,8 @@
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/drills-fastening"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=Makita+LXT+18V+%28AU%29+impact+wrench&tag=whichpackau-22"
         },
         "ryobi_one_au": {
           "status": "has",
@@ -424,13 +447,15 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/outdoor-power/line-trimmers-and-brushcutters/line-trimmers/M18F2LT802.html"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=M18F2LT802&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcmst561n-xe/18v-xr-brushless-string-trimmer-folding-shaft-tool-only"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCMST561N-XE&tag=whichpackau-22"
         },
         "dewalt_flexvolt_au": {
           "status": "unknown",
@@ -440,7 +465,8 @@
           "status": "has",
           "evidence": [
             "https://makita.com.au/outdoor-power-equipment/lxt-18v-36v/brushcutters/dur192lz-18v-brushless-line-trimmer"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DUR192LZ&tag=whichpackau-22"
         },
         "ryobi_one_au": {
           "status": "has",
@@ -467,25 +493,29 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/system/m18/"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=Milwaukee+M18+%28AU%29+rotary+hammer+%28SDS%29&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/product/dch133n-xj/18v-xr-brushless-26mm-sds-plus-hammer-drill-bare-unit"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCH133N-XJ&tag=whichpackau-22"
         },
         "dewalt_flexvolt_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dch333nt-xj/54v-xr-flexvolt-brushless-30mm-sds-plus-hammer-drill-bare-tool-only"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCH333NT-XJ&tag=whichpackau-22"
         },
         "makita_lxt_au": {
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/drills-fastening/rotary-hammers/dhr242zjw-18v-brushless-24mm-sds-plus-rotary-hammer"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DHR242ZJW&tag=whichpackau-22"
         },
         "ryobi_one_au": {
           "status": "has",
@@ -513,7 +543,8 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/saws/track-saws/M18FPS55-0P.html"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=M18FPS55-0P&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "missing",
@@ -526,13 +557,15 @@
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcs520nt-xj/54v-xr-flexvolt-165-mm-plunge-saw-tool-only"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCS520NT-XJ&tag=whichpackau-22"
         },
         "makita_lxt_au": {
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/saws/circular-saws/dsp600zj-18vx2-mobile-brushless-165mm-6-1-2-plunge-cut-saw"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DSP600ZJ&tag=whichpackau-22"
         },
         "ryobi_one_au": {
           "status": "has",
@@ -560,13 +593,15 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/saws/reciprocating-saws/M18FSX-0.html"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=M18FSX-0&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcs369n-xj/dewalt-18v-xr-brushless-compact-reciprocating-saw-tool-only"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCS369N-XJ&tag=whichpackau-22"
         },
         "dewalt_flexvolt_au": {
           "status": "unknown",
@@ -576,7 +611,8 @@
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/saws/reciprocating-saws/djr187z-18v-mobile-brushless-recipro-saw"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DJR187Z&tag=whichpackau-22"
         },
         "ryobi_one_au": {
           "status": "has",
@@ -603,25 +639,29 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/metalworking/angle-grinders/M18FSAG125XPDB20.html"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=M18FSAG125XPDB20&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcg405fn-xj/18v-xr-brushless-125mm-flat-head-angle-grinder-tool-only"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCG405FN-XJ&tag=whichpackau-22"
         },
         "dewalt_flexvolt_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcg418n-xj/54v-xr-flexvolt-125mm-side-handle-angle-grinder-tool-only"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCG418N-XJ&tag=whichpackau-22"
         },
         "makita_lxt_au": {
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/grinding-sanding-polishing/angle-grinders/dga504z-18v-mobile-brushless-125mm-slide-switch-angle-grinder"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DGA504Z&tag=whichpackau-22"
         },
         "ryobi_one_au": {
           "status": "has",
@@ -649,7 +689,8 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/speciality-tools/caulking-guns/C18PCG-0.html"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=C18PCG-0&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "unknown",
@@ -663,7 +704,8 @@
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/applicators/caulking-guns/dcg180z-18v-mobile-300ml-caulking-gun"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCG180Z&tag=whichpackau-22"
         },
         "ryobi_one_au": {
           "status": "has",
@@ -672,7 +714,7 @@
           ]
         }
       },
-      "note": "DeWalt AU DCE580D1-XE appears in search index as 18V XR 600ml caulk gun but /en-au/product/ 404 and /product/ historically JS-shelled — left unknown, not has.",
+      "note": "DeWalt AU DCE580D1-XE appears in search index as 18V XR 600ml caulk gun but /en-au/product/ 404 and /product/ historically JS-shelled \u2014 left unknown, not has.",
       "sources": [
         "https://www.milwaukeetool.com.au/power-tools/speciality-tools/caulking-guns/C18PCG-0.html",
         "https://makita.com.au/cordless/lxt-18v-36v/applicators/caulking-guns/dcg180z-18v-mobile-300ml-caulking-gun",
@@ -689,13 +731,15 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/saws/jigsaws/M18FBJS-0.html"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=M18FBJS-0&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcs334n-xj/18v-xr-brushless-jigsaw-tool-only"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCS334N-XJ&tag=whichpackau-22"
         },
         "dewalt_flexvolt_au": {
           "status": "unknown",
@@ -705,7 +749,8 @@
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/saws/jigsaws/djv182z-18v-mobile-brushless-d-handle-jigsaw"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DJV182Z&tag=whichpackau-22"
         },
         "ryobi_one_au": {
           "status": "has",
@@ -732,25 +777,29 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/saws/mitre-saws/M18FMS184-0.html"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=M18FMS184-0&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcs365n-xe/18v-xr-cordless-mitre-saw-tool-only"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCS365N-XE&tag=whichpackau-22"
         },
         "dewalt_flexvolt_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcs781n-xe/54v-xr-flexvolt-305mm-mitre-saw-tool-only"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCS781N-XE&tag=whichpackau-22"
         },
         "makita_lxt_au": {
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/saws/mitre-saws/dls600z-18v-brushless-165mm-6-1-2-compact-mitre-saw"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DLS600Z&tag=whichpackau-22"
         },
         "ryobi_one_au": {
           "status": "has",
@@ -779,7 +828,8 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/metalworking/metal-cutting/M18CHS355-0.html"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=M18CHS355-0&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "missing",
@@ -793,13 +843,15 @@
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcs691n-xj/54v-xr-flexvolt-230mm-cut-saw-bare-unit"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCS691N-XJ&tag=whichpackau-22"
         },
         "makita_lxt_au": {
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/metal-cutting/cut-off-saws/18vx2-brushless-355mm-14-abrasive-cut-off-saw"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=Makita+LXT+18V+%28AU%29+metal+cut-off+%2F+chop+saw&tag=whichpackau-22"
         },
         "ryobi_one_au": {
           "status": "missing",
@@ -810,7 +862,7 @@
           ]
         }
       },
-      "note": "Type is dedicated 230mm+ abrasive chop / cut-off saw. Compact 76mm cut-off tools excluded. Milwaukee M18CHS355-0 is 355mm abrasive chop saw. Makita DLW140Z is 18Vx2 355mm abrasive cut-off. Coverage trap: DeWalt AU cordless dedicated cut-off sampled is 54V FLEXVOLT DCS691N-XJ; 18V XR DCS438N-XJ is a 76mm cut-off tool; 355mm D28730-XE is corded. Ryobi Cut Off Saws hub lists only the 18V 76mm compact cut-off tool and a 2300W 355mm corded saw — no ONE+ dedicated chop/cut-off saw.",
+      "note": "Type is dedicated 230mm+ abrasive chop / cut-off saw. Compact 76mm cut-off tools excluded. Milwaukee M18CHS355-0 is 355mm abrasive chop saw. Makita DLW140Z is 18Vx2 355mm abrasive cut-off. Coverage trap: DeWalt AU cordless dedicated cut-off sampled is 54V FLEXVOLT DCS691N-XJ; 18V XR DCS438N-XJ is a 76mm cut-off tool; 355mm D28730-XE is corded. Ryobi Cut Off Saws hub lists only the 18V 76mm compact cut-off tool and a 2300W 355mm corded saw \u2014 no ONE+ dedicated chop/cut-off saw.",
       "sources": [
         "https://www.milwaukeetool.com.au/power-tools/metalworking/metal-cutting/M18CHS355-0.html",
         "https://www.dewalt.com.au/en-au/product/dcs691n-xj/54v-xr-flexvolt-230mm-cut-saw-bare-unit",
@@ -832,7 +884,8 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/concrete/rotary-hammers/M18FHACO7450C.html"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=M18FHACO7450C&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "missing",
@@ -845,13 +898,15 @@
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dch614n-xj/54v-xr-flexvolt-45mm-sds-max-hammer-drill-bare-unit"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCH614N-XJ&tag=whichpackau-22"
         },
         "makita_lxt_au": {
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/drills-fastening/rotary-hammers/dhr400zkn-18vx2-brushless-40mm-sds-max-rotary-hammer"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DHR400ZKN&tag=whichpackau-22"
         },
         "ryobi_one_au": {
           "status": "missing",
@@ -863,7 +918,7 @@
           ]
         }
       },
-      "note": "Coverage trap like the table saw: DeWalt AU SDS-MAX hammers sampled are 54V FLEXVOLT (DCH614N-XJ 45mm; catalog also lists 52mm SDS-MAX and 11kg SDS MAX demolition). 18V XR rotary hammers on the same AU category are SDS-plus. Milwaukee M18FHACO7450C is M18 SDS Max (not MX FUEL). Makita DHR400ZKN is 18Vx2 LXT SDS Max. Ryobi rotary-hammer hub lists only SDS+ ONE+ hammers (R18SDS-0, RSDS18X) and a corded 1500W SDS — SDS-MAX string count 0.",
+      "note": "Coverage trap like the table saw: DeWalt AU SDS-MAX hammers sampled are 54V FLEXVOLT (DCH614N-XJ 45mm; catalog also lists 52mm SDS-MAX and 11kg SDS MAX demolition). 18V XR rotary hammers on the same AU category are SDS-plus. Milwaukee M18FHACO7450C is M18 SDS Max (not MX FUEL). Makita DHR400ZKN is 18Vx2 LXT SDS Max. Ryobi rotary-hammer hub lists only SDS+ ONE+ hammers (R18SDS-0, RSDS18X) and a corded 1500W SDS \u2014 SDS-MAX string count 0.",
       "sources": [
         "https://www.milwaukeetool.com.au/power-tools/concrete/rotary-hammers/M18FHACO7450C.html",
         "https://www.dewalt.com.au/en-au/product/dch614n-xj/54v-xr-flexvolt-45mm-sds-max-hammer-drill-bare-unit",
@@ -885,25 +940,29 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/job-site-clean-up/vacuums/M18WDV-0.html"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=M18WDV-0&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcv501ln-xj/18v-xr-l-class-stick-vac-tool-only"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCV501LN-XJ&tag=whichpackau-22"
         },
         "dewalt_flexvolt_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcv586mn-xj/54v-xr-flexvolt-m-class-wetdry-dust-extractor-tool-only"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCV586MN-XJ&tag=whichpackau-22"
         },
         "makita_lxt_au": {
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/dust-extraction/dvc750lzx1"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DVC750LZX1&tag=whichpackau-22"
         },
         "ryobi_one_au": {
           "status": "has",
@@ -912,7 +971,7 @@
           ]
         }
       },
-      "note": "Stick vac, wet/dry vac, and dust extractor treated as one type. DeWalt AU has both an 18V XR L-class stick vac (DCV501LN-XJ) and a 54V FLEXVOLT M-class extractor (DCV586MN-XJ). DCV517N-XJ 18V wet/dry vac /product/ fetch was homepage chrome — not used. Milwaukee M18WDV-0 7.5L wet/dry. Makita DVC750LZX1 18V wet/dry extractor. Ryobi 18L ONE+ wet/dry.",
+      "note": "Stick vac, wet/dry vac, and dust extractor treated as one type. DeWalt AU has both an 18V XR L-class stick vac (DCV501LN-XJ) and a 54V FLEXVOLT M-class extractor (DCV586MN-XJ). DCV517N-XJ 18V wet/dry vac /product/ fetch was homepage chrome \u2014 not used. Milwaukee M18WDV-0 7.5L wet/dry. Makita DVC750LZX1 18V wet/dry extractor. Ryobi 18L ONE+ wet/dry.",
       "sources": [
         "https://www.milwaukeetool.com.au/power-tools/job-site-clean-up/vacuums/M18WDV-0.html",
         "https://www.dewalt.com.au/en-au/product/dcv501ln-xj/18v-xr-l-class-stick-vac-tool-only",
@@ -931,13 +990,15 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/outdoor-power/chainsaws/rear-handle-chainsaws/M18FCHS-0.html"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=M18FCHS-0&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcm565n-xe/18v-xr-brushless-30cm-compact-chainsaw-tool-only"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCM565N-XE&tag=whichpackau-22"
         },
         "dewalt_flexvolt_au": {
           "status": "unknown",
@@ -947,7 +1008,8 @@
           "status": "has",
           "evidence": [
             "https://makita.com.au/outdoor-power-equipment/lxt-18v-36v/chainsaws/duc254z-18v-brushless-chainsaw-250mm-10"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DUC254Z&tag=whichpackau-22"
         },
         "ryobi_one_au": {
           "status": "has",
@@ -956,7 +1018,7 @@
           ]
         }
       },
-      "note": "Pole saws excluded. Milwaukee M18FCHS-0 is single-pack 16in; dual-pack M18F2CHS200 also listed. DeWalt DCM565N-XE is 18V XR 30cm compact. FLEXVOLT chainsaw DCMCS574 appears only on bar/chain accessory PDPs; tool PDP 404 — left unknown. Makita DUC254Z is single 18V LXT (DUC306Z/DUC400Z are 18Vx2). Ryobi 12in ONE+ HP. Amazon Lawn & Garden is 5% not Tools 10%.",
+      "note": "Pole saws excluded. Milwaukee M18FCHS-0 is single-pack 16in; dual-pack M18F2CHS200 also listed. DeWalt DCM565N-XE is 18V XR 30cm compact. FLEXVOLT chainsaw DCMCS574 appears only on bar/chain accessory PDPs; tool PDP 404 \u2014 left unknown. Makita DUC254Z is single 18V LXT (DUC306Z/DUC400Z are 18Vx2). Ryobi 12in ONE+ HP. Amazon Lawn & Garden is 5% not Tools 10%.",
       "sources": [
         "https://www.milwaukeetool.com.au/outdoor-power/chainsaws/rear-handle-chainsaws/M18FCHS-0.html",
         "https://www.dewalt.com.au/en-au/product/dcm565n-xe/18v-xr-brushless-30cm-compact-chainsaw-tool-only",
@@ -974,7 +1036,8 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/plumbing/press-tools/M18ONEBLHPT-0.html"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=M18ONEBLHPT-0&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "unknown",
@@ -993,7 +1056,7 @@
           "evidence": []
         }
       },
-      "note": "Copper/PEX jaw press, not caulk gun or electrical crimper. Milwaukee M18ONEBLHPT-0 FORCE LOGIC press confirmed. DeWalt DCE200/DCE210 guessed slugs 404; plumbing hub 404 — unknown. Makita LXT applicators catalog lists caulk and grease guns only — press not confirmed, left unknown not missing. Ryobi press PDP not found — unknown.",
+      "note": "Copper/PEX jaw press, not caulk gun or electrical crimper. Milwaukee M18ONEBLHPT-0 FORCE LOGIC press confirmed. DeWalt DCE200/DCE210 guessed slugs 404; plumbing hub 404 \u2014 unknown. Makita LXT applicators catalog lists caulk and grease guns only \u2014 press not confirmed, left unknown not missing. Ryobi press PDP not found \u2014 unknown.",
       "sources": [
         "https://www.milwaukeetool.com.au/power-tools/plumbing/press-tools/M18ONEBLHPT-0.html"
       ],
@@ -1008,13 +1071,15 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/nailers-and-staplers/framing-nailers/M18FFN-0C.html"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=M18FFN-0C&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcn930n-xj/18v-xr-brushless-33deg-90-mm-framing-nailer-bare-tool-only"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCN930N-XJ&tag=whichpackau-22"
         },
         "dewalt_flexvolt_au": {
           "status": "unknown",
@@ -1024,7 +1089,8 @@
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/drills-fastening/nailers-staplers/dbn900zk-18v-brushless-90mm-framing-nailer"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DBN900ZK&tag=whichpackau-22"
         },
         "ryobi_one_au": {
           "status": "has",
@@ -1033,7 +1099,7 @@
           ]
         }
       },
-      "note": "Framing only — not finish/brad/duplex/banding. Milwaukee M18FFN-0C 30-34deg. DeWalt DCN930N-XJ 18V XR 33deg 90mm (DCN930P1-XE kit also on catalog). FLEXVOLT framing nailer not on the AU framing-nailers catalog — left unknown. Makita DBN900ZK 18V LXT (BN001GZ is 40V XGT, not this column). Ryobi RFN1830X 18V ONE+ HP.",
+      "note": "Framing only \u2014 not finish/brad/duplex/banding. Milwaukee M18FFN-0C 30-34deg. DeWalt DCN930N-XJ 18V XR 33deg 90mm (DCN930P1-XE kit also on catalog). FLEXVOLT framing nailer not on the AU framing-nailers catalog \u2014 left unknown. Makita DBN900ZK 18V LXT (BN001GZ is 40V XGT, not this column). Ryobi RFN1830X 18V ONE+ HP.",
       "sources": [
         "https://www.milwaukeetool.com.au/power-tools/nailers-and-staplers/framing-nailers/M18FFN-0C.html",
         "https://www.dewalt.com.au/en-au/product/dcn930n-xj/18v-xr-brushless-33deg-90-mm-framing-nailer-bare-tool-only",
@@ -1051,13 +1117,15 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/metalworking/band-saws/M18FBS85-0.html"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=M18FBS85-0&tag=whichpackau-22"
         },
         "dewalt_18v_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcs378n-xj/18v-xr-brushless-mid-size-bandsaw-tool-only"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DCS378N-XJ&tag=whichpackau-22"
         },
         "dewalt_flexvolt_au": {
           "status": "unknown",
@@ -1067,14 +1135,15 @@
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/saws/band-saws/dpb183z-18v-brushless-band-saw"
-          ]
+          ],
+          "amazon": "https://www.amazon.com.au/s?k=DPB183Z&tag=whichpackau-22"
         },
         "ryobi_one_au": {
           "status": "unknown",
           "evidence": []
         }
       },
-      "note": "Handheld/portable band saw. Not compact banding nailer. Milwaukee M18FBS85-0 compact band saw. DeWalt DCS378N-XJ 18V XR mid-size bandsaw. FLEXVOLT band saw not sampled — unknown. Makita DPB183Z 18V LXT. Ryobi 18V ONE+ 63mm band saw (RBDS18) appears on support.ryobi.com.au only; ryobi.com.au product PDPs 403/404 — left unknown, not has.",
+      "note": "Handheld/portable band saw. Not compact banding nailer. Milwaukee M18FBS85-0 compact band saw. DeWalt DCS378N-XJ 18V XR mid-size bandsaw. FLEXVOLT band saw not sampled \u2014 unknown. Makita DPB183Z 18V LXT. Ryobi 18V ONE+ 63mm band saw (RBDS18) appears on support.ryobi.com.au only; ryobi.com.au product PDPs 403/404 \u2014 left unknown, not has.",
       "sources": [
         "https://www.milwaukeetool.com.au/power-tools/metalworking/band-saws/M18FBS85-0.html",
         "https://www.dewalt.com.au/en-au/product/dcs378n-xj/18v-xr-brushless-mid-size-bandsaw-tool-only",
@@ -1084,13 +1153,15 @@
     }
   ],
   "traps": [
-    "US chargers typically 110–120V; AU 230–240V. Plug adapters do not convert voltage.",
-    "DeWalt US 20V MAX / 60V FLEXVOLT labelling vs AU 18V XR / 54V FLEXVOLT — cells/tools often shared; chargers often are not.",
+    "US chargers typically 110\u2013120V; AU 230\u2013240V. Plug adapters do not convert voltage.",
+    "DeWalt US 20V MAX / 60V FLEXVOLT labelling vs AU 18V XR / 54V FLEXVOLT \u2014 cells/tools often shared; chargers often are not.",
     "Top 7 Tools AU (2026): Amazon AU listings can be US-spec with 110V chargers; DeWalt local SKUs use -XJ / -XE suffixes.",
-    "DeWalt AU cordless track/plunge saw sampled is 54V FLEXVOLT (DCS520), not 18V XR — same class of trap as the jobsite table saw.",
-    "DeWalt AU lawn mowers exist on BOTH 2x18V XR and 54V FLEXVOLT — not a missing-on-18V trap.",
+    "DeWalt AU cordless track/plunge saw sampled is 54V FLEXVOLT (DCS520), not 18V XR \u2014 same class of trap as the jobsite table saw.",
+    "DeWalt AU lawn mowers exist on BOTH 2x18V XR and 54V FLEXVOLT \u2014 not a missing-on-18V trap.",
     "DeWalt AU SDS-MAX hammers sampled are 54V FLEXVOLT (DCH614); 18V XR rotary hammers on the AU catalog are SDS-plus.",
     "Compact 76mm cut-off tools are not counted as metal chop / cut-off saws in this matrix.",
     "DeWalt AU cordless dedicated cut-off sampled is 54V FLEXVOLT (DCS691); 18V XR has a 76mm cut-off tool, not a chop/cut-off saw."
-  ]
+  ],
+  "associate_id": "whichpackau-22",
+  "amazon_tag": "whichpackau-22"
 }
