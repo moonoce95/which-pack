@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://moonoce95.github.io/which-pack/sitemap.xml
