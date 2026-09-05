@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Which Pack">
+  <rect width="32" height="32" rx="7" fill="#245C43"/>
+  <rect x="8" y="10" width="16" height="14" rx="2.5" fill="#F5F4EF"/>
+  <rect x="11" y="7" width="10" height="4" rx="1.5" fill="#EDF7F0"/>
+  <rect x="11" y="14" width="10" height="2.5" rx="1" fill="#245C43"/>
+  <rect x="11" y="18.5" width="10" height="2.5" rx="1" fill="#D8DED7"/>
+</svg>

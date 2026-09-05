@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#F5F4EF"/>
+  <rect x="60" y="60" width="1080" height="510" rx="16" fill="#FFFFFF" stroke="#D8DED7" stroke-width="2"/>
+  <text x="100" y="180" font-family="system-ui,Segoe UI,sans-serif" font-size="28" font-weight="600" fill="#245C43">Which Pack</text>
+  <text x="100" y="260" font-family="system-ui,Segoe UI,sans-serif" font-size="48" font-weight="700" fill="#202521">Before you buy a kit,</text>
+  <text x="100" y="320" font-family="system-ui,Segoe UI,sans-serif" font-size="48" font-weight="700" fill="#202521">check what else its platform can run.</text>
+  <text x="100" y="390" font-family="system-ui,Segoe UI,sans-serif" font-size="24" fill="#566159">AU coverage · Milwaukee · DeWalt · Makita · Ryobi</text>
+  <rect x="100" y="440" width="72" height="28" rx="4" fill="#EDF7F0"/>
+  <text x="112" y="460" font-family="system-ui,Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#17603A">HAS</text>
+  <rect x="188" y="440" width="96" height="28" rx="4" fill="#EEF0EC"/>
+  <text x="200" y="460" font-family="system-ui,Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#454D46">MISSING</text>
+  <rect x="300" y="440" width="104" height="28" rx="4" fill="#FFF5DC"/>
+  <text x="312" y="460" font-family="system-ui,Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#765515">UNKNOWN</text>
+</svg>
