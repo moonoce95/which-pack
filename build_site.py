@@ -3,7 +3,7 @@
 
 Usage: python3 build_site.py
 Reads coverage.json in this directory, writes HTML/CSS/assets here,
-then syncs key files to /workspace/affiliate-business/mvp/.
+writes blog-led homepage + matrix + posts, then syncs key files to /workspace/affiliate-business/mvp/.
 """
 from __future__ import annotations
 
@@ -306,7 +306,8 @@ def site_header(current: str) -> str:
       <span>Which Pack<span class="brand-sub">AU cordless coverage</span></span>
     </a>
     <nav class="primary" aria-label="Primary">
-      {link("index.html", "Matrix", "index")}
+      {link("blog.html", "Blog", "blog")}
+      {link("matrix.html", "Matrix", "matrix")}
       {link("traps.html", "Traps", "traps")}
       {link("method.html", "Method", "method")}
       {link("disclosure.html", "Disclosure", "disclosure")}
@@ -321,9 +322,12 @@ def site_footer(updated: str) -> str:
     <p>Data last verified {esc(updated)} from manufacturer AU pages. No prices shown. As an Amazon Associate I earn from qualifying purchases. Amazon links appear only on <strong>has</strong> cells. Ryobi is editorial only.</p>
     <p>Method: <code>has</code> requires an official AU PDP or catalog listing; <code>missing</code> means we confirmed that voltage line does not carry the type; everything else is <code>unknown</code>.</p>
     <div class="footer-nav">
-      <a href="method.html">Method</a>
+      <a href="blog.html">Blog</a>
+      <a href="matrix.html">Matrix</a>
       <a href="traps.html">XR vs FlexVolt</a>
       <a href="makita-table-saw.html">Makita table saw</a>
+      <a href="year-two-tools.html">Year-two tools</a>
+      <a href="method.html">Method</a>
       <a href="disclosure.html">Disclosure</a>
     </div>
   </div>
@@ -358,6 +362,47 @@ HERO_SVG = """<svg class="hero-art" viewBox="0 0 420 200" xmlns="http://www.w3.o
 </svg>"""
 
 
+# Blog posts (trap landings kept as stable URLs; also listed on blog hub).
+POSTS = [
+    {
+        "path": "traps.html",
+        "title": "DeWalt XR vs FlexVolt in Australia: what an 18V kit can’t run",
+        "blurb": "Table saw, track/plunge, SDS-MAX and 230mm+ chop on AU DeWalt sit on 54V FLEXVOLT. An XR pack won’t run those machines.",
+        "date": "2026-09-03",
+        "nav": "traps",
+    },
+    {
+        "path": "makita-table-saw.html",
+        "title": "Does Makita LXT have a cordless table saw in Australia?",
+        "blurb": "Short answer: no on our matrix. Corded bench saws exist. Cordless LXT table saw does not. Milwaukee and Ryobi do have one.",
+        "date": "2026-09-03",
+        "nav": "traps",
+    },
+    {
+        "path": "year-two-tools.html",
+        "title": "Before you buy a cordless kit in Australia, check year-two tools",
+        "blurb": "Starter kits sell drills and impacts. Year two is table saws, track saws, SDS-MAX and dual-pack outdoor. Check coverage before you lock in.",
+        "date": "2026-09-05",
+        "nav": "blog",
+    },
+]
+
+
+def post_list_html(posts: list[dict], *, heading: str | None = None) -> str:
+    items = []
+    for p in posts:
+        items.append(
+            f"""<article class="post-card">
+  <p class="post-meta"><time datetime="{esc(p['date'])}">{esc(p['date'])}</time></p>
+  <h2 class="post-title"><a href="{esc(p['path'])}">{esc(p['title'])}</a></h2>
+  <p class="post-blurb">{esc(p['blurb'])}</p>
+  <p class="post-more"><a href="{esc(p['path'])}">Read post →</a></p>
+</article>"""
+        )
+    head = f'<h2 class="section-label">{esc(heading)}</h2>\n' if heading else ""
+    return head + '<div class="post-list">\n' + "\n".join(items) + "\n</div>"
+
+
 def json_ld_home() -> str:
     data = {
         "@context": "https://schema.org",
@@ -366,12 +411,12 @@ def json_ld_home() -> str:
                 "@type": "WebSite",
                 "name": "Which Pack",
                 "url": f"{BASE}/",
-                "description": "Australian cordless platform coverage matrix for Milwaukee, DeWalt, Makita and Ryobi.",
+                "description": "AU cordless coverage traps and platform matrix for Milwaukee, DeWalt, Makita and Ryobi.",
                 "inLanguage": "en-AU",
             },
             {
                 "@type": "WebPage",
-                "name": "Before you buy a kit, check what else its platform can run.",
+                "name": "Which Pack: AU cordless coverage traps",
                 "url": f"{BASE}/",
                 "isPartOf": {"@type": "WebSite", "url": f"{BASE}/"},
                 "inLanguage": "en-AU",
@@ -385,7 +430,65 @@ def json_ld_home() -> str:
     )
 
 
-def build_index(data: dict, tools: list[dict]) -> str:
+def build_home(updated: str) -> str:
+    """Blog-led homepage. Matrix is linked as closer, not the hero."""
+    title = "Which Pack: AU cordless coverage traps before you buy a kit"
+    desc = (
+        "Plain notes on AU cordless platform traps: FlexVolt vs XR, Makita table saw gaps, "
+        "and year-two tools. Then check the coverage matrix."
+    )
+    posts_html = post_list_html(POSTS)
+    return f"""{head(title, desc, "", json_ld_home())}
+<body>
+{site_header("blog")}
+<main class="wrap narrow">
+  <section class="page-hero">
+    <h1>AU cordless traps, before you buy the kit</h1>
+    <p class="lede">I keep a living coverage matrix for Milwaukee, DeWalt, Makita and Ryobi in Australia. Start with the trap posts. When you know what you need in year two, <a href="matrix.html">check coverage</a>.</p>
+    <p class="hero-actions"><a class="btn-primary" href="matrix.html">Check coverage</a> <a class="btn-ghost" href="blog.html">All posts</a></p>
+  </section>
+
+  <p class="disclosure-banner">As an Amazon Associate I earn from qualifying purchases. Affiliate relationships do not determine coverage results. <a href="disclosure.html">Full disclosure</a>.</p>
+
+  {posts_html}
+
+  <aside class="matrix-closer" aria-labelledby="matrix-closer-title">
+    <h2 id="matrix-closer-title">Then check the matrix</h2>
+    <p>Tool type × platform. Has, missing, or unknown from OEM AU pages. Amazon Search links only on verified <strong>has</strong> cells.</p>
+    <p class="card-cta"><a class="cta-link" href="matrix.html">Open the AU coverage matrix →</a></p>
+  </aside>
+</main>
+{site_footer(updated)}
+</body>
+</html>
+"""
+
+
+def build_blog(updated: str) -> str:
+    title = "Blog: AU cordless coverage traps | Which Pack"
+    desc = (
+        "Posts on AU cordless platform traps: DeWalt XR vs FlexVolt, Makita LXT table saw, "
+        "and year-two tools before you lock a kit."
+    )
+    posts_html = post_list_html(POSTS)
+    return f"""{head(title, desc, "blog.html")}
+<body>
+{site_header("blog")}
+<main class="wrap narrow">
+  <div class="page-hero">
+    <h1>Blog</h1>
+    <p class="lede">Coverage traps and kit lock-in notes for Australia. Not brand wars.</p>
+  </div>
+  {posts_html}
+  <p class="card-cta"><a class="cta-link" href="matrix.html">Check coverage on the matrix →</a></p>
+</main>
+{site_footer(updated)}
+</body>
+</html>
+"""
+
+
+def build_matrix(data: dict, tools: list[dict]) -> str:
     platforms = data["platforms"]
     updated = data.get("updated", "")
     thead = (
@@ -394,20 +497,20 @@ def build_index(data: dict, tools: list[dict]) -> str:
         + "<th scope=\"col\">Notes</th></tr>"
     )
     tbody = render_matrix_rows(tools, platforms, updated)
-    title = "Before you buy a kit — AU cordless platform coverage | Which Pack"
+    title = "AU cordless platform coverage matrix | Which Pack"
     desc = (
         "Compare Australian tool coverage across Milwaukee, DeWalt, Makita and Ryobi. "
         "See what's verified, what's missing and what still needs checking."
     )
-    return f"""{head(title, desc, "", json_ld_home())}
+    return f"""{head(title, desc, "matrix.html")}
 <body>
-{site_header("index")}
+{site_header("matrix")}
 <main class="wrap">
-  <section class="hero" aria-labelledby="hero-title">
+  <section class="hero hero-compact" aria-labelledby="hero-title">
     <div class="hero-copy">
       <h1 id="hero-title">Before you buy a kit, check what else its platform can run.</h1>
-      <p class="lede">Compare Australian tool coverage across Milwaukee, DeWalt, Makita and Ryobi. See what's verified, what's missing and what still needs checking.</p>
-      <p class="hero-actions"><a class="btn-primary" href="#controls">Choose your tools</a></p>
+      <p class="lede">Australian tool coverage across Milwaukee, DeWalt, Makita and Ryobi. Verified, missing, or still unknown.</p>
+      <p class="hero-actions"><a class="btn-primary" href="#controls">Choose your tools</a> <a class="btn-ghost" href="blog.html">Read trap posts</a></p>
     </div>
     <figure class="hero-figure">
       {HERO_SVG}
@@ -421,10 +524,10 @@ def build_index(data: dict, tools: list[dict]) -> str:
       <li>US chargers are typically 110–120V. AU is 230–240V. A plug adapter is not a transformer.</li>
       <li>DeWalt AU 18V XR is the same cell family often sold as 20V MAX in the US. Local SKUs use -XJ / -XE.</li>
       <li>DeWalt’s AU cordless table saw, track/plunge saw, SDS-MAX, and 230mm+ chop saw in this matrix are <strong>54V FLEXVOLT</strong>, not 18V XR.</li>
-      <li>Some mowers and trimmers need two 18V packs — check the notes before you buy.</li>
+      <li>Some mowers and trimmers need two 18V packs. Check the notes before you buy.</li>
       <li>Ryobi ONE+ in AU is Bunnings-exclusive. Shown for catalog honesty (not sold via our Amazon links).</li>
     </ul>
-    <p class="callout-more"><a href="traps.html">DeWalt XR vs FlexVolt traps →</a> · <a href="makita-table-saw.html">Makita LXT table saw?</a></p>
+    <p class="callout-more"><a href="traps.html">DeWalt XR vs FlexVolt traps →</a> · <a href="makita-table-saw.html">Makita LXT table saw?</a> · <a href="year-two-tools.html">Year-two tools</a></p>
   </aside>
 
   <p class="disclosure-banner" id="disclosure">As an Amazon Associate I earn from qualifying purchases. Affiliate relationships do not determine coverage results. <a href="disclosure.html">Full disclosure</a>.</p>
@@ -558,32 +661,32 @@ def build_traps(data: dict) -> str:
     sds_fv = evidence_first(sdsmax, "dewalt_flexvolt_au")
     chop_fv = evidence_first(chop, "dewalt_flexvolt_au")
 
-    title = "DeWalt XR vs FlexVolt Australia: what 18V packs can’t run | Which Pack"
+    title = "DeWalt XR vs FlexVolt in Australia: what an 18V kit can’t run | Which Pack"
     desc = (
         "AU coverage trap: DeWalt cordless table saw, track/plunge, SDS-MAX and 230mm+ "
-        "chop sampled on FLEXVOLT 54V — not 18V XR. FLEXVOLT packs run XR tools; reverse fails on 54V-only machines."
+        "chop sampled on FLEXVOLT 54V, not 18V XR. FLEXVOLT packs run XR tools; reverse fails on 54V-only machines."
     )
     return f"""{head(title, desc, "traps.html")}
 <body>
 {site_header("traps")}
 <main class="wrap narrow">
   <div class="page-hero">
-    <h1>DeWalt XR vs FlexVolt Australia: what 18V packs can’t run</h1>
-    <p class="lede">On the AU catalog, several high-draw cordless types sit on <strong>54V FLEXVOLT</strong>, not 18V XR. FLEXVOLT packs can run XR tools; the reverse is not true for 54V-only machines. We list sampled OEM evidence only — no DIY electrical advice.</p>
+    <h1>DeWalt XR vs FlexVolt in Australia: what an 18V kit can’t run</h1>
+    <p class="lede">On the AU catalog, several high-draw cordless types sit on <strong>54V FLEXVOLT</strong>, not 18V XR. FLEXVOLT packs can run XR tools; the reverse is not true for 54V-only machines. We list sampled OEM evidence only. No DIY electrical advice.</p>
   </div>
 
   <aside class="callout" aria-labelledby="fv-trap-summary">
     <h2 id="fv-trap-summary"><span class="badge">Coverage trap</span> 18V XR vs FLEXVOLT</h2>
     <ul>
-      <li>Jobsite table saw, track/plunge saw, SDS-MAX, and dedicated 230mm+ chop/cut-off — sampled DeWalt AU cordless models are <strong>FLEXVOLT</strong>, scored <code>missing</code> on 18V XR.</li>
+      <li>Jobsite table saw, track/plunge saw, SDS-MAX, and dedicated 230mm+ chop/cut-off. Sampled DeWalt AU cordless models are <strong>FLEXVOLT</strong>, scored <code>missing</code> on 18V XR.</li>
       <li>FLEXVOLT packs can power 18V XR tools; an 18V XR pack cannot run a 54V-only machine.</li>
-      <li>Verified {esc(updated)}. See the <a href="index.html">full coverage matrix</a>.</li>
+      <li>Verified {esc(updated)}. See the <a href="matrix.html">full coverage matrix</a>.</li>
     </ul>
   </aside>
 
   <div class="card">
     <h2>Jobsite table saw</h2>
-    <p>DeWalt AU cordless table saw sampled is 54V FLEXVOLT (DCS7485N-XJ), not 18V XR — scored <code>missing</code> on XR and <code>has</code> on FLEXVOLT.</p>
+    <p>DeWalt AU cordless table saw sampled is 54V FLEXVOLT (DCS7485N-XJ), not 18V XR. Scored <code>missing</code> on XR and <code>has</code> on FLEXVOLT.</p>
     <p>OEM evidence: {oem_link(table_fv) if table_fv else "see matrix"}.</p>
   </div>
   <div class="card">
@@ -593,19 +696,19 @@ def build_traps(data: dict) -> str:
   </div>
   <div class="card">
     <h2>SDS-MAX rotary hammer / breaker</h2>
-    <p>DeWalt AU SDS-MAX hammers sampled are 54V FLEXVOLT (DCH614N-XJ). 18V XR rotary hammers on the AU catalog are SDS-plus — scored <code>missing</code> for SDS-MAX on XR.</p>
+    <p>DeWalt AU SDS-MAX hammers sampled are 54V FLEXVOLT (DCH614N-XJ). 18V XR rotary hammers on the AU catalog are SDS-plus. Scored <code>missing</code> for SDS-MAX on XR.</p>
     <p>OEM evidence: {oem_link(sds_fv) if sds_fv else "see matrix"}.</p>
   </div>
   <div class="card">
     <h2>Metal cut-off / 230mm+ chop saw</h2>
-    <p>Dedicated 230mm+ abrasive chop/cut-off sampled is 54V FLEXVOLT (DCS691N-XJ). 18V XR has a 76mm compact cut-off tool — not counted as this type.</p>
+    <p>Dedicated 230mm+ abrasive chop/cut-off sampled is 54V FLEXVOLT (DCS691N-XJ). 18V XR has a 76mm compact cut-off tool, not counted as this type.</p>
     <p>OEM evidence: {oem_link(chop_fv) if chop_fv else "see matrix"}.</p>
   </div>
 
   <div class="card">
     <h2>What still works on 18V XR</h2>
     <p>Many common types are <code>has</code> on DeWalt 18V XR in the matrix (circular, recip, jigsaw, SDS-plus, framing nailer, and more). The trap is assuming every “cordless DeWalt” type runs on the XR pack you already own.</p>
-    <p class="card-cta"><a class="cta-link" href="index.html">Open the AU coverage matrix →</a></p>
+    <p class="card-cta"><a class="cta-link" href="matrix.html">Open the AU coverage matrix →</a></p>
   </div>
 
   <div class="card">
@@ -615,7 +718,7 @@ def build_traps(data: dict) -> str:
   </div>
   <div class="card">
     <h2>18V × 2 outdoor tools</h2>
-    <p>Some mowers and line trimmers need two 18V packs (Milwaukee M18F2*, Makita 18Vx2, some Ryobi). Check the notes column before you buy a kit sized for a single pack. DeWalt AU lawn mowers exist on both 2×18V XR and 54V FLEXVOLT — not an XR-missing trap.</p>
+    <p>Some mowers and line trimmers need two 18V packs (Milwaukee M18F2*, Makita 18Vx2, some Ryobi). Check the notes column before you buy a kit sized for a single pack. DeWalt AU lawn mowers exist on both 2×18V XR and 54V FLEXVOLT, not an XR-missing trap.</p>
   </div>
   <div class="card">
     <h2>Ryobi AU</h2>
@@ -623,7 +726,7 @@ def build_traps(data: dict) -> str:
   </div>
   <div class="card">
     <h2>Related</h2>
-    <p><a href="makita-table-saw.html">Does Makita LXT have a cordless table saw in Australia?</a> · <a href="index.html">Coverage matrix</a> · <a href="disclosure.html">Disclosure</a></p>
+    <p><a href="makita-table-saw.html">Does Makita LXT have a cordless table saw in Australia?</a> · <a href="year-two-tools.html">Year-two tools</a> · <a href="matrix.html">Coverage matrix</a> · <a href="blog.html">Blog</a></p>
   </div>
 </main>
 {site_footer(updated)}
@@ -667,24 +770,24 @@ def build_makita_table_saw(data: dict) -> str:
 <main class="wrap narrow">
   <div class="page-hero">
     <h1>Does Makita LXT have a cordless table saw in Australia?</h1>
-    <p class="lede"><strong>No</strong> — in our AU matrix, Makita LXT is <code>missing</code> for jobsite table saw. Corded bench saws exist on Makita AU; cordless LXT table saws do not (catalog check last verified {esc(updated)}).</p>
+    <p class="lede"><strong>No</strong>. In our AU matrix, Makita LXT is <code>missing</code> for jobsite table saw. Corded bench saws exist on Makita AU; cordless LXT table saws do not (catalog check last verified {esc(updated)}).</p>
   </div>
 
   <div class="card">
     <h2>Short answer by platform</h2>
     <ul>
-      <li><strong>Makita LXT 18V (AU)</strong> — <code>missing</code>{(" — " + oem_link(makita_ev, "LXT saws / corded table-saw evidence")) if makita_ev else ""}</li>
-      <li><strong>Milwaukee M18 (AU)</strong> — <code>has</code>{(" — " + oem_link(m18_ev)) if m18_ev else ""}</li>
-      <li><strong>DeWalt 18V XR (AU)</strong> — <code>missing</code> (cordless sampled is FLEXVOLT){(" — " + oem_link(dw18_ev)) if dw18_ev else ""}</li>
-      <li><strong>DeWalt FLEXVOLT 54V (AU)</strong> — <code>has</code>{(" — " + oem_link(dwfv_ev)) if dwfv_ev else ""}</li>
-      <li><strong>Ryobi ONE+ 18V (AU)</strong> — <code>has</code> (editorial; Bunnings-exclusive){(" — " + oem_link(ryobi_ev)) if ryobi_ev else ""}</li>
+      <li><strong>Makita LXT 18V (AU)</strong>: <code>missing</code>{(" · " + oem_link(makita_ev, "LXT saws / corded table-saw evidence")) if makita_ev else ""}</li>
+      <li><strong>Milwaukee M18 (AU)</strong>: <code>has</code>{(" · " + oem_link(m18_ev)) if m18_ev else ""}</li>
+      <li><strong>DeWalt 18V XR (AU)</strong>: <code>missing</code> (cordless sampled is FLEXVOLT){(" · " + oem_link(dw18_ev)) if dw18_ev else ""}</li>
+      <li><strong>DeWalt FLEXVOLT 54V (AU)</strong>: <code>has</code>{(" · " + oem_link(dwfv_ev)) if dwfv_ev else ""}</li>
+      <li><strong>Ryobi ONE+ 18V (AU)</strong>: <code>has</code> (editorial; Bunnings-exclusive){(" · " + oem_link(ryobi_ev)) if ryobi_ev else ""}</li>
     </ul>
   </div>
 
   <div class="card">
     <h2>Why this matters before a kit buy</h2>
     <p>If a cordless table saw is on your must-have list, LXT alone will not cover it in Australia on current verified data. DeWalt buyers hit a related trap: the cordless AU table saw is FLEXVOLT, not 18V XR.</p>
-    <p><a href="index.html">See every tool type on the coverage matrix →</a></p>
+    <p><a href="matrix.html">See every tool type on the coverage matrix →</a></p>
     <p class="card-cta"><a class="cta-link" href="traps.html">DeWalt XR vs FlexVolt: what 18V packs can’t run →</a></p>
   </div>
 
@@ -696,7 +799,73 @@ def build_makita_table_saw(data: dict) -> str:
 """
 
 
+
+def build_year_two(data: dict) -> str:
+    """Third post: year-two tools before kit lock-in. Facts from coverage only."""
+    updated = data.get("updated", "")
+    table = tool_by_id(data, "jobsite_table_saw")
+    track = tool_by_id(data, "track_saw___plunge_saw")
+    sdsmax = tool_by_id(data, "sds-max_rotary_hammer___breaker")
+    trimmer = tool_by_id(data, "outdoor_string___line_trimmer")
+    mower = tool_by_id(data, "18v-platform_lawn_mower")
+
+    def st(tool: dict, pid: str) -> str:
+        return (tool["cells"].get(pid) or {}).get("status") or "unknown"
+
+    # Sanity: do not invent; assert known trap cells still hold
+    assert st(table, "makita_lxt_au") == "missing"
+    assert st(table, "dewalt_18v_au") == "missing"
+    assert st(table, "dewalt_flexvolt_au") == "has"
+    assert st(track, "dewalt_18v_au") == "missing"
+    assert st(sdsmax, "dewalt_18v_au") == "missing"
+
+    title = "Before you buy a cordless kit in Australia, check year-two tools | Which Pack"
+    desc = (
+        "Starter kits sell drills and impacts. Year-two tools (table saw, track saw, SDS-MAX, "
+        "dual-pack outdoor) are where AU platforms diverge. Check coverage before you lock in."
+    )
+    return f"""{head(title, desc, "year-two-tools.html")}
+<body>
+{site_header("blog")}
+<main class="wrap narrow">
+  <div class="page-hero">
+    <h1>Before you buy a cordless kit in Australia, check year-two tools</h1>
+    <p class="lede">The kit box is drills, impacts, maybe a circular saw. Year two is when you want a table saw, track saw, SDS-MAX, or a mower. That is where platforms diverge in Australia.</p>
+  </div>
+
+  <div class="card">
+    <h2>One finding</h2>
+    <p>Buy for the tools you will need after the kit, not just what is in the foam. On our AU matrix, some common year-two types are <code>missing</code> on the 18V line you thought you were buying.</p>
+  </div>
+
+  <div class="card">
+    <h2>Examples from the matrix</h2>
+    <ul>
+      <li><strong>Jobsite table saw</strong>. Makita LXT and DeWalt 18V XR are <code>missing</code>. DeWalt cordless sits on FLEXVOLT 54V. Milwaukee M18 and Ryobi ONE+ are <code>has</code>.</li>
+      <li><strong>Track / plunge saw</strong>. DeWalt AU cordless sampled is FLEXVOLT, scored <code>missing</code> on 18V XR.</li>
+      <li><strong>SDS-MAX</strong>. DeWalt AU sampled on FLEXVOLT. 18V XR hammers on the catalog are SDS-plus.</li>
+      <li><strong>Outdoor</strong>. Some Milwaukee and Makita trimmers/mowers need two 18V packs. Check the notes before you size a kit for one battery.</li>
+    </ul>
+    <p>Verified {esc(updated)} from manufacturer AU pages. We do not invent cells.</p>
+  </div>
+
+  <div class="card">
+    <h2>What to do</h2>
+    <p>List the year-two tools you actually want. Open the matrix. If a must-have is <code>missing</code> or only on a higher-voltage line, factor that in before you commit packs.</p>
+    <p class="card-cta"><a class="cta-link" href="matrix.html">Check coverage →</a></p>
+    <p>Related: <a href="traps.html">DeWalt XR vs FlexVolt</a> · <a href="makita-table-saw.html">Makita LXT table saw?</a></p>
+  </div>
+
+  <p class="disclosure-banner">As an Amazon Associate I earn from qualifying purchases. Amazon Search links live on the matrix for verified <strong>has</strong> cells only. <a href="disclosure.html">Full disclosure</a>.</p>
+</main>
+{site_footer(updated)}
+</body>
+</html>
+"""
+
+
 def build_method(updated: str) -> str:
+
     title = "How we score coverage | Which Pack"
     desc = (
         "How Which Pack scores has, missing, and unknown for AU cordless platforms. "
@@ -718,7 +887,7 @@ def build_method(updated: str) -> str:
   <div class="card">
     <h2>What we do not show</h2>
     <p>No prices on this site. Amazon Associates Australia forbids stale self-displayed prices. Last data pass: {esc(updated)}.</p>
-    <p>This is a structured comparison tool. Pages exist to support the matrix, not as SEO filler articles.</p>
+    <p>Structured comparison first. Blog posts explain the traps. The matrix is where you check the full catalog.</p>
   </div>
 </main>
 {site_footer(updated)}
@@ -1367,6 +1536,91 @@ code {
   .page-hero { margin-bottom: 8px; }
   .footer-inner { padding: 20px 14px 32px; }
 }
+
+/* Blog-led homepage */
+.btn-ghost {
+  display: inline-block;
+  margin-left: 10px;
+  color: var(--accent) !important;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 10px 14px;
+  border-radius: var(--radius-ctrl);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.btn-ghost:hover { border-color: var(--accent); }
+.section-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--secondary);
+  margin: 8px 0 12px;
+  font-weight: 700;
+}
+.post-list {
+  display: grid;
+  gap: 14px;
+  margin: 0 0 28px;
+}
+.post-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+}
+.post-meta {
+  margin: 0 0 6px;
+  font-size: 0.8rem;
+  color: var(--secondary);
+}
+.post-title {
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  font-weight: 700;
+}
+.post-title a {
+  color: var(--text);
+  text-decoration: none;
+}
+.post-title a:hover { color: var(--accent); }
+.post-blurb {
+  margin: 0;
+  color: var(--secondary);
+  font-size: 0.98rem;
+}
+.post-more {
+  margin: 12px 0 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.post-more a { text-decoration: none; }
+.matrix-closer {
+  background: var(--has-fill);
+  border: 1px solid #C5DFCB;
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin: 8px 0 12px;
+}
+.matrix-closer h2 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+}
+.matrix-closer p { margin: 0; color: var(--secondary); }
+.hero-compact { margin-bottom: 20px; }
+@media (max-width: 600px) {
+  .btn-ghost {
+    display: inline-flex;
+    margin: 10px 0 0;
+    min-height: 44px;
+    align-items: center;
+  }
+  .post-card { padding: 16px; }
+}
 """
 
 FAVICON = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Which Pack">
@@ -1625,9 +1879,12 @@ def main() -> None:
     (ROOT / "og.svg").write_text(OG_SVG, encoding="utf-8")
     write_og_png(ROOT / "og.svg", ROOT / "og.png")
 
-    (ROOT / "index.html").write_text(build_index(data, tools), encoding="utf-8")
+    (ROOT / "index.html").write_text(build_home(updated), encoding="utf-8")
+    (ROOT / "blog.html").write_text(build_blog(updated), encoding="utf-8")
+    (ROOT / "matrix.html").write_text(build_matrix(data, tools), encoding="utf-8")
     (ROOT / "traps.html").write_text(build_traps(data), encoding="utf-8")
     (ROOT / "makita-table-saw.html").write_text(build_makita_table_saw(data), encoding="utf-8")
+    (ROOT / "year-two-tools.html").write_text(build_year_two(data), encoding="utf-8")
     (ROOT / "method.html").write_text(build_method(updated), encoding="utf-8")
     (ROOT / "disclosure.html").write_text(build_disclosure(updated), encoding="utf-8")
 
@@ -1635,43 +1892,68 @@ def main() -> None:
     sitemap = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>{BASE}/</loc><lastmod>{updated}</lastmod></url>
+  <url><loc>{BASE}/blog.html</loc><lastmod>{updated}</lastmod></url>
+  <url><loc>{BASE}/matrix.html</loc><lastmod>{updated}</lastmod></url>
   <url><loc>{BASE}/traps.html</loc><lastmod>{updated}</lastmod></url>
   <url><loc>{BASE}/makita-table-saw.html</loc><lastmod>{updated}</lastmod></url>
+  <url><loc>{BASE}/year-two-tools.html</loc><lastmod>{updated}</lastmod></url>
   <url><loc>{BASE}/method.html</loc><lastmod>{updated}</lastmod></url>
   <url><loc>{BASE}/disclosure.html</loc><lastmod>{updated}</lastmod></url>
 </urlset>
 """
     (ROOT / "sitemap.xml").write_text(sitemap, encoding="utf-8")
 
-    # Validate SSR row count
-    idx = (ROOT / "index.html").read_text(encoding="utf-8")
-    n_rows = len(re.findall(r"<tr[^>]*data-known=", idx))
-    assert n_rows == 24, f"index.html rows={n_rows}"
-    assert "google-site-verification" in idx
-    assert 'rel="canonical"' in idx
+    # Validate SSR row count on matrix (not homepage)
+    home = (ROOT / "index.html").read_text(encoding="utf-8")
+    matrix = (ROOT / "matrix.html").read_text(encoding="utf-8")
+    n_rows = len(re.findall(r"<tr[^>]*data-known=", matrix))
+    assert n_rows == 24, f"matrix.html rows={n_rows}"
+    assert "google-site-verification" in home
+    assert 'rel="canonical"' in home
     assert "#F5F4EF" in (ROOT / "styles.css").read_text()
-    assert "Before you buy a kit, check what else its platform can run." in idx
-    assert ("Amazon · Search" in idx or "Amazon · View" in idx or "Amazon AU — Search" in idx or "Amazon AU — View" in idx)
+    assert "AU cordless traps, before you buy the kit" in home
+    assert "matrix.html" in home
+    assert "Check coverage" in home
+    assert "blog.html" in home
+    assert ("Amazon · Search" in matrix or "Amazon · View" in matrix or "Amazon AU — Search" in matrix or "Amazon AU — View" in matrix)
     # First data row should be circular saw (reorder check)
-    first = re.search(r"<tbody>\s*<tr[^>]*>\s*<th scope=\"row\">([^<]+)", idx)
+    first = re.search(r"<tbody>\s*<tr[^>]*>\s*<th scope=\"row\">([^<]+)", matrix)
     assert first and first.group(1).strip() == "Circular Saw", first.group(1) if first else None
     # Missing must not use alarm red tokens in CSS
     css = (ROOT / "styles.css").read_text()
     assert "--miss-text: #454D46" in css
     assert "#8a2f2f" not in css.lower()
+    assert ".post-card" in css
     traps_html = (ROOT / "traps.html").read_text(encoding="utf-8")
-    assert "DeWalt XR vs FlexVolt Australia" in traps_html
+    assert "DeWalt XR vs FlexVolt in Australia" in traps_html
     assert "makita-table-saw.html" in traps_html
+    assert "matrix.html" in traps_html
     makita_html = (ROOT / "makita-table-saw.html").read_text(encoding="utf-8")
     assert "Does Makita LXT have a cordless table saw in Australia?" in makita_html
     assert "makita_lxt_au" not in makita_html  # no raw platform ids in copy
     assert ">missing<" in makita_html or "<code>missing</code>" in makita_html
-    assert "makita-table-saw.html" in (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+    assert "matrix.html" in makita_html
+    year_html = (ROOT / "year-two-tools.html").read_text(encoding="utf-8")
+    assert "year-two tools" in year_html.lower() or "Year-two" in year_html or "year-two" in year_html
+    assert "matrix.html" in year_html
+    blog_html = (ROOT / "blog.html").read_text(encoding="utf-8")
+    assert "traps.html" in blog_html and "year-two-tools.html" in blog_html
+    sm = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+    assert "makita-table-saw.html" in sm
+    assert "matrix.html" in sm
+    assert "blog.html" in sm
+    assert "year-two-tools.html" in sm
+    # Nav order: Blog primary
+    assert 'href="blog.html"' in home
+    assert "Blog" in (ROOT / "matrix.html").read_text(encoding="utf-8")
 
     sync_names = [
         "index.html",
+        "blog.html",
+        "matrix.html",
         "traps.html",
         "makita-table-saw.html",
+        "year-two-tools.html",
         "method.html",
         "disclosure.html",
         "styles.css",
@@ -1688,7 +1970,7 @@ def main() -> None:
             if src.exists():
                 shutil.copy2(src, MVP / name)
         print(f"Synced {len(sync_names)} files to mvp")
-    print(f"OK: {n_rows} rows, first={first.group(1)!r}, updated={updated}")
+    print(f"OK: blog-led home, matrix {n_rows} rows, first={first.group(1)!r}, updated={updated}")
 
 
 if __name__ == "__main__":
