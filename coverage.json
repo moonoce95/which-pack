@@ -125,7 +125,7 @@
           "evidence": [
             "https://www.bunnings.com.au/dewalt-18v-xr-li-ion-3-speed-oscillating-multi-tool-dcs356n-xj-skin-only_p0138926"
           ],
-          "amazon": "https://www.amazon.com.au/s?k=DeWalt+18V+XR+%28AU%29+oscillating+multi-tool&tag=whichpackau-22"
+          "amazon": "https://www.amazon.com.au/s?k=DCS356N-XJ&tag=whichpackau-22"
         },
         "dewalt_flexvolt_au": {
           "status": "unknown",
@@ -213,8 +213,7 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/saws/table-saws/M18FTS210-0.html"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=M18FTS210-0&tag=whichpackau-22"
+          ]
         },
         "dewalt_18v_au": {
           "status": "missing",
@@ -226,8 +225,7 @@
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/product/dcs7485n-xj/54v-xr-flexvolt-210mm-table-saw-bare-unit"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=DCS7485N-XJ&tag=whichpackau-22"
+          ]
         },
         "makita_lxt_au": {
           "status": "missing",
@@ -322,8 +320,7 @@
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/specialty/heat-guns/dhg181zk-18v-heat-gun"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=DHG181ZK&tag=whichpackau-22"
+          ]
         },
         "ryobi_one_au": {
           "status": "has",
@@ -364,8 +361,7 @@
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcs577n-xj/54v-xr-flexvolt-190-mm-high-torque-circular-saw-tool-only"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=DCS577N-XJ&tag=whichpackau-22"
+          ]
         },
         "makita_lxt_au": {
           "status": "has",
@@ -507,8 +503,7 @@
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dch333nt-xj/54v-xr-flexvolt-brushless-30mm-sds-plus-hammer-drill-bare-tool-only"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=DCH333NT-XJ&tag=whichpackau-22"
+          ]
         },
         "makita_lxt_au": {
           "status": "has",
@@ -543,8 +538,7 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/saws/track-saws/M18FPS55-0P.html"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=M18FPS55-0P&tag=whichpackau-22"
+          ]
         },
         "dewalt_18v_au": {
           "status": "missing",
@@ -557,15 +551,13 @@
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcs520nt-xj/54v-xr-flexvolt-165-mm-plunge-saw-tool-only"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=DCS520NT-XJ&tag=whichpackau-22"
+          ]
         },
         "makita_lxt_au": {
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/saws/circular-saws/dsp600zj-18vx2-mobile-brushless-165mm-6-1-2-plunge-cut-saw"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=DSP600ZJ&tag=whichpackau-22"
+          ]
         },
         "ryobi_one_au": {
           "status": "has",
@@ -593,8 +585,7 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/saws/reciprocating-saws/M18FSX-0.html"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=M18FSX-0&tag=whichpackau-22"
+          ]
         },
         "dewalt_18v_au": {
           "status": "has",
@@ -639,8 +630,7 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/metalworking/angle-grinders/M18FSAG125XPDB20.html"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=M18FSAG125XPDB20&tag=whichpackau-22"
+          ]
         },
         "dewalt_18v_au": {
           "status": "has",
@@ -777,29 +767,25 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/saws/mitre-saws/M18FMS184-0.html"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=M18FMS184-0&tag=whichpackau-22"
+          ]
         },
         "dewalt_18v_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcs365n-xe/18v-xr-cordless-mitre-saw-tool-only"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=DCS365N-XE&tag=whichpackau-22"
+          ]
         },
         "dewalt_flexvolt_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcs781n-xe/54v-xr-flexvolt-305mm-mitre-saw-tool-only"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=DCS781N-XE&tag=whichpackau-22"
+          ]
         },
         "makita_lxt_au": {
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/saws/mitre-saws/dls600z-18v-brushless-165mm-6-1-2-compact-mitre-saw"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=DLS600Z&tag=whichpackau-22"
+          ]
         },
         "ryobi_one_au": {
           "status": "has",
@@ -828,8 +814,7 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/metalworking/metal-cutting/M18CHS355-0.html"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=M18CHS355-0&tag=whichpackau-22"
+          ]
         },
         "dewalt_18v_au": {
           "status": "missing",
@@ -843,15 +828,13 @@
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcs691n-xj/54v-xr-flexvolt-230mm-cut-saw-bare-unit"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=DCS691N-XJ&tag=whichpackau-22"
+          ]
         },
         "makita_lxt_au": {
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/metal-cutting/cut-off-saws/18vx2-brushless-355mm-14-abrasive-cut-off-saw"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=Makita+LXT+18V+%28AU%29+metal+cut-off+%2F+chop+saw&tag=whichpackau-22"
+          ]
         },
         "ryobi_one_au": {
           "status": "missing",
@@ -884,8 +867,7 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/concrete/rotary-hammers/M18FHACO7450C.html"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=M18FHACO7450C&tag=whichpackau-22"
+          ]
         },
         "dewalt_18v_au": {
           "status": "missing",
@@ -898,15 +880,13 @@
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dch614n-xj/54v-xr-flexvolt-45mm-sds-max-hammer-drill-bare-unit"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=DCH614N-XJ&tag=whichpackau-22"
+          ]
         },
         "makita_lxt_au": {
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/drills-fastening/rotary-hammers/dhr400zkn-18vx2-brushless-40mm-sds-max-rotary-hammer"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=DHR400ZKN&tag=whichpackau-22"
+          ]
         },
         "ryobi_one_au": {
           "status": "missing",
@@ -1071,15 +1051,13 @@
           "status": "has",
           "evidence": [
             "https://www.milwaukeetool.com.au/power-tools/nailers-and-staplers/framing-nailers/M18FFN-0C.html"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=M18FFN-0C&tag=whichpackau-22"
+          ]
         },
         "dewalt_18v_au": {
           "status": "has",
           "evidence": [
             "https://www.dewalt.com.au/en-au/product/dcn930n-xj/18v-xr-brushless-33deg-90-mm-framing-nailer-bare-tool-only"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=DCN930N-XJ&tag=whichpackau-22"
+          ]
         },
         "dewalt_flexvolt_au": {
           "status": "unknown",
@@ -1089,8 +1067,7 @@
           "status": "has",
           "evidence": [
             "https://makita.com.au/cordless/lxt-18v-36v/drills-fastening/nailers-staplers/dbn900zk-18v-brushless-90mm-framing-nailer"
-          ],
-          "amazon": "https://www.amazon.com.au/s?k=DBN900ZK&tag=whichpackau-22"
+          ]
         },
         "ryobi_one_au": {
           "status": "has",
