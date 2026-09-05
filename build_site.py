@@ -195,7 +195,7 @@ def render_cell(platform_id: str, cell: dict, tool: dict, updated: str) -> str:
             label = amazon_label(amz)
             parts.append(
                 f'<a class="amz" rel="sponsored nofollow noopener" href="{esc(amz)}">'
-                f"Amazon AU — {esc(label)}</a>"
+                f"Amazon · {esc(label)}</a>"
             )
     return "<td>" + "".join(parts) + "</td>"
 
@@ -442,7 +442,7 @@ def build_index(data: dict, tools: list[dict]) -> str:
     <span class="label">Show</span>
     <button type="button" data-f="all" class="on" aria-pressed="true">All tools</button>
     <button type="button" data-f="known" aria-pressed="false">Hide all-unknown</button>
-    <button type="button" data-f="traps" aria-pressed="false">Rows with a trap note</button>
+    <button type="button" data-f="traps" aria-pressed="false" title="Rows with a trap note">Trap notes</button>
     <button type="button" data-f="selected" aria-pressed="false" id="btn-selected" hidden>Selected only</button>
   </div>
   <p class="scroll-hint">Swipe sideways on the matrix on smaller screens. Tool column stays put.</p>
@@ -605,7 +605,7 @@ def build_traps(data: dict) -> str:
   <div class="card">
     <h2>What still works on 18V XR</h2>
     <p>Many common types are <code>has</code> on DeWalt 18V XR in the matrix (circular, recip, jigsaw, SDS-plus, framing nailer, and more). The trap is assuming every “cordless DeWalt” type runs on the XR pack you already own.</p>
-    <p><a href="index.html">Open the AU coverage matrix →</a></p>
+    <p class="card-cta"><a class="cta-link" href="index.html">Open the AU coverage matrix →</a></p>
   </div>
 
   <div class="card">
@@ -685,7 +685,7 @@ def build_makita_table_saw(data: dict) -> str:
     <h2>Why this matters before a kit buy</h2>
     <p>If a cordless table saw is on your must-have list, LXT alone will not cover it in Australia on current verified data. DeWalt buyers hit a related trap: the cordless AU table saw is FLEXVOLT, not 18V XR.</p>
     <p><a href="index.html">See every tool type on the coverage matrix →</a></p>
-    <p><a href="traps.html">DeWalt XR vs FlexVolt: what 18V packs can’t run →</a></p>
+    <p class="card-cta"><a class="cta-link" href="traps.html">DeWalt XR vs FlexVolt: what 18V packs can’t run →</a></p>
   </div>
 
   <p class="disclosure-banner">As an Amazon Associate I earn from qualifying purchases. Affiliate relationships do not determine coverage results. <a href="disclosure.html">Full disclosure</a>.</p>
@@ -1073,6 +1073,11 @@ table.matrix {
   color: var(--text);
   box-shadow: inset 0 -1px 0 var(--border);
 }
+.matrix thead th:first-child {
+  left: 0;
+  z-index: 3;
+  box-shadow: inset -1px 0 0 var(--border), inset 0 -1px 0 var(--border);
+}
 .plat-brand { display: block; font-weight: 700; }
 .plat-line { display: block; font-weight: 500; color: var(--secondary); margin-top: 2px; font-size: 0.72rem; }
 .matrix tbody th[scope="row"] {
@@ -1135,15 +1140,34 @@ table.matrix {
 .details .date { white-space: nowrap; }
 
 a.amz {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   margin-top: 6px;
   font-size: 0.75rem;
   font-weight: 550;
   color: var(--link);
   text-decoration: none;
   border-bottom: 1px solid transparent;
+  white-space: nowrap;
+  min-height: 32px;
+  max-width: 100%;
 }
 a.amz:hover { border-bottom-color: var(--link); }
+
+.cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  font-weight: 650;
+  font-size: 0.95rem;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+  padding: 4px 0;
+}
+.cta-link:hover { color: var(--link); border-bottom-color: var(--link); }
+.card-cta { margin-top: 12px !important; }
 
 .note {
   color: var(--secondary);
@@ -1219,10 +1243,129 @@ code {
 }
 
 @media (max-width: 600px) {
-  .header-inner { padding: 12px 14px; }
-  .wrap { padding: 20px 14px 40px; }
-  .hero-copy h1, .page-hero h1 { font-size: 1.35rem; }
-  #tool-search { min-width: 140px; width: 100%; }
+  .header-inner {
+    padding: 10px 14px;
+    gap: 8px;
+  }
+  .brand-sub { display: none; }
+  nav.primary {
+    width: 100%;
+    gap: 2px;
+  }
+  nav.primary a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+  .wrap { padding: 18px 14px 48px; }
+  .hero {
+    gap: 14px;
+    margin: 0 0 22px;
+  }
+  .hero-copy h1, .page-hero h1 {
+    font-size: 1.4rem;
+    line-height: 1.25;
+  }
+  .lede {
+    font-size: 0.98rem;
+    margin-bottom: 14px;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 12px 18px;
+    font-size: 1rem;
+  }
+  .hero-figure { margin-top: 2px; }
+  .hero-art { max-height: 148px; width: auto; margin-inline: auto; }
+  .callout { padding: 14px; }
+  .callout-more a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    font-weight: 600;
+  }
+  .disclosure-banner { padding: 12px 14px; font-size: 0.88rem; }
+  .legend { gap: 8px 10px; }
+  .toolbar.filters {
+    gap: 8px;
+    align-items: stretch;
+  }
+  .search-label, .toolbar .label {
+    flex: 0 0 auto;
+  }
+  #tool-search {
+    min-width: 0;
+    width: 100%;
+    flex: 1 1 100%;
+    min-height: 44px;
+    font-size: 16px; /* avoid iOS focus zoom */
+    padding: 10px 12px;
+  }
+  .filters button {
+    min-height: 44px;
+    padding: 10px 12px;
+    flex: 1 1 calc(50% - 8px);
+  }
+  .scroll-hint { margin-bottom: 10px; }
+  /* Horizontal scroll only — grow with content, no fixed-height trap */
+  .table-wrap {
+    overflow-x: auto;
+    overflow-y: visible;
+    border-radius: var(--radius);
+    /* subtle edge cue that more columns exist */
+    background:
+      linear-gradient(to right, var(--surface) 30%, transparent) left center / 24px 100% no-repeat local,
+      linear-gradient(to left, var(--surface) 30%, transparent) right center / 24px 100% no-repeat local,
+      linear-gradient(to right, rgba(32,37,33,0.08), transparent) left center / 12px 100% no-repeat scroll,
+      linear-gradient(to left, rgba(32,37,33,0.08), transparent) right center / 12px 100% no-repeat scroll,
+      var(--surface);
+  }
+  table.matrix {
+    min-width: 900px;
+    font-size: 0.8125rem;
+  }
+  .matrix th, .matrix td { padding: 10px; }
+  .matrix tbody th[scope="row"] {
+    min-width: 128px;
+    max-width: 148px;
+    font-size: 0.8rem;
+    line-height: 1.3;
+    /* sit under compact sticky header */
+  }
+  .matrix thead th {
+    /* compact header ~52px after brand-sub hidden */
+    top: 52px;
+    font-size: 0.7rem;
+    z-index: 4;
+  }
+  .matrix thead th:first-child {
+    z-index: 5;
+    left: 0;
+  }
+  .matrix tbody th[scope="row"] {
+    z-index: 3;
+    box-shadow: 4px 0 8px -4px rgba(32,37,33,0.12), inset -1px 0 0 var(--border);
+  }
+  .matrix tbody th .pick {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  a.amz {
+    min-height: 40px;
+    font-size: 0.78rem;
+  }
+  .note { max-width: 220px; font-size: 0.76rem; }
+  .card { padding: 16px 14px; }
+  .card h2 { font-size: 1.02rem; }
+  .page-hero { margin-bottom: 8px; }
+  .footer-inner { padding: 20px 14px 32px; }
 }
 """
 
@@ -1379,7 +1522,7 @@ def main() -> None:
     assert 'rel="canonical"' in idx
     assert "#F5F4EF" in (ROOT / "styles.css").read_text()
     assert "Before you buy a kit, check what else its platform can run." in idx
-    assert "Amazon AU — Search" in idx or "Amazon AU — View" in idx
+    assert ("Amazon · Search" in idx or "Amazon · View" in idx or "Amazon AU — Search" in idx or "Amazon AU — View" in idx)
     # First data row should be circular saw (reorder check)
     first = re.search(r"<tbody>\s*<tr[^>]*>\s*<th scope=\"row\">([^<]+)", idx)
     assert first and first.group(1).strip() == "Circular Saw", first.group(1) if first else None
