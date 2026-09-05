@@ -361,15 +361,138 @@ HERO_SVG = """<svg class="hero-art" viewBox="0 0 420 200" xmlns="http://www.w3.o
   </g>
 </svg>"""
 
+# Original abstract tool art (no OEM product photos). Written to /thumbs/ on build.
+THUMB_FLEXVOLT_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Abstract illustration of two battery packs and a voltage gap">
+  <defs>
+    <linearGradient id="fvBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#EEF0EC"/>
+      <stop offset="100%" stop-color="#D8DED7"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" rx="16" fill="url(#fvBg)"/>
+  <!-- small 18V pack -->
+  <g transform="translate(88,96)">
+    <rect x="0" y="24" width="120" height="168" rx="12" fill="#FFFFFF" stroke="#245C43" stroke-width="4"/>
+    <rect x="28" y="0" width="64" height="28" rx="6" fill="#245C43"/>
+    <rect x="24" y="56" width="72" height="16" rx="3" fill="#D8DED7"/>
+    <rect x="24" y="84" width="72" height="16" rx="3" fill="#D8DED7"/>
+    <rect x="24" y="112" width="72" height="28" rx="4" fill="#EDF7F0" stroke="#17603A" stroke-width="2"/>
+    <text x="60" y="132" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#17603A">18V</text>
+  </g>
+  <!-- gap / block -->
+  <g transform="translate(268,150)">
+    <circle cx="52" cy="40" r="40" fill="#FFF5DC" stroke="#E6D19A" stroke-width="3"/>
+    <path d="M36 40 h32 M52 24 v32" stroke="#A67C1A" stroke-width="6" stroke-linecap="round" transform="rotate(45 52 40)"/>
+    <text x="52" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#765515">54V only</text>
+  </g>
+  <!-- taller FlexVolt-style pack (abstract, not branded) -->
+  <g transform="translate(400,64)">
+    <rect x="0" y="24" width="140" height="220" rx="14" fill="#FFFFFF" stroke="#202521" stroke-width="4"/>
+    <rect x="34" y="0" width="72" height="28" rx="6" fill="#202521"/>
+    <rect x="28" y="60" width="84" height="16" rx="3" fill="#D8DED7"/>
+    <rect x="28" y="90" width="84" height="16" rx="3" fill="#D8DED7"/>
+    <rect x="28" y="120" width="84" height="16" rx="3" fill="#D8DED7"/>
+    <rect x="28" y="156" width="84" height="36" rx="4" fill="#FFF5DC" stroke="#A67C1A" stroke-width="2"/>
+    <text x="70" y="180" text-anchor="middle" font-family="system-ui,sans-serif" font-size="20" font-weight="700" fill="#765515">54V</text>
+  </g>
+</svg>
+"""
+
+THUMB_TABLE_SAW_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Abstract illustration of a jobsite table saw silhouette">
+  <defs>
+    <linearGradient id="tsBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#EDF7F0"/>
+      <stop offset="100%" stop-color="#EEF0EC"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" rx="16" fill="url(#tsBg)"/>
+  <!-- table top -->
+  <rect x="80" y="150" width="480" height="28" rx="6" fill="#FFFFFF" stroke="#202521" stroke-width="3"/>
+  <!-- fence -->
+  <rect x="120" y="112" width="18" height="40" rx="3" fill="#245C43"/>
+  <rect x="120" y="104" width="120" height="12" rx="3" fill="#245C43"/>
+  <!-- blade -->
+  <circle cx="320" cy="164" r="54" fill="#FFFFFF" stroke="#202521" stroke-width="4"/>
+  <circle cx="320" cy="164" r="14" fill="#EEF0EC" stroke="#566159" stroke-width="3"/>
+  <g stroke="#D8DED7" stroke-width="3" stroke-linecap="round">
+    <path d="M320 114 L324 164 L320 214 L316 164 Z"/>
+    <path d="M270 164 L320 168 L370 164 L320 160 Z"/>
+    <path d="M285 129 L320 164 L355 199"/>
+    <path d="M355 129 L320 164 L285 199"/>
+  </g>
+  <!-- stand -->
+  <path d="M140 178 L180 300 L460 300 L500 178" fill="none" stroke="#566159" stroke-width="4" stroke-linejoin="round"/>
+  <rect x="200" y="292" width="240" height="14" rx="4" fill="#245C43"/>
+  <!-- missing badge -->
+  <rect x="430" y="48" width="130" height="36" rx="8" fill="#EEF0EC" stroke="#454D46" stroke-width="2"/>
+  <text x="495" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#454D46">LXT gap</text>
+</svg>
+"""
+
+THUMB_YEAR_TWO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Abstract illustration of a starter kit expanding into year-two tools">
+  <defs>
+    <linearGradient id="y2Bg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFF5DC"/>
+      <stop offset="100%" stop-color="#EEF0EC"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" rx="16" fill="url(#y2Bg)"/>
+  <!-- year 1 kit box -->
+  <g transform="translate(56,90)">
+    <rect x="0" y="40" width="180" height="140" rx="12" fill="#FFFFFF" stroke="#245C43" stroke-width="4"/>
+    <rect x="0" y="40" width="180" height="36" rx="12" fill="#245C43"/>
+    <text x="90" y="64" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">Year 1 kit</text>
+    <!-- mini drill -->
+    <rect x="28" y="100" width="70" height="28" rx="6" fill="#EEF0EC" stroke="#202521" stroke-width="2"/>
+    <rect x="90" y="106" width="28" height="16" rx="3" fill="#566159"/>
+    <!-- mini impact -->
+    <rect x="28" y="142" width="54" height="22" rx="5" fill="#EDF7F0" stroke="#17603A" stroke-width="2"/>
+  </g>
+  <!-- arrow -->
+  <path d="M260 180 H340" stroke="#245C43" stroke-width="6" stroke-linecap="round"/>
+  <path d="M328 164 L352 180 L328 196" fill="none" stroke="#245C43" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- year 2 tools -->
+  <g transform="translate(380,70)">
+    <text x="90" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#765515">Year 2</text>
+    <!-- table saw icon -->
+    <rect x="0" y="48" width="80" height="56" rx="8" fill="#FFFFFF" stroke="#202521" stroke-width="3"/>
+    <circle cx="40" cy="76" r="16" fill="#EEF0EC" stroke="#566159" stroke-width="2"/>
+    <!-- track saw -->
+    <rect x="100" y="48" width="80" height="56" rx="8" fill="#FFFFFF" stroke="#202521" stroke-width="3"/>
+    <rect x="112" y="68" width="56" height="14" rx="3" fill="#245C43"/>
+    <!-- SDS / hammer -->
+    <rect x="0" y="124" width="80" height="56" rx="8" fill="#FFFFFF" stroke="#202521" stroke-width="3"/>
+    <rect x="18" y="140" width="44" height="24" rx="4" fill="#FFF5DC" stroke="#A67C1A" stroke-width="2"/>
+    <!-- dual pack outdoor -->
+    <rect x="100" y="124" width="80" height="56" rx="8" fill="#FFFFFF" stroke="#202521" stroke-width="3"/>
+    <rect x="112" y="140" width="22" height="28" rx="3" fill="#EDF7F0" stroke="#17603A" stroke-width="2"/>
+    <rect x="146" y="140" width="22" height="28" rx="3" fill="#EDF7F0" stroke="#17603A" stroke-width="2"/>
+  </g>
+</svg>
+"""
 
 # Blog posts (trap landings kept as stable URLs; also listed on blog hub).
+# Dates staggered within real publish window; sorted newest first in listings.
 POSTS = [
+    {
+        "path": "year-two-tools.html",
+        "title": "Before you buy a cordless kit in Australia, check year-two tools",
+        "blurb": "Starter kits sell drills and impacts. Year two is table saws, track saws, SDS-MAX and dual-pack outdoor. Check coverage before you lock in.",
+        "date": "2026-09-05",
+        "nav": "blog",
+        "thumb": "thumbs/year-two.svg",
+        "thumb_alt": "Abstract illustration of a starter kit expanding into year-two tools",
+        "theme": "year-two",
+    },
     {
         "path": "traps.html",
         "title": "DeWalt XR vs FlexVolt in Australia: what an 18V kit can’t run",
         "blurb": "Table saw, track/plunge, SDS-MAX and 230mm+ chop on AU DeWalt sit on 54V FLEXVOLT. An XR pack won’t run those machines.",
-        "date": "2026-09-03",
+        "date": "2026-09-04",
         "nav": "traps",
+        "thumb": "thumbs/flexvolt.svg",
+        "thumb_alt": "Abstract illustration of 18V versus 54V battery packs",
+        "theme": "flexvolt",
     },
     {
         "path": "makita-table-saw.html",
@@ -377,26 +500,59 @@ POSTS = [
         "blurb": "Short answer: no on our matrix. Corded bench saws exist. Cordless LXT table saw does not. Milwaukee and Ryobi do have one.",
         "date": "2026-09-03",
         "nav": "traps",
-    },
-    {
-        "path": "year-two-tools.html",
-        "title": "Before you buy a cordless kit in Australia, check year-two tools",
-        "blurb": "Starter kits sell drills and impacts. Year two is table saws, track saws, SDS-MAX and dual-pack outdoor. Check coverage before you lock in.",
-        "date": "2026-09-05",
-        "nav": "blog",
+        "thumb": "thumbs/table-saw.svg",
+        "thumb_alt": "Abstract illustration of a jobsite table saw silhouette",
+        "theme": "table-saw",
     },
 ]
 
 
-def post_list_html(posts: list[dict], *, heading: str | None = None) -> str:
+def format_post_date(iso: str) -> str:
+    """AU-friendly display date from YYYY-MM-DD."""
+    months = (
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December",
+    )
+    y, m, d = iso.split("-")
+    return f"{int(d)} {months[int(m) - 1]} {y}"
+
+
+def posts_newest_first() -> list[dict]:
+    return sorted(POSTS, key=lambda p: (p["date"], p["path"]), reverse=True)
+
+
+def post_by_path(path: str) -> dict | None:
+    for p in POSTS:
+        if p["path"] == path:
+            return p
+    return None
+
+
+def featured_figure(post: dict) -> str:
+    return (
+        f'<figure class="post-featured">'
+        f'<img src="{esc(post["thumb"])}" width="640" height="360" '
+        f'alt="{esc(post["thumb_alt"])}" loading="eager" decoding="async">'
+        f'<figcaption>Original illustration. Not a product photo.</figcaption>'
+        f"</figure>"
+    )
+
+
+def post_list_html(posts: list[dict] | None = None, *, heading: str | None = None) -> str:
+    posts = posts if posts is not None else posts_newest_first()
     items = []
     for p in posts:
         items.append(
             f"""<article class="post-card">
-  <p class="post-meta"><time datetime="{esc(p['date'])}">{esc(p['date'])}</time></p>
-  <h2 class="post-title"><a href="{esc(p['path'])}">{esc(p['title'])}</a></h2>
-  <p class="post-blurb">{esc(p['blurb'])}</p>
-  <p class="post-more"><a href="{esc(p['path'])}">Read post →</a></p>
+  <a class="post-card-media" href="{esc(p['path'])}" tabindex="-1" aria-hidden="true">
+    <img src="{esc(p['thumb'])}" width="640" height="360" alt="" loading="lazy" decoding="async">
+  </a>
+  <div class="post-card-body">
+    <p class="post-meta"><time datetime="{esc(p['date'])}">{esc(format_post_date(p['date']))}</time></p>
+    <h2 class="post-title"><a href="{esc(p['path'])}">{esc(p['title'])}</a></h2>
+    <p class="post-blurb">{esc(p['blurb'])}</p>
+    <p class="post-more"><a href="{esc(p['path'])}">Read post →</a> · <a href="matrix.html">Check matrix →</a></p>
+  </div>
 </article>"""
         )
     head = f'<h2 class="section-label">{esc(heading)}</h2>\n' if heading else ""
@@ -437,15 +593,22 @@ def build_home(updated: str) -> str:
         "Plain notes on AU cordless platform traps: FlexVolt vs XR, Makita table saw gaps, "
         "and year-two tools. Then check the coverage matrix."
     )
-    posts_html = post_list_html(POSTS)
+    posts_html = post_list_html(heading="Latest posts")
     return f"""{head(title, desc, "", json_ld_home())}
 <body>
 {site_header("blog")}
-<main class="wrap narrow">
-  <section class="page-hero">
-    <h1>AU cordless traps, before you buy the kit</h1>
-    <p class="lede">I keep a living coverage matrix for Milwaukee, DeWalt, Makita and Ryobi in Australia. Start with the trap posts. When you know what you need in year two, <a href="matrix.html">check coverage</a>.</p>
-    <p class="hero-actions"><a class="btn-primary" href="matrix.html">Check coverage</a> <a class="btn-ghost" href="blog.html">All posts</a></p>
+<main class="wrap">
+  <section class="hero blog-hero" aria-labelledby="home-title">
+    <div class="hero-copy">
+      <p class="eyebrow">AU cordless coverage notes</p>
+      <h1 id="home-title">AU cordless traps, before you buy the kit</h1>
+      <p class="lede">I keep a living coverage matrix for Milwaukee, DeWalt, Makita and Ryobi in Australia. Start with the trap posts. When you know what you need in year two, <a href="matrix.html">check coverage</a>.</p>
+      <p class="hero-actions"><a class="btn-primary" href="matrix.html">Check coverage</a> <a class="btn-ghost" href="blog.html">All posts</a></p>
+    </div>
+    <figure class="hero-figure">
+      {HERO_SVG}
+      <figcaption>Original illustration. Not OEM product photos.</figcaption>
+    </figure>
   </section>
 
   <p class="disclosure-banner">As an Amazon Associate I earn from qualifying purchases. Affiliate relationships do not determine coverage results. <a href="disclosure.html">Full disclosure</a>.</p>
@@ -470,17 +633,22 @@ def build_blog(updated: str) -> str:
         "Posts on AU cordless platform traps: DeWalt XR vs FlexVolt, Makita LXT table saw, "
         "and year-two tools before you lock a kit."
     )
-    posts_html = post_list_html(POSTS)
+    posts_html = post_list_html(heading="All posts")
     return f"""{head(title, desc, "blog.html")}
 <body>
 {site_header("blog")}
-<main class="wrap narrow">
-  <div class="page-hero">
+<main class="wrap">
+  <div class="page-hero blog-index-hero">
+    <p class="eyebrow">Guides and coverage traps</p>
     <h1>Blog</h1>
-    <p class="lede">Coverage traps and kit lock-in notes for Australia. Not brand wars.</p>
+    <p class="lede">Coverage traps and kit lock-in notes for Australia. Newest first. Not brand wars.</p>
   </div>
   {posts_html}
-  <p class="card-cta"><a class="cta-link" href="matrix.html">Check coverage on the matrix →</a></p>
+  <aside class="matrix-closer" aria-labelledby="blog-matrix-closer">
+    <h2 id="blog-matrix-closer">Check the matrix</h2>
+    <p>Has, missing, or unknown from OEM AU pages. Amazon Search links only on verified <strong>has</strong> cells.</p>
+    <p class="card-cta"><a class="cta-link" href="matrix.html">Open the AU coverage matrix →</a></p>
+  </aside>
 </main>
 {site_footer(updated)}
 </body>
@@ -669,11 +837,13 @@ def build_traps(data: dict) -> str:
     return f"""{head(title, desc, "traps.html")}
 <body>
 {site_header("traps")}
-<main class="wrap narrow">
-  <div class="page-hero">
+<main class="wrap narrow article">
+  <div class="page-hero article-hero">
+    <p class="post-meta"><time datetime="2026-09-04">4 September 2026</time></p>
     <h1>DeWalt XR vs FlexVolt in Australia: what an 18V kit can’t run</h1>
     <p class="lede">On the AU catalog, several high-draw cordless types sit on <strong>54V FLEXVOLT</strong>, not 18V XR. FLEXVOLT packs can run XR tools; the reverse is not true for 54V-only machines. We list sampled OEM evidence only. No DIY electrical advice.</p>
   </div>
+  {featured_figure(post_by_path("traps.html"))}
 
   <aside class="callout" aria-labelledby="fv-trap-summary">
     <h2 id="fv-trap-summary"><span class="badge">Coverage trap</span> 18V XR vs FLEXVOLT</h2>
@@ -767,11 +937,13 @@ def build_makita_table_saw(data: dict) -> str:
     return f"""{head(title, desc, "makita-table-saw.html")}
 <body>
 {site_header("traps")}
-<main class="wrap narrow">
-  <div class="page-hero">
+<main class="wrap narrow article">
+  <div class="page-hero article-hero">
+    <p class="post-meta"><time datetime="2026-09-03">3 September 2026</time></p>
     <h1>Does Makita LXT have a cordless table saw in Australia?</h1>
     <p class="lede"><strong>No</strong>. In our AU matrix, Makita LXT is <code>missing</code> for jobsite table saw. Corded bench saws exist on Makita AU; cordless LXT table saws do not (catalog check last verified {esc(updated)}).</p>
   </div>
+  {featured_figure(post_by_path("makita-table-saw.html"))}
 
   <div class="card">
     <h2>Short answer by platform</h2>
@@ -827,11 +999,13 @@ def build_year_two(data: dict) -> str:
     return f"""{head(title, desc, "year-two-tools.html")}
 <body>
 {site_header("blog")}
-<main class="wrap narrow">
-  <div class="page-hero">
+<main class="wrap narrow article">
+  <div class="page-hero article-hero">
+    <p class="post-meta"><time datetime="2026-09-05">5 September 2026</time></p>
     <h1>Before you buy a cordless kit in Australia, check year-two tools</h1>
     <p class="lede">The kit box is drills, impacts, maybe a circular saw. Year two is when you want a table saw, track saw, SDS-MAX, or a mower. That is where platforms diverge in Australia.</p>
   </div>
+  {featured_figure(post_by_path("year-two-tools.html"))}
 
   <div class="card">
     <h2>One finding</h2>
@@ -1537,7 +1711,7 @@ code {
   .footer-inner { padding: 20px 14px 32px; }
 }
 
-/* Blog-led homepage */
+/* Blog-led homepage + visual post cards */
 .btn-ghost {
   display: inline-block;
   margin-left: 10px;
@@ -1551,6 +1725,16 @@ code {
   background: var(--surface);
 }
 .btn-ghost:hover { border-color: var(--accent); }
+.eyebrow {
+  margin: 0 0 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.blog-hero { margin-bottom: 22px; }
+.blog-index-hero { margin-bottom: 8px; }
 .section-label {
   font-size: 0.8rem;
   text-transform: uppercase;
@@ -1561,14 +1745,40 @@ code {
 }
 .post-list {
   display: grid;
-  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
   margin: 0 0 28px;
 }
 .post-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 18px 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.post-card:hover {
+  border-color: #B7C4B8;
+  box-shadow: 0 6px 18px rgba(32, 37, 33, 0.06);
+}
+.post-card-media {
+  display: block;
+  background: var(--miss-fill);
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+.post-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.post-card-body {
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 .post-meta {
   margin: 0 0 6px;
@@ -1577,7 +1787,7 @@ code {
 }
 .post-title {
   margin: 0 0 8px;
-  font-size: 1.15rem;
+  font-size: 1.12rem;
   letter-spacing: -0.02em;
   line-height: 1.3;
   font-weight: 700;
@@ -1590,14 +1800,37 @@ code {
 .post-blurb {
   margin: 0;
   color: var(--secondary);
-  font-size: 0.98rem;
+  font-size: 0.96rem;
+  flex: 1;
 }
 .post-more {
-  margin: 12px 0 0;
+  margin: 14px 0 0;
   font-size: 0.9rem;
   font-weight: 600;
 }
 .post-more a { text-decoration: none; }
+.post-featured {
+  margin: 0 0 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.post-featured img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--miss-fill);
+}
+.post-featured figcaption {
+  margin: 0;
+  padding: 8px 12px 10px;
+  font-size: 0.78rem;
+  color: var(--secondary);
+}
+.article .article-hero h1 { margin-bottom: 10px; }
+.article .card { margin-bottom: 14px; }
 .matrix-closer {
   background: var(--has-fill);
   border: 1px solid #C5DFCB;
@@ -1611,7 +1844,11 @@ code {
   letter-spacing: -0.02em;
 }
 .matrix-closer p { margin: 0; color: var(--secondary); }
+.matrix-closer .card-cta { margin-top: 10px; }
 .hero-compact { margin-bottom: 20px; }
+@media (max-width: 720px) {
+  .post-list { grid-template-columns: 1fr; gap: 14px; }
+}
 @media (max-width: 600px) {
   .btn-ghost {
     display: inline-flex;
@@ -1619,7 +1856,13 @@ code {
     min-height: 44px;
     align-items: center;
   }
-  .post-card { padding: 16px; }
+  .post-card-body { padding: 14px 14px 16px; }
+  .post-title { font-size: 1.05rem; }
+  .post-more a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+  }
 }
 """
 
@@ -1879,6 +2122,12 @@ def main() -> None:
     (ROOT / "og.svg").write_text(OG_SVG, encoding="utf-8")
     write_og_png(ROOT / "og.svg", ROOT / "og.png")
 
+    thumbs = ROOT / "thumbs"
+    thumbs.mkdir(exist_ok=True)
+    (thumbs / "flexvolt.svg").write_text(THUMB_FLEXVOLT_SVG, encoding="utf-8")
+    (thumbs / "table-saw.svg").write_text(THUMB_TABLE_SAW_SVG, encoding="utf-8")
+    (thumbs / "year-two.svg").write_text(THUMB_YEAR_TWO_SVG, encoding="utf-8")
+
     (ROOT / "index.html").write_text(build_home(updated), encoding="utf-8")
     (ROOT / "blog.html").write_text(build_blog(updated), encoding="utf-8")
     (ROOT / "matrix.html").write_text(build_matrix(data, tools), encoding="utf-8")
@@ -1938,6 +2187,20 @@ def main() -> None:
     assert "matrix.html" in year_html
     blog_html = (ROOT / "blog.html").read_text(encoding="utf-8")
     assert "traps.html" in blog_html and "year-two-tools.html" in blog_html
+    assert "thumbs/year-two.svg" in blog_html
+    assert "thumbs/flexvolt.svg" in blog_html
+    assert "thumbs/table-saw.svg" in blog_html
+    # Newest post card first inside the card grid (nav/footer may link traps earlier)
+    blog_cards = blog_html.split('class="post-list"', 1)[1]
+    home_cards = home.split('class="post-list"', 1)[1]
+    assert blog_cards.find("year-two-tools.html") < blog_cards.find("traps.html")
+    assert blog_cards.find('datetime="2026-09-05"') < blog_cards.find('datetime="2026-09-04"')
+    assert home_cards.find("year-two-tools.html") < home_cards.find("traps.html")
+    assert "post-card-media" in home and "Latest posts" in home
+    assert (ROOT / "thumbs" / "flexvolt.svg").is_file()
+    traps_feat = (ROOT / "traps.html").read_text(encoding="utf-8")
+    assert "thumbs/flexvolt.svg" in traps_feat and "post-featured" in traps_feat
+    assert "4 September 2026" in traps_feat
     sm = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
     assert "makita-table-saw.html" in sm
     assert "matrix.html" in sm
@@ -1969,8 +2232,12 @@ def main() -> None:
             src = ROOT / name
             if src.exists():
                 shutil.copy2(src, MVP / name)
-        print(f"Synced {len(sync_names)} files to mvp")
-    print(f"OK: blog-led home, matrix {n_rows} rows, first={first.group(1)!r}, updated={updated}")
+        mvp_thumbs = MVP / "thumbs"
+        mvp_thumbs.mkdir(exist_ok=True)
+        for thumb in (ROOT / "thumbs").glob("*.svg"):
+            shutil.copy2(thumb, mvp_thumbs / thumb.name)
+        print(f"Synced {len(sync_names)} files + thumbs to mvp")
+    print(f"OK: blog-led home with visual cards, matrix {n_rows} rows, first={first.group(1)!r}, updated={updated}")
 
 
 if __name__ == "__main__":

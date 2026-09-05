@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Abstract illustration of a starter kit expanding into year-two tools">
+  <defs>
+    <linearGradient id="y2Bg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFF5DC"/>
+      <stop offset="100%" stop-color="#EEF0EC"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" rx="16" fill="url(#y2Bg)"/>
+  <!-- year 1 kit box -->
+  <g transform="translate(56,90)">
+    <rect x="0" y="40" width="180" height="140" rx="12" fill="#FFFFFF" stroke="#245C43" stroke-width="4"/>
+    <rect x="0" y="40" width="180" height="36" rx="12" fill="#245C43"/>
+    <text x="90" y="64" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">Year 1 kit</text>
+    <!-- mini drill -->
+    <rect x="28" y="100" width="70" height="28" rx="6" fill="#EEF0EC" stroke="#202521" stroke-width="2"/>
+    <rect x="90" y="106" width="28" height="16" rx="3" fill="#566159"/>
+    <!-- mini impact -->
+    <rect x="28" y="142" width="54" height="22" rx="5" fill="#EDF7F0" stroke="#17603A" stroke-width="2"/>
+  </g>
+  <!-- arrow -->
+  <path d="M260 180 H340" stroke="#245C43" stroke-width="6" stroke-linecap="round"/>
+  <path d="M328 164 L352 180 L328 196" fill="none" stroke="#245C43" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- year 2 tools -->
+  <g transform="translate(380,70)">
+    <text x="90" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#765515">Year 2</text>
+    <!-- table saw icon -->
+    <rect x="0" y="48" width="80" height="56" rx="8" fill="#FFFFFF" stroke="#202521" stroke-width="3"/>
+    <circle cx="40" cy="76" r="16" fill="#EEF0EC" stroke="#566159" stroke-width="2"/>
+    <!-- track saw -->
+    <rect x="100" y="48" width="80" height="56" rx="8" fill="#FFFFFF" stroke="#202521" stroke-width="3"/>
+    <rect x="112" y="68" width="56" height="14" rx="3" fill="#245C43"/>
+    <!-- SDS / hammer -->
+    <rect x="0" y="124" width="80" height="56" rx="8" fill="#FFFFFF" stroke="#202521" stroke-width="3"/>
+    <rect x="18" y="140" width="44" height="24" rx="4" fill="#FFF5DC" stroke="#A67C1A" stroke-width="2"/>
+    <!-- dual pack outdoor -->
+    <rect x="100" y="124" width="80" height="56" rx="8" fill="#FFFFFF" stroke="#202521" stroke-width="3"/>
+    <rect x="112" y="140" width="22" height="28" rx="3" fill="#EDF7F0" stroke="#17603A" stroke-width="2"/>
+    <rect x="146" y="140" width="22" height="28" rx="3" fill="#EDF7F0" stroke="#17603A" stroke-width="2"/>
+  </g>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Abstract illustration of a jobsite table saw silhouette">
+  <defs>
+    <linearGradient id="tsBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#EDF7F0"/>
+      <stop offset="100%" stop-color="#EEF0EC"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" rx="16" fill="url(#tsBg)"/>
+  <!-- table top -->
+  <rect x="80" y="150" width="480" height="28" rx="6" fill="#FFFFFF" stroke="#202521" stroke-width="3"/>
+  <!-- fence -->
+  <rect x="120" y="112" width="18" height="40" rx="3" fill="#245C43"/>
+  <rect x="120" y="104" width="120" height="12" rx="3" fill="#245C43"/>
+  <!-- blade -->
+  <circle cx="320" cy="164" r="54" fill="#FFFFFF" stroke="#202521" stroke-width="4"/>
+  <circle cx="320" cy="164" r="14" fill="#EEF0EC" stroke="#566159" stroke-width="3"/>
+  <g stroke="#D8DED7" stroke-width="3" stroke-linecap="round">
+    <path d="M320 114 L324 164 L320 214 L316 164 Z"/>
+    <path d="M270 164 L320 168 L370 164 L320 160 Z"/>
+    <path d="M285 129 L320 164 L355 199"/>
+    <path d="M355 129 L320 164 L285 199"/>
+  </g>
+  <!-- stand -->
+  <path d="M140 178 L180 300 L460 300 L500 178" fill="none" stroke="#566159" stroke-width="4" stroke-linejoin="round"/>
+  <rect x="200" y="292" width="240" height="14" rx="4" fill="#245C43"/>
+  <!-- missing badge -->
+  <rect x="430" y="48" width="130" height="36" rx="8" fill="#EEF0EC" stroke="#454D46" stroke-width="2"/>
+  <text x="495" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#454D46">LXT gap</text>
+</svg>
