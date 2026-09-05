@@ -1546,19 +1546,19 @@ nav.primary a[aria-current="page"] {
   gap: 10px 14px;
   align-items: center;
   margin: 0 0 16px;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
 }
-.legend-title { color: var(--secondary); font-weight: 600; margin-right: 4px; font-size: 0.95rem; }
+.legend-title { color: var(--secondary); font-weight: 600; margin-right: 4px; font-size: 1.05rem; }
 .pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
+  padding: 7px 12px;
   border-radius: var(--radius-label);
   border: 1px solid var(--border);
   background: var(--surface);
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 .pill.has { background: var(--has-fill); color: var(--has-text); border-color: #C5DFCB; }
 .pill.missing { background: var(--miss-fill); color: var(--miss-text); border-color: var(--border); }
@@ -1633,13 +1633,13 @@ table.matrix {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  font-size: 1rem;
-  min-width: 1100px;
+  font-size: 1.2rem;
+  min-width: 1240px;
 }
 .matrix th, .matrix td {
   border-bottom: 1px solid var(--border);
   border-right: 1px solid var(--border);
-  padding: 16px 14px;
+  padding: 18px 16px;
   text-align: left;
   vertical-align: top;
   background: var(--surface);
@@ -1650,27 +1650,27 @@ table.matrix {
   position: sticky;
   top: 0;
   z-index: 2;
-  font-size: 0.92rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--text);
   box-shadow: inset 0 -1px 0 var(--border);
-  padding: 14px;
+  padding: 16px;
 }
 .matrix thead th:first-child {
   left: 0;
   z-index: 3;
   box-shadow: inset -1px 0 0 var(--border), inset 0 -1px 0 var(--border);
 }
-.plat-brand { display: block; font-weight: 700; font-size: 1rem; }
-.plat-line { display: block; font-weight: 550; color: var(--secondary); margin-top: 3px; font-size: 0.85rem; }
+.plat-brand { display: block; font-weight: 700; font-size: 1.15rem; }
+.plat-line { display: block; font-weight: 550; color: var(--secondary); margin-top: 4px; font-size: 1.05rem; }
 .matrix tbody th[scope="row"] {
   background: var(--page);
-  font-weight: 650;
+  font-weight: 700;
   color: var(--text);
-  font-size: 1.02rem;
+  font-size: 1.3rem;
   line-height: 1.35;
-  min-width: 168px;
-  max-width: 210px;
+  min-width: 196px;
+  max-width: 240px;
   position: sticky;
   left: 0;
   z-index: 1;
@@ -1679,8 +1679,8 @@ table.matrix {
 .matrix tbody th .pick {
   margin-right: 10px;
   vertical-align: middle;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 .matrix tbody tr:nth-child(even) td,
 .matrix tbody tr:nth-child(even) th[scope="row"] { background: #FAFAF6; }
@@ -1699,31 +1699,31 @@ table.matrix {
   align-items: center;
   gap: 6px;
   font-weight: 700;
-  font-size: 0.82rem;
+  font-size: 1rem;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  padding: 5px 10px;
+  padding: 7px 12px;
   border-radius: var(--radius-label);
   border: 1px solid transparent;
 }
-.status-ico { font-size: 0.85rem; line-height: 1; }
+.status-ico { font-size: 1rem; line-height: 1; }
 .status.has { background: var(--has-fill); color: var(--has-text); border-color: #C5DFCB; }
 .status.missing { background: var(--miss-fill); color: var(--miss-text); border-color: var(--border); }
 .status.unknown { background: var(--unk-fill); color: var(--unk-text); border-color: #E6D19A; }
 
 .req {
-  margin-top: 8px;
-  font-size: 0.88rem;
-  color: var(--secondary);
-  line-height: 1.4;
-}
-.details {
-  margin-top: 8px;
-  font-size: 0.88rem;
+  margin-top: 10px;
+  font-size: 1.05rem;
   color: var(--secondary);
   line-height: 1.45;
 }
-.details .model { font-family: var(--mono); color: var(--text); font-weight: 600; font-size: 0.9rem; }
+.details {
+  margin-top: 10px;
+  font-size: 1.05rem;
+  color: var(--secondary);
+  line-height: 1.5;
+}
+.details .model { font-family: var(--mono); color: var(--text); font-weight: 600; font-size: 1.05rem; }
 .details .src { color: var(--link); text-decoration: none; }
 .details .src:hover { text-decoration: underline; }
 .details .date { white-space: nowrap; }
@@ -1731,17 +1731,17 @@ table.matrix {
 a.amz {
   display: inline-flex;
   align-items: center;
-  margin-top: 10px;
-  font-size: 0.92rem;
-  font-weight: 650;
+  margin-top: 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
   color: var(--link);
   text-decoration: none;
   border: 1px solid var(--border);
   background: var(--page);
   border-radius: var(--radius-ctrl);
-  padding: 8px 12px;
+  padding: 10px 14px;
   white-space: nowrap;
-  min-height: 44px;
+  min-height: 48px;
   max-width: 100%;
   box-sizing: border-box;
 }
@@ -1764,23 +1764,23 @@ a.amz:hover { border-color: var(--link); background: var(--has-fill); }
 
 .note {
   color: var(--text);
-  font-size: 0.98rem;
+  font-size: 1.12rem;
   line-height: 1.55;
-  max-width: 380px;
-  min-width: 260px;
+  max-width: 420px;
+  min-width: 280px;
 }
 .note .trap-tag {
   display: block;
   width: fit-content;
   margin: 0 0 10px;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   text-transform: none;
   color: var(--warn-fg);
   background: var(--warn-bg);
   border: 1px solid var(--warn-border);
-  padding: 4px 9px;
+  padding: 5px 10px;
   border-radius: var(--radius-label);
 }
 
@@ -1936,48 +1936,51 @@ code {
   .how-to-read p { font-size: 1rem; }
   .how-to-shop { flex-direction: column; align-items: stretch; }
   .how-to-shop .btn-ghost { width: 100%; justify-content: center; }
-  .legend { font-size: 0.9rem; }
-  .pill { font-size: 0.85rem; padding: 6px 10px; }
+  .legend { font-size: 1.05rem; }
+  .pill { font-size: 1rem; padding: 7px 11px; }
   table.matrix {
-    min-width: 980px;
-    font-size: 0.95rem;
+    min-width: 1180px;
+    font-size: 1.125rem;
   }
-  .matrix th, .matrix td { padding: 14px 12px; }
+  .matrix th, .matrix td { padding: 16px 14px; }
   .matrix tbody th[scope="row"] {
-    min-width: 140px;
-    max-width: 168px;
-    font-size: 0.95rem;
+    min-width: 168px;
+    max-width: 210px;
+    font-size: 1.2rem;
+    font-weight: 700;
     line-height: 1.35;
   }
   .matrix thead th {
     top: 52px;
-    font-size: 0.82rem;
+    font-size: 1.05rem;
     z-index: 4;
   }
   .matrix thead th:first-child {
     z-index: 5;
     left: 0;
   }
-  .plat-brand { font-size: 0.95rem; }
-  .plat-line { font-size: 0.8rem; }
+  .plat-brand { font-size: 1.1rem; }
+  .plat-line { font-size: 1.05rem; }
   .matrix tbody th[scope="row"] {
     z-index: 3;
     box-shadow: 4px 0 8px -4px rgba(32,37,33,0.12), inset -1px 0 0 var(--border);
   }
   .matrix tbody th .pick {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     margin-right: 8px;
     flex-shrink: 0;
   }
-  .status { font-size: 0.78rem; padding: 5px 9px; }
-  .req, .details { font-size: 0.85rem; }
+  .status { font-size: 1rem; padding: 7px 11px; }
+  .req, .details { font-size: 1.05rem; }
+  .details .model { font-size: 1.05rem; }
   a.amz {
-    min-height: 44px;
-    font-size: 0.9rem;
+    min-height: 48px;
+    font-size: 1.05rem;
+    padding: 10px 14px;
   }
-  .note { max-width: 260px; font-size: 0.9rem; }
-  .note .trap-tag { font-size: 0.75rem; }
+  .note { max-width: 300px; min-width: 240px; font-size: 1.1rem; }
+  .note .trap-tag { font-size: 0.95rem; }
   .card { padding: 16px 14px; }
   .card h2 { font-size: 1.02rem; }
   .page-hero { margin-bottom: 8px; }
