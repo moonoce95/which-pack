@@ -409,6 +409,95 @@ def render_matrix_rows(tools: list[dict], platforms: list[dict], updated: str) -
     return "\n".join(rows)
 
 
+def render_card_plat(platform_id: str, cell: dict, tool: dict, updated: str) -> str:
+    """One platform row inside a mobile stacked card. Same facts as table cells."""
+    status = cell.get("status") or "unknown"
+    brand, line = PLATFORM_HEADERS[platform_id]
+    bits = [
+        f'<div class="mcard-plat" data-plat="{esc(platform_id)}">'
+        f'<div class="mcard-plat-name"><span class="plat-brand">{esc(brand)}</span>'
+        f'<span class="plat-line">{esc(line)}</span></div>'
+        f'<span class="status {esc(status)}">'
+        f'<span class="status-ico" aria-hidden="true">{status_icon(status)}</span> '
+        f"{esc(status)}</span>"
+    ]
+    req = REQUIREMENT_HINTS.get((tool["id"], platform_id)) or REQUIREMENT_HINTS.get((tool["id"], None))
+    if req:
+        if tool["id"] in ("metal_cut-off___chop_saw", "sds-max_rotary_hammer___breaker"):
+            if status != "unknown":
+                bits.append(f'<div class="req">{esc(req)}</div>')
+        elif status == "has":
+            bits.append(f'<div class="req">{esc(req)}</div>')
+    if status == "has":
+        amz = cell.get("amazon")
+        if amz and platform_id != "ryobi_one_au":
+            label = amazon_label(amz)
+            bits.append(
+                f'<a class="amz" rel="sponsored nofollow noopener" href="{esc(amz)}">'
+                f"{esc(label)}</a>"
+            )
+        model = extract_model(cell)
+        evidence = cell.get("evidence") or []
+        meta_bits = []
+        if model:
+            meta_bits.append(f'<span class="model">{esc(model)}</span>')
+        if evidence:
+            src = evidence[0]
+            meta_bits.append(
+                f'<a class="src" href="{esc(src)}" rel="noopener noreferrer">{esc(source_host(src))}</a>'
+            )
+        verified = tool.get("last_verified") or updated
+        if verified:
+            meta_bits.append(f'<span class="date">Verified {esc(verified)}</span>')
+        if meta_bits:
+            bits.append(
+                '<details class="cell-meta">'
+                "<summary>Source and date</summary>"
+                f'<div class="meta-body">{" · ".join(meta_bits)}</div>'
+                "</details>"
+            )
+    bits.append("</div>")
+    return "".join(bits)
+
+
+def render_matrix_cards(tools: list[dict], platforms: list[dict], updated: str) -> str:
+    """Stacked cards for mobile. Same coverage facts as the table. No invented cells."""
+    cards = []
+    for tool in tools:
+        trap = "1" if is_trap_row(tool) else "0"
+        known = known_flag(tool)
+        cls = " mcard-trap" if trap == "1" else ""
+        plats = "".join(
+            render_card_plat(
+                p["id"],
+                tool["cells"].get(p["id"], {"status": "unknown", "evidence": []}),
+                tool,
+                updated,
+            )
+            for p in platforms
+        )
+        note = plain_note_text(tool)
+        note_html = ""
+        if note:
+            prefix = ""
+            if trap == "1":
+                prefix = f'<span class="trap-tag">{esc(trap_tag_label(tool))}</span>'
+            note_html = f'<p class="mcard-note">{prefix}{esc(note)}</p>'
+        cards.append(
+            f'<article class="mcard{cls}" data-tool-id="{esc(tool["id"])}" '
+            f'data-known="{known}" data-trap="{trap}">'
+            f'<h3 class="mcard-title">{esc(display_tool_name(tool["name"]))}</h3>'
+            f"{note_html}"
+            f'<div class="mcard-plats">{plats}</div>'
+            f"</article>"
+        )
+    return (
+        '<div class="matrix-cards" id="matrix-cards" aria-label="Coverage by tool">'
+        + "\n".join(cards)
+        + "</div>"
+    )
+
+
 def platform_th(pid: str) -> str:
     brand, line = PLATFORM_HEADERS[pid]
     return (
@@ -807,7 +896,7 @@ def json_ld_home() -> str:
 
 
 def build_home(updated: str) -> str:
-    """Blog-led homepage. Loud matrix CTA above the fold; posts for SEO entry."""
+    """First-visit conversion homepage. Benefit H1, one primary CTA, methodology trust."""
     title = "Which Pack: AU cordless coverage traps before you buy a kit"
     desc = (
         "Check what Milwaukee, DeWalt, Makita or Ryobi kits can run in Australia. "
@@ -816,24 +905,32 @@ def build_home(updated: str) -> str:
     posts_html = post_list_html(heading="Latest posts")
     return f"""{head(title, desc, "", json_ld_home())}
 <body>
-{site_header("blog")}
+{site_header("home")}
 <main class="wrap">
   <section class="hero blog-hero" aria-labelledby="home-title">
     <div class="hero-copy">
       <p class="eyebrow">AU cordless coverage checker</p>
       <h1 id="home-title">See what your cordless kit can actually run</h1>
-      <p class="lede">Which Pack maps tool coverage for Milwaukee, DeWalt, Makita and Ryobi in Australia. Open the matrix, pick your platform, and spot the gaps before you lock a kit. Verified <strong>has</strong> cells link to Amazon AU search so you can shop matching tools.</p>
-      <p class="hero-actions"><a class="btn-primary" href="matrix.html">Check what your kit can run</a> <a class="btn-ghost" href="blog.html">Read trap posts</a></p>
+      <p class="lede">For Australians choosing Milwaukee, DeWalt, Makita or Ryobi. Spot the gaps before you lock a kit. Verified <strong>has</strong> cells open Amazon AU search so you can shop matching tools.</p>
+      <p class="hero-actions"><a class="btn-primary" href="matrix.html">Check what your kit can run</a></p>
+      <ul class="trust-strip" aria-label="How we verify coverage">
+        <li>Checked against AU OEM catalogs</li>
+        <li><strong>has</strong> needs an official AU listing</li>
+        <li><strong>missing</strong> means we confirmed it is not on that line</li>
+        <li><a href="method.html">How we verify</a></li>
+      </ul>
       <p class="disclosure-quiet">As an Amazon Associate I earn from qualifying purchases. <a href="disclosure.html">Details</a>.</p>
     </div>
     <figure class="hero-figure">
       <picture>
         <source srcset="images/flexvolt.webp" type="image/webp">
-        <img class="hero-photo" src="images/flexvolt.jpg" width="1280" height="720" alt="Yellow and black DeWalt 20V MAX XR cordless drill on a workbench" loading="eager" decoding="async">
+        <img class="hero-photo" src="images/flexvolt.jpg" width="1280" height="720" alt="Cordless drill on a workbench. Starter kits look fine until year-two tools." loading="eager" decoding="async">
       </picture>
-      <figcaption>Stock photo via Unsplash. Not an OEM product shot.</figcaption>
+      <figcaption>Starter kits look fine. Year-two tools are where packs fail. Stock photo via Unsplash. Not an OEM product shot.</figcaption>
     </figure>
   </section>
+
+  <p class="below-fold-secondary">Prefer a story first? <a href="blog.html">Read trap posts</a>.</p>
 
   {posts_html}
 
@@ -888,6 +985,7 @@ def build_matrix(data: dict, tools: list[dict]) -> str:
         + "<th scope=\"col\">Notes</th></tr>"
     )
     tbody = render_matrix_rows(tools, platforms, updated)
+    cards = render_matrix_cards(tools, platforms, updated)
     title = "AU cordless platform coverage matrix | Which Pack"
     desc = (
         "Compare Australian tool coverage across Milwaukee, DeWalt, Makita and Ryobi. "
@@ -900,8 +998,9 @@ def build_matrix(data: dict, tools: list[dict]) -> str:
   <section class="hero hero-compact" aria-labelledby="hero-title">
     <div class="hero-copy">
       <h1 id="hero-title">Before you buy a kit, check what else its platform can run.</h1>
-      <p class="lede">Australian tool coverage across Milwaukee, DeWalt, Makita and Ryobi. Verified, missing, or still unknown.</p>
-      <p class="hero-actions"><a class="btn-primary" href="#controls">Choose your tools</a> <a class="btn-ghost" href="blog.html">Read trap posts</a></p>
+      <p class="lede">Australian tool coverage across Milwaukee, DeWalt, Makita and Ryobi. Verified, missing, or still unknown. Checked against AU OEM catalogs.</p>
+      <p class="hero-actions"><a class="btn-primary" href="#controls">Choose your tools</a></p>
+      <p class="below-fold-secondary">Prefer a story first? <a href="blog.html">Read trap posts</a>.</p>
     </div>
     <figure class="hero-figure">
       {HERO_SVG}
@@ -913,7 +1012,8 @@ def build_matrix(data: dict, tools: list[dict]) -> str:
     <h2 id="how-to-read-title">How to read this</h2>
     <p>Pick your platform column (the kit you own or are about to buy). <strong>Has</strong> means that tool exists on that AU line. <strong>Missing</strong> means it does not. <strong>Unknown</strong> means we have not checked it yet.</p>
     <p>Yellow tags flag kit traps: wrong voltage, or a tool that needs two packs. The Notes column says what that means before you spend.</p>
-    <p class="how-to-shop"><a class="btn-primary" href="#controls">Jump to the matrix</a> <a class="btn-ghost" href="index.html">Back to shop overview</a></p>
+    <p class="how-to-shop"><a class="btn-primary" href="#controls">Jump to the matrix</a></p>
+    <p class="below-fold-secondary">Looking for the overview? <a href="index.html">Back to home</a>.</p>
   </section>
 
   <aside class="callout" aria-labelledby="traps-heading">
@@ -946,9 +1046,9 @@ def build_matrix(data: dict, tools: list[dict]) -> str:
     <button type="button" data-f="traps" aria-pressed="false" title="Rows with a voltage or pack trap note">Voltage traps</button>
     <button type="button" data-f="selected" aria-pressed="false" id="btn-selected" hidden>Selected only</button>
   </div>
-  <p class="scroll-hint">Swipe sideways on smaller screens. The tool column stays put.</p>
+  <p class="scroll-hint desktop-only">On wider screens, swipe sideways if needed. The tool column stays put.</p>
 
-  <div class="table-wrap" id="table" role="region" aria-label="Platform coverage matrix" tabindex="0">
+  <div class="table-wrap desktop-only" id="table" role="region" aria-label="Platform coverage matrix" tabindex="0">
     <table class="matrix" id="matrix">
       <thead>{thead}</thead>
       <tbody>
@@ -956,6 +1056,17 @@ def build_matrix(data: dict, tools: list[dict]) -> str:
       </tbody>
     </table>
   </div>
+
+  <p class="cards-hint mobile-only">On phones, each tool is a stacked card. Pick a platform below to highlight it.</p>
+  <div class="platform-picker mobile-only" id="platform-picker" role="group" aria-label="Highlight a platform">
+    <button type="button" data-plat="all" class="on" aria-pressed="true">All platforms</button>
+    <button type="button" data-plat="m18_au" aria-pressed="false">Milwaukee</button>
+    <button type="button" data-plat="dewalt_18v_au" aria-pressed="false">DeWalt XR</button>
+    <button type="button" data-plat="dewalt_flexvolt_au" aria-pressed="false">FlexVolt</button>
+    <button type="button" data-plat="makita_lxt_au" aria-pressed="false">Makita</button>
+    <button type="button" data-plat="ryobi_one_au" aria-pressed="false">Ryobi</button>
+  </div>
+  {cards}
 
   <p class="meta-row">
     <span>Updated {esc(updated)}</span>
@@ -968,10 +1079,13 @@ def build_matrix(data: dict, tools: list[dict]) -> str:
 (function () {{
   var buttons = document.querySelectorAll('[data-f]');
   var rows = Array.prototype.slice.call(document.querySelectorAll('#matrix tbody tr'));
+  var cards = Array.prototype.slice.call(document.querySelectorAll('#matrix-cards .mcard'));
   var search = document.getElementById('tool-search');
   var btnSelected = document.getElementById('btn-selected');
+  var platButtons = document.querySelectorAll('#platform-picker [data-plat]');
   var mode = 'all';
   var selected = {{}};
+  var platFocus = 'all';
 
   rows.forEach(function (tr) {{
     var th = tr.querySelector('th[scope="row"]');
@@ -990,19 +1104,47 @@ def build_matrix(data: dict, tools: list[dict]) -> str:
     th.insertBefore(cb, th.firstChild);
   }});
 
+  function matchItem(el, q) {{
+    var show = true;
+    if (mode === 'known') show = el.getAttribute('data-known') === '1';
+    if (mode === 'traps') show = el.getAttribute('data-trap') === '1';
+    if (mode === 'selected') show = !!selected[el.getAttribute('data-tool-id')];
+    if (q) {{
+      var name = '';
+      var title = el.querySelector('th[scope="row"], .mcard-title');
+      if (title) name = title.textContent || '';
+      if (name.toLowerCase().indexOf(q) === -1) show = false;
+    }}
+    return show;
+  }}
+
+  function applyPlatFocus() {{
+    cards.forEach(function (card) {{
+      var plats = card.querySelectorAll('.mcard-plat');
+      plats.forEach(function (p) {{
+        if (platFocus === 'all') {{
+          p.classList.remove('is-dim');
+          p.classList.remove('is-focus');
+        }} else if (p.getAttribute('data-plat') === platFocus) {{
+          p.classList.add('is-focus');
+          p.classList.remove('is-dim');
+        }} else {{
+          p.classList.add('is-dim');
+          p.classList.remove('is-focus');
+        }}
+      }});
+    }});
+  }}
+
   function apply() {{
     var q = (search && search.value || '').trim().toLowerCase();
     rows.forEach(function (tr) {{
-      var show = true;
-      if (mode === 'known') show = tr.getAttribute('data-known') === '1';
-      if (mode === 'traps') show = tr.getAttribute('data-trap') === '1';
-      if (mode === 'selected') show = !!selected[tr.getAttribute('data-tool-id')];
-      if (q) {{
-        var name = (tr.querySelector('th[scope="row"]') || {{}}).textContent || '';
-        if (name.toLowerCase().indexOf(q) === -1) show = false;
-      }}
-      if (show) tr.removeAttribute('hidden');
+      if (matchItem(tr, q)) tr.removeAttribute('hidden');
       else tr.setAttribute('hidden', '');
+    }});
+    cards.forEach(function (card) {{
+      if (matchItem(card, q)) card.removeAttribute('hidden');
+      else card.setAttribute('hidden', '');
     }});
   }}
 
@@ -1016,6 +1158,18 @@ def build_matrix(data: dict, tools: list[dict]) -> str:
       b.setAttribute('aria-pressed', 'true');
       mode = b.getAttribute('data-f');
       apply();
+    }});
+  }});
+  platButtons.forEach(function (b) {{
+    b.addEventListener('click', function () {{
+      platButtons.forEach(function (x) {{
+        x.classList.remove('on');
+        x.setAttribute('aria-pressed', 'false');
+      }});
+      b.classList.add('on');
+      b.setAttribute('aria-pressed', 'true');
+      platFocus = b.getAttribute('data-plat') || 'all';
+      applyPlatFocus();
     }});
   }});
   if (search) search.addEventListener('input', apply);
@@ -1709,8 +1863,8 @@ nav.primary a[aria-current="page"] {
   text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
-  min-height: 44px;
-  padding: 12px 20px;
+  min-height: 48px;
+  padding: 14px 22px;
   border-radius: var(--radius-ctrl);
   box-sizing: border-box;
 }
@@ -2216,9 +2370,9 @@ code {
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 44px;
-    padding: 12px 18px;
-    font-size: 1.02rem;
+    min-height: 52px;
+    padding: 14px 18px;
+    font-size: 1.05rem;
   }
   .hero-actions {
     flex-direction: column;
@@ -2501,6 +2655,156 @@ code {
     align-items: center;
     min-height: 40px;
   }
+}
+
+/* First-visit trust + one-CTA helpers */
+.trust-strip {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  background: var(--has-fill);
+  border: 1px solid #C5DFCB;
+  border-radius: var(--radius);
+  font-size: 0.88rem;
+  color: var(--secondary);
+  line-height: 1.4;
+  max-width: 58ch;
+}
+.trust-strip li {
+  margin: 0;
+  padding: 0;
+}
+.trust-strip li::before {
+  content: "✓ ";
+  color: var(--has-text);
+  font-weight: 700;
+}
+.trust-strip a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+.trust-strip a:hover { text-decoration: underline; }
+.below-fold-secondary {
+  margin: 0 0 18px;
+  font-size: 0.92rem;
+  color: var(--secondary);
+}
+.below-fold-secondary a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+.below-fold-secondary a:hover { text-decoration: underline; }
+.hero-actions .btn-primary { margin-right: 0; }
+
+/* Desktop table / mobile stacked cards */
+.mobile-only { display: none; }
+.matrix-cards { display: none; }
+.cards-hint {
+  margin: 0 0 10px;
+  font-size: 0.92rem;
+  color: var(--secondary);
+}
+.platform-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 14px;
+}
+.platform-picker button {
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: var(--radius-ctrl);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.platform-picker button.on {
+  background: var(--has-fill);
+  border-color: #C5DFCB;
+  color: var(--accent);
+}
+.mcard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 14px 12px;
+  margin: 0 0 12px;
+}
+.mcard-trap {
+  border-left: 4px solid var(--warn-accent);
+}
+.mcard-title {
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+.mcard-note {
+  margin: 0 0 12px;
+  font-size: 0.95rem;
+  color: var(--secondary);
+  line-height: 1.45;
+}
+.mcard-plats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.mcard-plat {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-ctrl);
+  padding: 10px 12px;
+  background: #FAFAF7;
+  transition: opacity 0.15s ease, border-color 0.15s ease;
+}
+.mcard-plat.is-dim { opacity: 0.38; }
+.mcard-plat.is-focus {
+  opacity: 1;
+  border-color: var(--accent);
+  background: var(--has-fill);
+}
+.mcard-plat-name {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+.mcard-plat .status { margin-bottom: 6px; }
+.mcard-plat .amz {
+  margin-top: 8px;
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+  min-height: 48px;
+  font-size: 1.05rem;
+  padding: 12px 14px;
+}
+.mcard-plat .cell-meta { margin-top: 6px; }
+
+@media (max-width: 720px) {
+  .desktop-only { display: none !important; }
+  .mobile-only { display: block; }
+  .platform-picker.mobile-only { display: flex; }
+  .matrix-cards {
+    display: block;
+    margin: 0 0 16px;
+  }
+  .trust-strip {
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.9rem;
+  }
+  .hero-copy .lede { max-width: none; }
 }
 """
 
@@ -2827,6 +3131,17 @@ def main() -> None:
     assert "disclosure-quiet" in home
     assert "Shop matching tools on Amazon AU" in home
     assert "blog.html" in home
+    assert "trust-strip" in home
+    assert "AU OEM" in home or "OEM catalogs" in home
+    assert "How we verify" in home
+    # One primary CTA in hero: no competing btn-ghost beside the matrix CTA
+    hero_chunk = home.split("Latest posts")[0]
+    assert "btn-primary" in hero_chunk and "Check what your kit can run" in hero_chunk
+    assert "btn-ghost" not in hero_chunk
+    assert "matrix-cards" in matrix
+    assert "platform-picker" in matrix
+    assert "mcard" in matrix
+    assert "Checked against AU OEM catalogs" in matrix
     assert (
         "Search Amazon AU" in matrix
         or "Shop Amazon AU" in matrix
