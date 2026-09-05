@@ -58,12 +58,120 @@ PLATFORM_HEADERS = {
 # Soft requirement hints: (tool_id, platform_id|None) -> text.
 # Derived from existing notes in coverage.json — never invents coverage status.
 REQUIREMENT_HINTS = {
-    ("18v-platform_lawn_mower", None): "Often 18V×2 — check pack count",
+    ("18v-platform_lawn_mower", None): "Often 18V×2. Check pack count",
     ("outdoor_string___line_trimmer", "m18_au"): "Needs two M18 packs (sampled)",
     ("outdoor_string___line_trimmer", None): "Some models need 18V×2",
     ("track_saw___plunge_saw", "makita_lxt_au"): "Sample is 18V×2 LXT",
-    ("metal_cut-off___chop_saw", None): "Dedicated 230mm+ chop — not 76mm compact",
-    ("sds-max_rotary_hammer___breaker", None): "SDS-MAX — not SDS-plus",
+    ("metal_cut-off___chop_saw", None): "Dedicated 230mm+ chop, not 76mm compact",
+    ("sds-max_rotary_hammer___breaker", None): "SDS-MAX, not SDS-plus",
+}
+
+# Buyer-facing notes for the matrix. Facts (models/voltages) stay; lab/crawl voice goes.
+# Coverage statuses still come only from coverage.json cells. Never invent has/missing/unknown.
+PLAIN_NOTES = {
+    "jobsite_table_saw": (
+        "DeWalt’s cordless table saw in AU is 54V FlexVolt (DCS7485N-XJ), not the 18V XR pack you’d buy in a starter kit. "
+        "Milwaukee M18FTS210-0 and Ryobi RTBS18X are 18V. Makita LXT has no cordless table saw here. "
+        "Corded Makita bench saws exist (2704N, MLT100N)."
+    ),
+    "track_saw___plunge_saw": (
+        "Same voltage trap as the table saw. DeWalt’s cordless track/plunge saw in AU is 54V FlexVolt (DCS520NT-XJ). "
+        "XR has circular saws (DCS565, DCS570, DCS571), not a plunge/track saw. "
+        "Makita DSP600ZJ needs two 18V LXT packs. Milwaukee M18FPS55-0P and Ryobi RPLS18X are single 18V."
+    ),
+    "sds-max_rotary_hammer___breaker": (
+        "DeWalt AU SDS-MAX hammers we sampled are 54V FlexVolt (DCH614N-XJ and similar). "
+        "XR rotary hammers on that catalog are SDS-plus. Milwaukee M18FHACO7450C is M18 SDS-MAX. "
+        "Makita DHR400ZKN is 18Vx2 LXT. Ryobi ONE+ lists SDS+ only, no SDS-MAX."
+    ),
+    "metal_cut-off___chop_saw": (
+        "This row is dedicated 230mm+ abrasive chop/cut-off saws, not the little 76mm cut-off tools. "
+        "Milwaukee M18CHS355-0 is 355mm. Makita DLW140Z is 18Vx2 355mm. "
+        "DeWalt’s cordless dedicated cut-off sampled is 54V FlexVolt DCS691N-XJ. XR DCS438N-XJ is only 76mm. "
+        "Ryobi ONE+ has the compact 76mm and a corded 355mm, not a ONE+ dedicated chop."
+    ),
+    "outdoor_string___line_trimmer": (
+        "Milwaukee M18F2LT needs two M18 packs. Makita DUR192LZ is single 18V LXT "
+        "(DUR368/DUR369 kits are 18Vx2). Check pack count before you size a kit."
+    ),
+    "18v-platform_lawn_mower": (
+        "Not a FlexVolt-only trap. DeWalt AU lists both a 2×18V XR mower (DCMWSP156W2-XE) and a 54V FlexVolt mower (DCMWP500N-XJ). "
+        "Milwaukee M18F2LM180 and Makita DLM432Z/DLM382Z need two packs. Some Ryobi mowers are 2×18V. "
+        "Dual-pack vs single-pack still matters when you buy."
+    ),
+    "mitre_saw": (
+        "Not a FlexVolt-only trap. DeWalt AU has 18V XR (DCS365N-XE) and 54V FlexVolt mitres "
+        "(DCS781N-XE 305mm, DCS777N-XJ 216mm). Milwaukee M18FMS184-0 is 18V. "
+        "Makita DLS600Z is single 18V (bigger ones are 18Vx2). Ryobi RMS 184mm is ONE+."
+    ),
+    "circular_saw": (
+        "Makita LXT circulars show up on the AU catalog (DHS680Z and similar). Ryobi ONE+ has a Circular Saws category. "
+        "DeWalt FlexVolt DCS577N-XJ 190mm high-torque is confirmed (DCS578N-XE 184mm also listed)."
+    ),
+    "impact_wrench": (
+        "Makita LXT has an impact-wrenches category on the AU site. Ryobi ONE+ nav lists Impact Wrenches."
+    ),
+    "reciprocating_saw": (
+        "Sawzall, recipro, and reciprocating count as one type here. A FlexVolt recip was not sampled this pass."
+    ),
+    "jigsaw": (
+        "A FlexVolt jigsaw was not sampled this pass."
+    ),
+    "angle_grinder": (
+        "FlexVolt DCG418N-XJ 54V 125mm side-handle is confirmed on the AU site. "
+        "Also sampled: Milwaukee M18FSAG125XPDB20, DeWalt XR DCG405FN-XJ, Makita DGA504Z, Ryobi 125mm ONE+."
+    ),
+    "rotary_hammer_(sds)": (
+        "Ryobi ONE+ includes Rotary Hammer Drills in nav (category presence, not one model sampled). "
+        "DeWalt FlexVolt DCH333NT-XJ is 54V SDS-plus, separate from the SDS-MAX row."
+    ),
+    "wet_dry_vac___dust_extractor": (
+        "Stick vac, wet/dry vac, and dust extractor count as one type. "
+        "DeWalt has an 18V XR L-class stick vac (DCV501LN-XJ) and a 54V FlexVolt M-class extractor (DCV586MN-XJ). "
+        "Also sampled: Milwaukee M18WDV-0 7.5L, Makita DVC750LZX1, Ryobi 18L ONE+ wet/dry."
+    ),
+    "chainsaw": (
+        "Pole saws are excluded. Milwaukee M18FCHS-0 is single-pack 16in (dual-pack M18F2CHS200 also listed). "
+        "DeWalt DCM565N-XE is 18V XR 30cm. FlexVolt chainsaw DCMCS574 only showed on accessory pages, so left unknown. "
+        "Makita DUC254Z is single 18V (DUC306Z/DUC400Z are 18Vx2). Ryobi 12in ONE+ HP."
+    ),
+    "heat_gun": (
+        "Makita DHG181ZK 18V and DeWalt DCE530N-XJ 18V XR heat guns are confirmed on official AU pages. "
+        "No FlexVolt heat gun on a sitting OEM page, so left unknown."
+    ),
+    "framing_nailer": (
+        "Framing only, not finish, brad, duplex, or banding. Milwaukee M18FFN-0C 30–34°. "
+        "DeWalt DCN930N-XJ 18V XR 33° 90mm. No FlexVolt framing nailer on the AU framing catalog (left unknown). "
+        "Makita DBN900ZK 18V LXT (BN001GZ is 40V XGT, not this column). Ryobi RFN1830X ONE+ HP."
+    ),
+    "portable_band_saw": (
+        "Handheld/portable band saw, not a compact banding nailer. Milwaukee M18FBS85-0, DeWalt DCS378N-XJ 18V XR, Makita DPB183Z. "
+        "FlexVolt band saw not sampled (unknown). Ryobi RBDS18 shows on support only, not a clean product page, so left unknown."
+    ),
+    "oscillating_multi-tool": (
+        "Oscillating tool and multi-tool count as one type. Makita DTM52ZX3 18V brushless multi-tool confirmed on the official AU page."
+    ),
+    "drain_snake___drain_cleaner": (
+        "Milwaukee AU also lists drum machines and chain snakes. DeWalt DCD200N-XJ is 18V XR. "
+        "Ryobi RDA1825 18V ONE+ 7.6m drain auger is confirmed. Makita LXT drain search had no product cards, so left unknown (not missing). "
+        "No FlexVolt drain snake found (unknown)."
+    ),
+    "grease_gun": (
+        "DeWalt DCGG581N-XE shows in search as an 18V XR 450g grease gun, but the official product page did not load cleanly. "
+        "Left unknown, not has."
+    ),
+    "caulk___adhesive_gun": (
+        "DeWalt DCE580D1-XE shows in search as an 18V XR 600ml caulk gun, but the official product page 404’d. "
+        "Left unknown, not has."
+    ),
+    "press_tool_(copper_pex)": (
+        "Copper/PEX jaw press, not a caulk gun or electrical crimper. Milwaukee M18ONEBLHPT-0 FORCE LOGIC confirmed. "
+        "DeWalt and Makita press tools not confirmed on AU pages (unknown, not missing). Ryobi press page not found (unknown)."
+    ),
+    "compact_banding_nailer": (
+        "No OEM page titled compact banding nailer found. Do not mix this up with Milwaukee’s duplex nailer "
+        "(US 2844-21, AU M18FDN0C), a compact band saw, or framing/finish nailers."
+    ),
 }
 
 
@@ -217,9 +325,49 @@ def order_tools(tool_types: list[dict]) -> list[dict]:
 
 
 def is_trap_row(tool: dict) -> bool:
+    # Detect from source coverage note (not display copy), so rebuilds stay honest.
     note = (tool.get("note") or "").lower()
     keys = ("trap", "flexvolt", "54v", "dual-pack", "18vx2", "two m18", "voltage")
     return any(k in note for k in keys)
+
+
+def trap_tag_label(tool: dict) -> str:
+    tid = tool.get("id") or ""
+    note = (tool.get("note") or "").lower()
+    if tid == "outdoor_string___line_trimmer":
+        return "Dual-pack trap"
+    if tid in ("18v-platform_lawn_mower", "mitre_saw"):
+        return "Pack-count note"
+    if "not a table-saw-style voltage trap" in note:
+        return "Pack-count note"
+    if any(k in note for k in ("dual-pack", "two m18", "needs two")) and "flexvolt" not in note and "54v" not in note:
+        return "Dual-pack trap"
+    if any(k in note for k in ("flexvolt", "54v", "voltage")):
+        return "Voltage trap"
+    if "trap" in note:
+        return "Coverage trap"
+    return "Voltage trap"
+
+
+def plain_note_text(tool: dict) -> str:
+    tid = tool.get("id") or ""
+    if tid in PLAIN_NOTES:
+        return PLAIN_NOTES[tid]
+    # Fallback: soft-clean source note if a new tool appears before mapping is updated.
+    raw = (tool.get("note") or "").strip()
+    if not raw:
+        return ""
+    cleaned = raw
+    for junk in (
+        " (WebFetch was Cloudflare)",
+        " via curl of official PDP",
+        " (one /product/ fetch is a JS homepage shell)",
+        " /product/ fetch was homepage chrome — not used.",
+        " /product/ historically JS-shelled",
+        "Cloudflare on hub fetch",
+    ):
+        cleaned = cleaned.replace(junk, "")
+    return cleaned
 
 
 def known_flag(tool: dict) -> str:
@@ -236,12 +384,11 @@ def render_matrix_rows(tools: list[dict], platforms: list[dict], updated: str) -
             render_cell(p["id"], tool["cells"].get(p["id"], {"status": "unknown", "evidence": []}), tool, updated)
             for p in platforms
         )
-        note = tool.get("note") or ""
-        note_html = ""
+        note = plain_note_text(tool)
         if note:
             prefix = ""
             if trap == "1":
-                prefix = '<span class="trap-tag">Watch — voltage / coverage</span>'
+                prefix = f'<span class="trap-tag">{esc(trap_tag_label(tool))}</span>'
             note_html = f'<td class="note">{prefix}{esc(note)}</td>'
         else:
             note_html = '<td class="note"></td>'
@@ -712,14 +859,24 @@ def build_matrix(data: dict, tools: list[dict]) -> str:
     </figure>
   </section>
 
+  <section class="how-to-read" aria-labelledby="how-to-read-title">
+    <h2 id="how-to-read-title">How to read this</h2>
+    <ol>
+      <li>Pick the platform you already own, or the kit you are about to buy.</li>
+      <li><strong>Has</strong> means that tool type exists on that AU line. <strong>Missing</strong> means it does not. <strong>Unknown</strong> means we have not verified it yet.</li>
+      <li>Yellow tags flag kit traps (wrong voltage or needs two packs). Notes explain what that means for buying.</li>
+    </ol>
+    <p class="how-to-shop"><a class="btn-primary" href="#controls">Jump to the matrix</a> <a class="btn-ghost" href="index.html">Back to shop overview</a></p>
+  </section>
+
   <aside class="callout" aria-labelledby="traps-heading">
-    <h2 id="traps-heading"><span class="badge">Important</span> Voltage &amp; FLEXVOLT traps</h2>
+    <h2 id="traps-heading"><span class="badge">Important</span> Voltage and FlexVolt traps</h2>
     <ul>
-      <li>US chargers are typically 110–120V. AU is 230–240V. A plug adapter is not a transformer.</li>
-      <li>DeWalt AU 18V XR is the same cell family often sold as 20V MAX in the US. Local SKUs use -XJ / -XE.</li>
-      <li>DeWalt’s AU cordless table saw, track/plunge saw, SDS-MAX, and 230mm+ chop saw in this matrix are <strong>54V FLEXVOLT</strong>, not 18V XR.</li>
+      <li>US chargers are usually 110–120V. AU is 230–240V. A plug adapter is not a transformer.</li>
+      <li>DeWalt AU 18V XR is the same cell family often sold as 20V MAX in the US. Local packs use -XJ / -XE SKUs.</li>
+      <li>DeWalt’s AU cordless table saw, track/plunge saw, SDS-MAX, and 230mm+ chop saw in this matrix are <strong>54V FlexVolt</strong>, not 18V XR.</li>
       <li>Some mowers and trimmers need two 18V packs. Check the notes before you buy.</li>
-      <li>Ryobi ONE+ in AU is Bunnings-exclusive. Shown for catalog honesty (not sold via our Amazon links).</li>
+      <li>Ryobi ONE+ in AU is Bunnings-only. Shown for catalog honesty (not sold via our Amazon links).</li>
     </ul>
     <p class="callout-more"><a href="traps.html">DeWalt XR vs FlexVolt traps →</a> · <a href="makita-table-saw.html">Makita LXT table saw?</a> · <a href="year-two-tools.html">Year-two tools</a></p>
   </aside>
@@ -728,21 +885,21 @@ def build_matrix(data: dict, tools: list[dict]) -> str:
 
   <div class="legend" aria-label="Status legend">
     <span class="legend-title">Legend</span>
-    <span class="pill has"><span class="status-ico" aria-hidden="true">✓</span> has — AU catalog/PDP found</span>
-    <span class="pill missing"><span class="status-ico" aria-hidden="true">–</span> missing — confirmed not on that line</span>
-    <span class="pill unknown"><span class="status-ico" aria-hidden="true">?</span> unknown — not verified</span>
+    <span class="pill has"><span class="status-ico" aria-hidden="true">✓</span> has · found on that AU line</span>
+    <span class="pill missing"><span class="status-ico" aria-hidden="true">–</span> missing · not on that line</span>
+    <span class="pill unknown"><span class="status-ico" aria-hidden="true">?</span> unknown · not verified yet</span>
   </div>
 
   <div class="toolbar filters" id="controls" role="group" aria-label="Filter and search tools">
     <label class="search-label" for="tool-search">Search</label>
-    <input type="search" id="tool-search" name="q" placeholder="Filter tool types…" autocomplete="off">
+    <input type="search" id="tool-search" name="q" placeholder="Search tools (saw, nailer…)" autocomplete="off">
     <span class="label">Show</span>
     <button type="button" data-f="all" class="on" aria-pressed="true">All tools</button>
-    <button type="button" data-f="known" aria-pressed="false">Hide all-unknown</button>
-    <button type="button" data-f="traps" aria-pressed="false" title="Rows with a trap note">Trap notes</button>
+    <button type="button" data-f="known" aria-pressed="false">Hide unknowns</button>
+    <button type="button" data-f="traps" aria-pressed="false" title="Rows with a voltage or pack trap note">Voltage traps</button>
     <button type="button" data-f="selected" aria-pressed="false" id="btn-selected" hidden>Selected only</button>
   </div>
-  <p class="scroll-hint">Swipe sideways on the matrix on smaller screens. Tool column stays put.</p>
+  <p class="scroll-hint">Swipe sideways on smaller screens. The tool column stays put.</p>
 
   <div class="table-wrap" id="table" role="region" aria-label="Platform coverage matrix" tabindex="0">
     <table class="matrix" id="matrix">
@@ -1333,8 +1490,8 @@ nav.primary a[aria-current="page"] {
   margin: 0 0 20px;
 }
 .callout h2 {
-  margin: 0 0 8px;
-  font-size: 1rem;
+  margin: 0 0 10px;
+  font-size: 1.08rem;
   color: var(--warn-fg);
   display: flex;
   align-items: center;
@@ -1353,28 +1510,59 @@ nav.primary a[aria-current="page"] {
   border-radius: 999px;
 }
 .callout ul { margin: 0; padding-left: 1.15rem; }
-.callout li { margin: 0.35rem 0; }
+.callout li { margin: 0.35rem 0; font-size: 1rem; line-height: 1.5; }
 .callout-more { margin: 10px 0 0; font-size: 0.9rem; }
+
+.how-to-read {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin: 0 0 20px;
+}
+.how-to-read h2 {
+  margin: 0 0 10px;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+.how-to-read ol {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--text);
+  font-size: 1.02rem;
+  line-height: 1.55;
+  max-width: 68ch;
+}
+.how-to-read li { margin: 0.4rem 0; }
+.how-to-read li strong { color: var(--text); }
+.how-to-shop {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin: 16px 0 0;
+}
 
 .legend {
   display: flex;
   flex-wrap: wrap;
   gap: 10px 14px;
   align-items: center;
-  margin: 0 0 14px;
-  font-size: 0.875rem;
+  margin: 0 0 16px;
+  font-size: 0.95rem;
 }
-.legend-title { color: var(--secondary); font-weight: 550; margin-right: 4px; }
+.legend-title { color: var(--secondary); font-weight: 600; margin-right: 4px; font-size: 0.95rem; }
 .pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 10px;
+  padding: 6px 12px;
   border-radius: var(--radius-label);
   border: 1px solid var(--border);
   background: var(--surface);
-  font-weight: 550;
-  font-size: 0.8rem;
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 .pill.has { background: var(--has-fill); color: var(--has-text); border-color: #C5DFCB; }
 .pill.missing { background: var(--miss-fill); color: var(--miss-text); border-color: var(--border); }
@@ -1383,36 +1571,38 @@ nav.primary a[aria-current="page"] {
 .toolbar {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
   align-items: center;
-  margin: 0 0 12px;
+  margin: 0 0 14px;
 }
 .toolbar .label, .search-label {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: var(--secondary);
-  font-weight: 550;
+  font-weight: 600;
 }
 #tool-search {
   font: inherit;
-  font-size: 0.875rem;
-  padding: 7px 10px;
+  font-size: 1rem;
+  padding: 10px 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius-ctrl);
   background: var(--surface);
   color: var(--text);
-  min-width: 180px;
+  min-width: 220px;
+  min-height: 44px;
 }
 .filters button {
   appearance: none;
   background: var(--surface);
   color: var(--text);
   border: 1px solid var(--border);
-  padding: 7px 12px;
+  padding: 10px 14px;
   border-radius: var(--radius-ctrl);
   cursor: pointer;
   font: inherit;
-  font-size: 0.875rem;
-  font-weight: 550;
+  font-size: 0.95rem;
+  font-weight: 600;
+  min-height: 44px;
 }
 .filters button:hover { border-color: var(--accent); color: var(--accent); }
 .filters button.on,
@@ -1447,13 +1637,13 @@ table.matrix {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  font-size: 0.875rem;
-  min-width: 980px;
+  font-size: 1rem;
+  min-width: 1100px;
 }
 .matrix th, .matrix td {
   border-bottom: 1px solid var(--border);
   border-right: 1px solid var(--border);
-  padding: 10px 12px;
+  padding: 16px 14px;
   text-align: left;
   vertical-align: top;
   background: var(--surface);
@@ -1464,33 +1654,40 @@ table.matrix {
   position: sticky;
   top: 0;
   z-index: 2;
-  font-size: 0.78rem;
-  font-weight: 650;
+  font-size: 0.92rem;
+  font-weight: 700;
   color: var(--text);
   box-shadow: inset 0 -1px 0 var(--border);
+  padding: 14px;
 }
 .matrix thead th:first-child {
   left: 0;
   z-index: 3;
   box-shadow: inset -1px 0 0 var(--border), inset 0 -1px 0 var(--border);
 }
-.plat-brand { display: block; font-weight: 700; }
-.plat-line { display: block; font-weight: 500; color: var(--secondary); margin-top: 2px; font-size: 0.72rem; }
+.plat-brand { display: block; font-weight: 700; font-size: 1rem; }
+.plat-line { display: block; font-weight: 550; color: var(--secondary); margin-top: 3px; font-size: 0.85rem; }
 .matrix tbody th[scope="row"] {
   background: var(--page);
-  font-weight: 600;
+  font-weight: 650;
   color: var(--text);
-  min-width: 150px;
-  max-width: 190px;
+  font-size: 1.02rem;
+  line-height: 1.35;
+  min-width: 168px;
+  max-width: 210px;
   position: sticky;
   left: 0;
   z-index: 1;
   box-shadow: inset -1px 0 0 var(--border);
 }
 .matrix tbody th .pick {
-  margin-right: 8px;
+  margin-right: 10px;
   vertical-align: middle;
+  width: 18px;
+  height: 18px;
 }
+.matrix tbody tr:nth-child(even) td,
+.matrix tbody tr:nth-child(even) th[scope="row"] { background: #FAFAF6; }
 .matrix tbody tr:last-child th,
 .matrix tbody tr:last-child td { border-bottom: none; }
 .matrix tbody tr:hover td,
@@ -1500,37 +1697,37 @@ table.matrix {
 }
 .matrix tbody tr[hidden] { display: none; }
 
-/* Status = small label only — no full-cell colouring */
+/* Status = label only — no full-cell colouring */
 .status {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  font-weight: 650;
-  font-size: 0.72rem;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 0.82rem;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  padding: 3px 8px;
+  padding: 5px 10px;
   border-radius: var(--radius-label);
   border: 1px solid transparent;
 }
-.status-ico { font-size: 0.7rem; line-height: 1; }
+.status-ico { font-size: 0.85rem; line-height: 1; }
 .status.has { background: var(--has-fill); color: var(--has-text); border-color: #C5DFCB; }
 .status.missing { background: var(--miss-fill); color: var(--miss-text); border-color: var(--border); }
 .status.unknown { background: var(--unk-fill); color: var(--unk-text); border-color: #E6D19A; }
 
 .req {
-  margin-top: 6px;
-  font-size: 0.72rem;
-  color: var(--secondary);
-  line-height: 1.35;
-}
-.details {
-  margin-top: 6px;
-  font-size: 0.72rem;
+  margin-top: 8px;
+  font-size: 0.88rem;
   color: var(--secondary);
   line-height: 1.4;
 }
-.details .model { font-family: var(--mono); color: var(--text); font-weight: 550; }
+.details {
+  margin-top: 8px;
+  font-size: 0.88rem;
+  color: var(--secondary);
+  line-height: 1.45;
+}
+.details .model { font-family: var(--mono); color: var(--text); font-weight: 600; font-size: 0.9rem; }
 .details .src { color: var(--link); text-decoration: none; }
 .details .src:hover { text-decoration: underline; }
 .details .date { white-space: nowrap; }
@@ -1538,17 +1735,21 @@ table.matrix {
 a.amz {
   display: inline-flex;
   align-items: center;
-  margin-top: 6px;
-  font-size: 0.75rem;
-  font-weight: 550;
+  margin-top: 10px;
+  font-size: 0.92rem;
+  font-weight: 650;
   color: var(--link);
   text-decoration: none;
-  border-bottom: 1px solid transparent;
+  border: 1px solid var(--border);
+  background: var(--page);
+  border-radius: var(--radius-ctrl);
+  padding: 8px 12px;
   white-space: nowrap;
-  min-height: 32px;
+  min-height: 44px;
   max-width: 100%;
+  box-sizing: border-box;
 }
-a.amz:hover { border-bottom-color: var(--link); }
+a.amz:hover { border-color: var(--link); background: var(--has-fill); }
 
 .cta-link {
   display: inline-flex;
@@ -1566,22 +1767,23 @@ a.amz:hover { border-bottom-color: var(--link); }
 .card-cta { margin-top: 12px !important; }
 
 .note {
-  color: var(--secondary);
-  font-size: 0.8rem;
-  line-height: 1.45;
-  max-width: 300px;
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  max-width: 340px;
+  min-width: 220px;
 }
 .note .trap-tag {
   display: inline-block;
-  margin: 0 0 6px;
-  font-size: 0.68rem;
+  margin: 0 0 8px;
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  text-transform: none;
   color: var(--warn-fg);
-  background: var(--surface);
+  background: var(--warn-bg);
   border: 1px solid var(--warn-border);
-  padding: 2px 6px;
+  padding: 4px 8px;
   border-radius: var(--radius-label);
 }
 
@@ -1732,28 +1934,35 @@ code {
       linear-gradient(to left, rgba(32,37,33,0.08), transparent) right center / 12px 100% no-repeat scroll,
       var(--surface);
   }
+  .how-to-read { padding: 16px 14px; }
+  .how-to-read h2 { font-size: 1.08rem; }
+  .how-to-read ol { font-size: 0.98rem; }
+  .how-to-shop { flex-direction: column; align-items: stretch; }
+  .how-to-shop .btn-ghost { width: 100%; justify-content: center; }
+  .legend { font-size: 0.9rem; }
+  .pill { font-size: 0.85rem; padding: 6px 10px; }
   table.matrix {
-    min-width: 900px;
-    font-size: 0.8125rem;
+    min-width: 980px;
+    font-size: 0.95rem;
   }
-  .matrix th, .matrix td { padding: 10px; }
+  .matrix th, .matrix td { padding: 14px 12px; }
   .matrix tbody th[scope="row"] {
-    min-width: 128px;
-    max-width: 148px;
-    font-size: 0.8rem;
-    line-height: 1.3;
-    /* sit under compact sticky header */
+    min-width: 140px;
+    max-width: 168px;
+    font-size: 0.95rem;
+    line-height: 1.35;
   }
   .matrix thead th {
-    /* compact header ~52px after brand-sub hidden */
     top: 52px;
-    font-size: 0.7rem;
+    font-size: 0.82rem;
     z-index: 4;
   }
   .matrix thead th:first-child {
     z-index: 5;
     left: 0;
   }
+  .plat-brand { font-size: 0.95rem; }
+  .plat-line { font-size: 0.8rem; }
   .matrix tbody th[scope="row"] {
     z-index: 3;
     box-shadow: 4px 0 8px -4px rgba(32,37,33,0.12), inset -1px 0 0 var(--border);
@@ -1764,11 +1973,14 @@ code {
     margin-right: 8px;
     flex-shrink: 0;
   }
+  .status { font-size: 0.78rem; padding: 5px 9px; }
+  .req, .details { font-size: 0.85rem; }
   a.amz {
-    min-height: 40px;
-    font-size: 0.78rem;
+    min-height: 44px;
+    font-size: 0.9rem;
   }
-  .note { max-width: 220px; font-size: 0.76rem; }
+  .note { max-width: 260px; font-size: 0.9rem; }
+  .note .trap-tag { font-size: 0.75rem; }
   .card { padding: 16px 14px; }
   .card h2 { font-size: 1.02rem; }
   .page-hero { margin-bottom: 8px; }
