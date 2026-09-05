@@ -361,7 +361,7 @@ HERO_SVG = """<svg class="hero-art" viewBox="0 0 420 200" xmlns="http://www.w3.o
   </g>
 </svg>"""
 
-# Original abstract tool art (no OEM product photos). Written to /thumbs/ on build.
+# Optional abstract SVG fallbacks (cards/featured now use /images/ stock photos). Written to /thumbs/ on build.
 THUMB_FLEXVOLT_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Abstract illustration of two battery packs and a voltage gap">
   <defs>
     <linearGradient id="fvBg" x1="0" y1="0" x2="1" y2="1">
@@ -480,8 +480,10 @@ POSTS = [
         "blurb": "Starter kits sell drills and impacts. Year two is table saws, track saws, SDS-MAX and dual-pack outdoor. Check coverage before you lock in.",
         "date": "2026-09-05",
         "nav": "blog",
-        "thumb": "thumbs/year-two.svg",
-        "thumb_alt": "Abstract illustration of a starter kit expanding into year-two tools",
+        "thumb": "images/year-two.webp",
+        "thumb_fallback": "images/year-two.jpg",
+        "thumb_alt": "Cordless drill kit with battery pack, case and hand tools on a renovation floor",
+        "credit": "Stock photo via Unsplash (photo ZEfFgaXVaV4). Not an OEM product shot.",
         "theme": "year-two",
     },
     {
@@ -490,8 +492,10 @@ POSTS = [
         "blurb": "Table saw, track/plunge, SDS-MAX and 230mm+ chop on AU DeWalt sit on 54V FLEXVOLT. An XR pack won’t run those machines.",
         "date": "2026-09-04",
         "nav": "traps",
-        "thumb": "thumbs/flexvolt.svg",
-        "thumb_alt": "Abstract illustration of 18V versus 54V battery packs",
+        "thumb": "images/flexvolt.webp",
+        "thumb_fallback": "images/flexvolt.jpg",
+        "thumb_alt": "Cordless drill with lithium battery pack on a dusty jobsite floor",
+        "credit": "Stock photo via Unsplash (photo CuDoRFyTkAQ). Not an OEM product shot.",
         "theme": "flexvolt",
     },
     {
@@ -500,8 +504,10 @@ POSTS = [
         "blurb": "Short answer: no on our matrix. Corded bench saws exist. Cordless LXT table saw does not. Milwaukee and Ryobi do have one.",
         "date": "2026-09-03",
         "nav": "traps",
-        "thumb": "thumbs/table-saw.svg",
-        "thumb_alt": "Abstract illustration of a jobsite table saw silhouette",
+        "thumb": "images/table-saw.webp",
+        "thumb_fallback": "images/table-saw.jpg",
+        "thumb_alt": "Hands guiding a cordless circular saw with battery pack through a timber cut",
+        "credit": "Stock photo via Unsplash (photo vAanJsZz-6g). Not an OEM product shot.",
         "theme": "table-saw",
     },
 ]
@@ -529,11 +535,25 @@ def post_by_path(path: str) -> dict | None:
 
 
 def featured_figure(post: dict) -> str:
+    credit = post.get("credit") or "Stock photography. Not an OEM product shot."
+    fallback = post.get("thumb_fallback")
+    if fallback:
+        img = (
+            f'<picture>'
+            f'<source srcset="{esc(post["thumb"])}" type="image/webp">'
+            f'<img src="{esc(fallback)}" width="1280" height="720" '
+            f'alt="{esc(post["thumb_alt"])}" loading="eager" decoding="async">'
+            f'</picture>'
+        )
+    else:
+        img = (
+            f'<img src="{esc(post["thumb"])}" width="1280" height="720" '
+            f'alt="{esc(post["thumb_alt"])}" loading="eager" decoding="async">'
+        )
     return (
         f'<figure class="post-featured">'
-        f'<img src="{esc(post["thumb"])}" width="640" height="360" '
-        f'alt="{esc(post["thumb_alt"])}" loading="eager" decoding="async">'
-        f'<figcaption>Original illustration. Not a product photo.</figcaption>'
+        f'{img}'
+        f'<figcaption>{esc(credit)}</figcaption>'
         f"</figure>"
     )
 
@@ -545,7 +565,10 @@ def post_list_html(posts: list[dict] | None = None, *, heading: str | None = Non
         items.append(
             f"""<article class="post-card">
   <a class="post-card-media" href="{esc(p['path'])}" tabindex="-1" aria-hidden="true">
-    <img src="{esc(p['thumb'])}" width="640" height="360" alt="" loading="lazy" decoding="async">
+    <picture>
+      <source srcset="{esc(p['thumb'])}" type="image/webp">
+      <img src="{esc(p.get('thumb_fallback') or p['thumb'])}" width="1280" height="720" alt="" loading="lazy" decoding="async">
+    </picture>
   </a>
   <div class="post-card-body">
     <p class="post-meta"><time datetime="{esc(p['date'])}">{esc(format_post_date(p['date']))}</time></p>
@@ -606,8 +629,11 @@ def build_home(updated: str) -> str:
       <p class="hero-actions"><a class="btn-primary" href="matrix.html">Check coverage</a> <a class="btn-ghost" href="blog.html">All posts</a></p>
     </div>
     <figure class="hero-figure">
-      {HERO_SVG}
-      <figcaption>Original illustration. Not OEM product photos.</figcaption>
+      <picture>
+        <source srcset="images/flexvolt.webp" type="image/webp">
+        <img class="hero-photo" src="images/flexvolt.jpg" width="1280" height="720" alt="Cordless drill with battery pack on a jobsite floor" loading="eager" decoding="async">
+      </picture>
+      <figcaption>Stock photo via Unsplash. Not an OEM product shot.</figcaption>
     </figure>
   </section>
 
@@ -1769,10 +1795,24 @@ code {
   aspect-ratio: 16 / 9;
   overflow: hidden;
 }
+.post-card-media picture,
+.post-featured picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 .post-card-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.hero-figure .hero-photo {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: calc(var(--radius) - 2px);
+  background: var(--miss-fill);
 }
 .post-card-body {
   padding: 16px 18px 18px;
@@ -2122,11 +2162,20 @@ def main() -> None:
     (ROOT / "og.svg").write_text(OG_SVG, encoding="utf-8")
     write_og_png(ROOT / "og.svg", ROOT / "og.png")
 
+    # Keep abstract SVG thumbs as optional fallbacks; cards use hosted stock photos.
     thumbs = ROOT / "thumbs"
     thumbs.mkdir(exist_ok=True)
     (thumbs / "flexvolt.svg").write_text(THUMB_FLEXVOLT_SVG, encoding="utf-8")
     (thumbs / "table-saw.svg").write_text(THUMB_TABLE_SAW_SVG, encoding="utf-8")
     (thumbs / "year-two.svg").write_text(THUMB_YEAR_TWO_SVG, encoding="utf-8")
+    images = ROOT / "images"
+    for stem in ("year-two", "flexvolt", "table-saw"):
+        webp = images / f"{stem}.webp"
+        jpg = images / f"{stem}.jpg"
+        if not webp.is_file() or not jpg.is_file():
+            raise FileNotFoundError(
+                f"Missing stock photo pair for {stem}: expected {webp.name} and {jpg.name} under images/"
+            )
 
     (ROOT / "index.html").write_text(build_home(updated), encoding="utf-8")
     (ROOT / "blog.html").write_text(build_blog(updated), encoding="utf-8")
@@ -2187,9 +2236,11 @@ def main() -> None:
     assert "matrix.html" in year_html
     blog_html = (ROOT / "blog.html").read_text(encoding="utf-8")
     assert "traps.html" in blog_html and "year-two-tools.html" in blog_html
-    assert "thumbs/year-two.svg" in blog_html
-    assert "thumbs/flexvolt.svg" in blog_html
-    assert "thumbs/table-saw.svg" in blog_html
+    assert "images/year-two.webp" in blog_html
+    assert "images/flexvolt.webp" in blog_html
+    assert "images/table-saw.webp" in blog_html
+    assert "images/year-two.jpg" in blog_html
+    assert "Stock photo via Unsplash" in blog_html or "images/year-two.webp" in blog_html
     # Newest post card first inside the card grid (nav/footer may link traps earlier)
     blog_cards = blog_html.split('class="post-list"', 1)[1]
     home_cards = home.split('class="post-list"', 1)[1]
@@ -2197,9 +2248,11 @@ def main() -> None:
     assert blog_cards.find('datetime="2026-09-05"') < blog_cards.find('datetime="2026-09-04"')
     assert home_cards.find("year-two-tools.html") < home_cards.find("traps.html")
     assert "post-card-media" in home and "Latest posts" in home
-    assert (ROOT / "thumbs" / "flexvolt.svg").is_file()
+    assert (ROOT / "images" / "flexvolt.webp").is_file()
+    assert (ROOT / "images" / "flexvolt.jpg").is_file()
     traps_feat = (ROOT / "traps.html").read_text(encoding="utf-8")
-    assert "thumbs/flexvolt.svg" in traps_feat and "post-featured" in traps_feat
+    assert "images/flexvolt.webp" in traps_feat and "post-featured" in traps_feat
+    assert "Stock photo via Unsplash" in traps_feat
     assert "4 September 2026" in traps_feat
     sm = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
     assert "makita-table-saw.html" in sm
@@ -2236,8 +2289,13 @@ def main() -> None:
         mvp_thumbs.mkdir(exist_ok=True)
         for thumb in (ROOT / "thumbs").glob("*.svg"):
             shutil.copy2(thumb, mvp_thumbs / thumb.name)
-        print(f"Synced {len(sync_names)} files + thumbs to mvp")
-    print(f"OK: blog-led home with visual cards, matrix {n_rows} rows, first={first.group(1)!r}, updated={updated}")
+        mvp_images = MVP / "images"
+        mvp_images.mkdir(exist_ok=True)
+        for img in (ROOT / "images").glob("*"):
+            if img.is_file() and img.suffix.lower() in {".webp", ".jpg", ".jpeg", ".png", ".md"}:
+                shutil.copy2(img, mvp_images / img.name)
+        print(f"Synced {len(sync_names)} files + thumbs + images to mvp")
+    print(f"OK: blog-led home with stock photo cards, matrix {n_rows} rows, first={first.group(1)!r}, updated={updated}")
 
 
 if __name__ == "__main__":
