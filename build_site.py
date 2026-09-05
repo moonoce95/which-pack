@@ -322,7 +322,8 @@ def site_footer(updated: str) -> str:
     <p>Method: <code>has</code> requires an official AU PDP or catalog listing; <code>missing</code> means we confirmed that voltage line does not carry the type; everything else is <code>unknown</code>.</p>
     <div class="footer-nav">
       <a href="method.html">Method</a>
-      <a href="traps.html">Traps</a>
+      <a href="traps.html">XR vs FlexVolt</a>
+      <a href="makita-table-saw.html">Makita table saw</a>
       <a href="disclosure.html">Disclosure</a>
     </div>
   </div>
@@ -423,7 +424,7 @@ def build_index(data: dict, tools: list[dict]) -> str:
       <li>Some mowers and trimmers need two 18V packs — check the notes before you buy.</li>
       <li>Ryobi ONE+ in AU is Bunnings-exclusive. Shown for catalog honesty (not sold via our Amazon links).</li>
     </ul>
-    <p class="callout-more"><a href="traps.html">Read all traps →</a></p>
+    <p class="callout-more"><a href="traps.html">DeWalt XR vs FlexVolt traps →</a> · <a href="makita-table-saw.html">Makita LXT table saw?</a></p>
   </aside>
 
   <p class="disclosure-banner" id="disclosure">As an Amazon Associate I earn from qualifying purchases. Affiliate relationships do not determine coverage results. <a href="disclosure.html">Full disclosure</a>.</p>
@@ -524,41 +525,170 @@ def build_index(data: dict, tools: list[dict]) -> str:
 """
 
 
-def build_traps(updated: str) -> str:
-    title = "Voltage and SKU traps | Which Pack"
+def tool_by_id(data: dict, tool_id: str) -> dict:
+    for t in data["tool_types"]:
+        if t["id"] == tool_id:
+            return t
+    raise KeyError(tool_id)
+
+
+def oem_link(url: str, label: str | None = None) -> str:
+    text = label or source_host(url)
+    return (
+        f'<a href="{esc(url)}" rel="noopener noreferrer">{esc(text)}</a>'
+    )
+
+
+def evidence_first(tool: dict, platform_id: str) -> str | None:
+    cell = tool["cells"].get(platform_id) or {}
+    ev = cell.get("evidence") or []
+    return ev[0] if ev else None
+
+
+def build_traps(data: dict) -> str:
+    updated = data.get("updated", "")
+    table = tool_by_id(data, "jobsite_table_saw")
+    track = tool_by_id(data, "track_saw___plunge_saw")
+    sdsmax = tool_by_id(data, "sds-max_rotary_hammer___breaker")
+    chop = tool_by_id(data, "metal_cut-off___chop_saw")
+
+    # Sampled FLEXVOLT models from coverage evidence (never invent).
+    table_fv = evidence_first(table, "dewalt_flexvolt_au")
+    track_fv = evidence_first(track, "dewalt_flexvolt_au")
+    sds_fv = evidence_first(sdsmax, "dewalt_flexvolt_au")
+    chop_fv = evidence_first(chop, "dewalt_flexvolt_au")
+
+    title = "DeWalt XR vs FlexVolt Australia: what 18V packs can’t run | Which Pack"
     desc = (
-        "AU voltage, DeWalt FLEXVOLT vs 18V XR, dual-pack outdoor tools, and Ryobi "
-        "Bunnings exclusivity — why a US battery list is not an AU buying tool."
+        "AU coverage trap: DeWalt cordless table saw, track/plunge, SDS-MAX and 230mm+ "
+        "chop sampled on FLEXVOLT 54V — not 18V XR. FLEXVOLT packs run XR tools; reverse fails on 54V-only machines."
     )
     return f"""{head(title, desc, "traps.html")}
 <body>
 {site_header("traps")}
 <main class="wrap narrow">
   <div class="page-hero">
-    <h1>Voltage and SKU traps</h1>
-    <p class="lede">These are why a US “same battery family” list is not an AU buying tool. We do not give electrical install advice.</p>
+    <h1>DeWalt XR vs FlexVolt Australia: what 18V packs can’t run</h1>
+    <p class="lede">On the AU catalog, several high-draw cordless types sit on <strong>54V FLEXVOLT</strong>, not 18V XR. FLEXVOLT packs can run XR tools; the reverse is not true for 54V-only machines. We list sampled OEM evidence only — no DIY electrical advice.</p>
+  </div>
+
+  <aside class="callout" aria-labelledby="fv-trap-summary">
+    <h2 id="fv-trap-summary"><span class="badge">Coverage trap</span> 18V XR vs FLEXVOLT</h2>
+    <ul>
+      <li>Jobsite table saw, track/plunge saw, SDS-MAX, and dedicated 230mm+ chop/cut-off — sampled DeWalt AU cordless models are <strong>FLEXVOLT</strong>, scored <code>missing</code> on 18V XR.</li>
+      <li>FLEXVOLT packs can power 18V XR tools; an 18V XR pack cannot run a 54V-only machine.</li>
+      <li>Verified {esc(updated)}. See the <a href="index.html">full coverage matrix</a>.</li>
+    </ul>
+  </aside>
+
+  <div class="card">
+    <h2>Jobsite table saw</h2>
+    <p>DeWalt AU cordless table saw sampled is 54V FLEXVOLT (DCS7485N-XJ), not 18V XR — scored <code>missing</code> on XR and <code>has</code> on FLEXVOLT.</p>
+    <p>OEM evidence: {oem_link(table_fv) if table_fv else "see matrix"}.</p>
   </div>
   <div class="card">
-    <h2>240V chargers</h2>
-    <p>US chargers are typically 110–120V. Australia is 230–240V. A plug adapter is not a transformer. Grey Amazon AU listings can ship the US charger.</p>
+    <h2>Track / plunge saw</h2>
+    <p>Same class of trap: AU cordless track/plunge sampled is 54V FLEXVOLT (DCS520NT-XJ). 18V XR has circular saws, not a plunge/track saw in this matrix.</p>
+    <p>OEM evidence: {oem_link(track_fv) if track_fv else "see matrix"}.</p>
   </div>
   <div class="card">
-    <h2>DeWalt naming</h2>
+    <h2>SDS-MAX rotary hammer / breaker</h2>
+    <p>DeWalt AU SDS-MAX hammers sampled are 54V FLEXVOLT (DCH614N-XJ). 18V XR rotary hammers on the AU catalog are SDS-plus — scored <code>missing</code> for SDS-MAX on XR.</p>
+    <p>OEM evidence: {oem_link(sds_fv) if sds_fv else "see matrix"}.</p>
+  </div>
+  <div class="card">
+    <h2>Metal cut-off / 230mm+ chop saw</h2>
+    <p>Dedicated 230mm+ abrasive chop/cut-off sampled is 54V FLEXVOLT (DCS691N-XJ). 18V XR has a 76mm compact cut-off tool — not counted as this type.</p>
+    <p>OEM evidence: {oem_link(chop_fv) if chop_fv else "see matrix"}.</p>
+  </div>
+
+  <div class="card">
+    <h2>What still works on 18V XR</h2>
+    <p>Many common types are <code>has</code> on DeWalt 18V XR in the matrix (circular, recip, jigsaw, SDS-plus, framing nailer, and more). The trap is assuming every “cordless DeWalt” type runs on the XR pack you already own.</p>
+    <p><a href="index.html">Open the AU coverage matrix →</a></p>
+  </div>
+
+  <div class="card">
+    <h2>240V chargers &amp; naming</h2>
+    <p>US chargers are typically 110–120V; Australia is 230–240V. A plug adapter is not a transformer. Grey Amazon AU listings can ship the US charger.</p>
     <p>US 20V MAX tools are often the same cell family as AU 18V XR. Local SKUs use -XJ / -XE. Chargers usually are not interchangeable.</p>
   </div>
   <div class="card">
-    <h2>FLEXVOLT vs 18V XR</h2>
-    <p>DeWalt AU cordless jobsite table saw sampled {esc(updated)} is 54V FLEXVOLT DCS7485N-XJ, not 18V XR. The same class of trap applies to track/plunge saw, SDS-MAX, and dedicated 230mm+ chop/cut-off saws on the AU catalog.</p>
-    <p>FLEXVOLT packs can run 18V XR tools; the reverse is not true for 54V-only machines.</p>
-  </div>
-  <div class="card">
     <h2>18V × 2 outdoor tools</h2>
-    <p>Some mowers and line trimmers need two 18V packs (Milwaukee M18F2*, Makita 18Vx2, some Ryobi). Check the notes column before you buy a kit sized for a single pack.</p>
+    <p>Some mowers and line trimmers need two 18V packs (Milwaukee M18F2*, Makita 18Vx2, some Ryobi). Check the notes column before you buy a kit sized for a single pack. DeWalt AU lawn mowers exist on both 2×18V XR and 54V FLEXVOLT — not an XR-missing trap.</p>
   </div>
   <div class="card">
     <h2>Ryobi AU</h2>
     <p>ONE+ in Australia is Bunnings-exclusive. We still show the catalog so the comparison is honest (editorial, not an affiliate link).</p>
   </div>
+  <div class="card">
+    <h2>Related</h2>
+    <p><a href="makita-table-saw.html">Does Makita LXT have a cordless table saw in Australia?</a> · <a href="index.html">Coverage matrix</a> · <a href="disclosure.html">Disclosure</a></p>
+  </div>
+</main>
+{site_footer(updated)}
+</body>
+</html>
+"""
+
+
+def build_makita_table_saw(data: dict) -> str:
+    updated = data.get("updated", "")
+    tool = tool_by_id(data, "jobsite_table_saw")
+    cells = tool["cells"]
+
+    def status_of(pid: str) -> str:
+        return (cells.get(pid) or {}).get("status") or "unknown"
+
+    def ev(pid: str) -> str | None:
+        return evidence_first(tool, pid)
+
+    # Facts only from coverage jobsite_table_saw
+    assert status_of("makita_lxt_au") == "missing"
+    assert status_of("m18_au") == "has"
+    assert status_of("dewalt_18v_au") == "missing"
+    assert status_of("dewalt_flexvolt_au") == "has"
+    assert status_of("ryobi_one_au") == "has"
+
+    makita_ev = ev("makita_lxt_au")
+    m18_ev = ev("m18_au")
+    dw18_ev = ev("dewalt_18v_au")
+    dwfv_ev = ev("dewalt_flexvolt_au")
+    ryobi_ev = ev("ryobi_one_au")
+
+    title = "Does Makita LXT have a cordless table saw in Australia? | Which Pack"
+    desc = (
+        "Makita LXT AU has no cordless jobsite table saw in our matrix (corded bench saws only). "
+        "Milwaukee M18 and Ryobi ONE+ have; DeWalt cordless sits on FLEXVOLT 54V, not 18V XR."
+    )
+    return f"""{head(title, desc, "makita-table-saw.html")}
+<body>
+{site_header("traps")}
+<main class="wrap narrow">
+  <div class="page-hero">
+    <h1>Does Makita LXT have a cordless table saw in Australia?</h1>
+    <p class="lede"><strong>No</strong> — in our AU matrix, Makita LXT is <code>missing</code> for jobsite table saw. Corded bench saws exist on Makita AU; cordless LXT table saws do not (catalog check last verified {esc(updated)}).</p>
+  </div>
+
+  <div class="card">
+    <h2>Short answer by platform</h2>
+    <ul>
+      <li><strong>Makita LXT 18V (AU)</strong> — <code>missing</code>{(" — " + oem_link(makita_ev, "LXT saws / corded table-saw evidence")) if makita_ev else ""}</li>
+      <li><strong>Milwaukee M18 (AU)</strong> — <code>has</code>{(" — " + oem_link(m18_ev)) if m18_ev else ""}</li>
+      <li><strong>DeWalt 18V XR (AU)</strong> — <code>missing</code> (cordless sampled is FLEXVOLT){(" — " + oem_link(dw18_ev)) if dw18_ev else ""}</li>
+      <li><strong>DeWalt FLEXVOLT 54V (AU)</strong> — <code>has</code>{(" — " + oem_link(dwfv_ev)) if dwfv_ev else ""}</li>
+      <li><strong>Ryobi ONE+ 18V (AU)</strong> — <code>has</code> (editorial; Bunnings-exclusive){(" — " + oem_link(ryobi_ev)) if ryobi_ev else ""}</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Why this matters before a kit buy</h2>
+    <p>If a cordless table saw is on your must-have list, LXT alone will not cover it in Australia on current verified data. DeWalt buyers hit a related trap: the cordless AU table saw is FLEXVOLT, not 18V XR.</p>
+    <p><a href="index.html">See every tool type on the coverage matrix →</a></p>
+    <p><a href="traps.html">DeWalt XR vs FlexVolt: what 18V packs can’t run →</a></p>
+  </div>
+
+  <p class="disclosure-banner">As an Amazon Associate I earn from qualifying purchases. Affiliate relationships do not determine coverage results. <a href="disclosure.html">Full disclosure</a>.</p>
 </main>
 {site_footer(updated)}
 </body>
@@ -1224,7 +1354,8 @@ def main() -> None:
     write_og_png(ROOT / "og.svg", ROOT / "og.png")
 
     (ROOT / "index.html").write_text(build_index(data, tools), encoding="utf-8")
-    (ROOT / "traps.html").write_text(build_traps(updated), encoding="utf-8")
+    (ROOT / "traps.html").write_text(build_traps(data), encoding="utf-8")
+    (ROOT / "makita-table-saw.html").write_text(build_makita_table_saw(data), encoding="utf-8")
     (ROOT / "method.html").write_text(build_method(updated), encoding="utf-8")
     (ROOT / "disclosure.html").write_text(build_disclosure(updated), encoding="utf-8")
 
@@ -1233,6 +1364,7 @@ def main() -> None:
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>{BASE}/</loc><lastmod>{updated}</lastmod></url>
   <url><loc>{BASE}/traps.html</loc><lastmod>{updated}</lastmod></url>
+  <url><loc>{BASE}/makita-table-saw.html</loc><lastmod>{updated}</lastmod></url>
   <url><loc>{BASE}/method.html</loc><lastmod>{updated}</lastmod></url>
   <url><loc>{BASE}/disclosure.html</loc><lastmod>{updated}</lastmod></url>
 </urlset>
@@ -1255,16 +1387,26 @@ def main() -> None:
     css = (ROOT / "styles.css").read_text()
     assert "--miss-text: #454D46" in css
     assert "#8a2f2f" not in css.lower()
+    traps_html = (ROOT / "traps.html").read_text(encoding="utf-8")
+    assert "DeWalt XR vs FlexVolt Australia" in traps_html
+    assert "makita-table-saw.html" in traps_html
+    makita_html = (ROOT / "makita-table-saw.html").read_text(encoding="utf-8")
+    assert "Does Makita LXT have a cordless table saw in Australia?" in makita_html
+    assert "makita_lxt_au" not in makita_html  # no raw platform ids in copy
+    assert ">missing<" in makita_html or "<code>missing</code>" in makita_html
+    assert "makita-table-saw.html" in (ROOT / "sitemap.xml").read_text(encoding="utf-8")
 
     sync_names = [
         "index.html",
         "traps.html",
+        "makita-table-saw.html",
         "method.html",
         "disclosure.html",
         "styles.css",
         "favicon.svg",
         "coverage.json",
         "og.svg",
+        "sitemap.xml",
     ]
     if (ROOT / "og.png").exists():
         sync_names.append("og.png")
