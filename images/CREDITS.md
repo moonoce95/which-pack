@@ -1,13 +1,13 @@
 # Stock photo credits
 
-All images hosted locally under /images/. Sourced from Unsplash (https://unsplash.com/license).
-Free to use under the Unsplash License. Attribution appreciated.
+All images hosted locally under /images/. Sourced from Unsplash (https://unsplash.com/license)
+and Pexels (https://www.pexels.com/license/). Free to use; attribution appreciated.
 
-| File | Subject | Unsplash photo | Notes |
-|------|---------|----------------|-------|
-| year-two.webp / .jpg | Cordless drill kit, case, battery | https://unsplash.com/photos/ZEfFgaXVaV4 (photo-1606676539940-12768ce0e762) | Starter kit vibe for year-two post |
-| flexvolt.webp / .jpg | Cordless drill with battery pack on jobsite floor | https://unsplash.com/photos/CuDoRFyTkAQ (photo-1504148455328-c376907d081c) | Battery pack focus for XR vs FlexVolt |
-| table-saw.webp / .jpg | Cordless circular saw cutting wood | https://unsplash.com/photos/vAanJsZz-6g (photo-1767389193137-77d6f9b8b56a) | Saw/coverage gap for Makita LXT table saw post |
+| File | Subject | Source | Notes |
+|------|---------|--------|-------|
+| flexvolt.webp / .jpg | DeWalt 20V MAX XR yellow/black cordless drill on workbench | https://unsplash.com/photos/QvEXI1xquRY (photo-1770763233593-74dfd0da7bf0) | Reads clearly as DeWalt XR for XR vs FlexVolt / home hero |
+| table-saw.webp / .jpg | Yellow/black portable jobsite table saw in workshop | https://www.pexels.com/photo/28518825/ | Table-saw / jobsite saw context for Makita LXT table-saw gap post |
+| year-two.webp / .jpg | Jobsite with cordless circular saw, drill and clamps on a beam | https://unsplash.com/photos/VLPUm5wP5Z0 (photo-1589939705384-5185137a7f0f) | Multiple second-wave tools — expanding kit vibe for year-two post |
 
-Photographer names: see linked Unsplash pages (Unsplash License does not require attribution; we link the photo page).
+Photographer names: see linked Unsplash/Pexels pages (licenses do not require attribution; we link the photo page).
 Source RAW files kept in images/src/ for rebuilds.

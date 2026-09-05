@@ -482,8 +482,8 @@ POSTS = [
         "nav": "blog",
         "thumb": "images/year-two.webp",
         "thumb_fallback": "images/year-two.jpg",
-        "thumb_alt": "Cordless drill kit with battery pack, case and hand tools on a renovation floor",
-        "credit": "Stock photo via Unsplash (photo ZEfFgaXVaV4). Not an OEM product shot.",
+        "thumb_alt": "Construction worker with cordless circular saw, drill and clamps on a jobsite beam",
+        "credit": "Stock photo via Unsplash (photo VLPUm5wP5Z0). Not an OEM product shot.",
         "theme": "year-two",
     },
     {
@@ -494,8 +494,8 @@ POSTS = [
         "nav": "traps",
         "thumb": "images/flexvolt.webp",
         "thumb_fallback": "images/flexvolt.jpg",
-        "thumb_alt": "Cordless drill with lithium battery pack on a dusty jobsite floor",
-        "credit": "Stock photo via Unsplash (photo CuDoRFyTkAQ). Not an OEM product shot.",
+        "thumb_alt": "Yellow and black DeWalt 20V MAX XR cordless drill on a workbench",
+        "credit": "Stock photo via Unsplash (photo QvEXI1xquRY). Not an OEM product shot.",
         "theme": "flexvolt",
     },
     {
@@ -506,8 +506,8 @@ POSTS = [
         "nav": "traps",
         "thumb": "images/table-saw.webp",
         "thumb_fallback": "images/table-saw.jpg",
-        "thumb_alt": "Hands guiding a cordless circular saw with battery pack through a timber cut",
-        "credit": "Stock photo via Unsplash (photo vAanJsZz-6g). Not an OEM product shot.",
+        "thumb_alt": "Person ripping plywood on a yellow portable jobsite table saw",
+        "credit": "Stock photo via Pexels (photo 28518825). Not an OEM product shot.",
         "theme": "table-saw",
     },
 ]
@@ -631,7 +631,7 @@ def build_home(updated: str) -> str:
     <figure class="hero-figure">
       <picture>
         <source srcset="images/flexvolt.webp" type="image/webp">
-        <img class="hero-photo" src="images/flexvolt.jpg" width="1280" height="720" alt="Cordless drill with battery pack on a jobsite floor" loading="eager" decoding="async">
+        <img class="hero-photo" src="images/flexvolt.jpg" width="1280" height="720" alt="Yellow and black DeWalt 20V MAX XR cordless drill on a workbench" loading="eager" decoding="async">
       </picture>
       <figcaption>Stock photo via Unsplash. Not an OEM product shot.</figcaption>
     </figure>
