@@ -472,6 +472,9 @@ def site_footer(updated: str) -> str:
       <a href="blog.html">Blog</a>
       <a href="matrix.html">Matrix</a>
       <a href="traps.html">XR vs FlexVolt</a>
+      <a href="sds-max-vs-sds-plus.html">SDS-MAX vs SDS-plus</a>
+      <a href="dual-pack-outdoor.html">Dual-pack outdoor</a>
+      <a href="amazon-au-110v-chargers.html">110V chargers</a>
       <a href="makita-table-saw.html">Makita table saw</a>
       <a href="year-two-tools.html">Year-two tools</a>
       <a href="method.html">Method</a>
@@ -620,7 +623,44 @@ THUMB_YEAR_TWO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640
 
 # Blog posts (trap landings kept as stable URLs; also listed on blog hub).
 # Dates staggered within real publish window; sorted newest first in listings.
+# Same-date posts keep this list order (stable sort by date only).
 POSTS = [
+    {
+        "path": "sds-max-vs-sds-plus.html",
+        "title": "SDS-MAX vs SDS-plus in Australia: the DeWalt FlexVolt trap",
+        "blurb": "SDS-plus and SDS-MAX are different chucks. DeWalt AU SDS-MAX hammers we sampled sit on 54V FlexVolt. An XR SDS-plus kit does not cover that row.",
+        "date": "2026-09-05",
+        "nav": "traps",
+        "thumb": "images/sds-max.webp",
+        "thumb_fallback": "images/sds-max.jpg",
+        "thumb_alt": "Gloved hand using a dusty SDS rotary hammer on a construction site",
+        "credit": "Stock photo via Pexels (photo 16280548). Not an OEM product shot.",
+        "theme": "sds-max",
+    },
+    {
+        "path": "dual-pack-outdoor.html",
+        "title": "Dual-pack outdoor tools: when a mower or trimmer needs two batteries",
+        "blurb": "Some AU mowers and line trimmers need two 18V packs. A single-pack kit looks fine until you buy outdoor gear. Check the notes before you size batteries.",
+        "date": "2026-09-05",
+        "nav": "traps",
+        "thumb": "images/dual-pack.webp",
+        "thumb_fallback": "images/dual-pack.jpg",
+        "thumb_alt": "Person using a string trimmer on a green residential lawn",
+        "credit": "Stock photo via Unsplash (photo CWYxsqROgwo). Not an OEM product shot.",
+        "theme": "dual-pack",
+    },
+    {
+        "path": "amazon-au-110v-chargers.html",
+        "title": "Grey 110V chargers on Amazon AU: plug adapters do not fix voltage",
+        "blurb": "US chargers are typically 110–120V. Australia is 230–240V. Amazon AU can list US-spec kits. Local DeWalt SKUs use -XJ / -XE. Adapters are not transformers.",
+        "date": "2026-09-05",
+        "nav": "traps",
+        "thumb": "images/grey-charger.webp",
+        "thumb_fallback": "images/grey-charger.jpg",
+        "thumb_alt": "Stack of black international power plug adapters including US and AU pins",
+        "credit": "Stock photo via Pexels (photo 3639030). Not an OEM product shot.",
+        "theme": "grey-charger",
+    },
     {
         "path": "year-two-tools.html",
         "title": "Before you buy a cordless kit in Australia, check year-two tools",
@@ -671,7 +711,8 @@ def format_post_date(iso: str) -> str:
 
 
 def posts_newest_first() -> list[dict]:
-    return sorted(POSTS, key=lambda p: (p["date"], p["path"]), reverse=True)
+    # Stable: same-date posts keep POSTS list order (newest first in POSTS).
+    return sorted(POSTS, key=lambda p: p["date"], reverse=True)
 
 
 def post_by_path(path: str) -> dict | None:
@@ -803,8 +844,8 @@ def build_home(updated: str) -> str:
 def build_blog(updated: str) -> str:
     title = "Blog: AU cordless coverage traps | Which Pack"
     desc = (
-        "Posts on AU cordless platform traps: DeWalt XR vs FlexVolt, Makita LXT table saw, "
-        "and year-two tools before you lock a kit."
+        "Posts on AU cordless platform traps: SDS-MAX vs SDS-plus, dual-pack outdoor, grey 110V chargers, "
+        "DeWalt XR vs FlexVolt, Makita LXT table saw, and year-two tools."
     )
     posts_html = post_list_html(heading="All posts")
     return f"""{head(title, desc, "blog.html")}
@@ -875,7 +916,7 @@ def build_matrix(data: dict, tools: list[dict]) -> str:
       <li>Some mowers and trimmers need two 18V packs. Check the notes before you buy.</li>
       <li>Ryobi ONE+ in AU is Bunnings-only. Shown for catalog honesty (not sold via our Amazon links).</li>
     </ul>
-    <p class="callout-more"><a href="traps.html">DeWalt XR vs FlexVolt traps →</a> · <a href="makita-table-saw.html">Makita LXT table saw?</a> · <a href="year-two-tools.html">Year-two tools</a></p>
+    <p class="callout-more"><a href="traps.html">DeWalt XR vs FlexVolt traps →</a> · <a href="sds-max-vs-sds-plus.html">SDS-MAX vs SDS-plus</a> · <a href="dual-pack-outdoor.html">Dual-pack outdoor</a> · <a href="amazon-au-110v-chargers.html">110V chargers</a></p>
   </aside>
 
   <p class="disclosure-banner" id="disclosure">As an Amazon Associate I earn from qualifying purchases. Affiliate relationships do not determine coverage results. <a href="disclosure.html">Full disclosure</a>.</p>
@@ -1076,7 +1117,7 @@ def build_traps(data: dict) -> str:
   </div>
   <div class="card">
     <h2>Related</h2>
-    <p><a href="makita-table-saw.html">Does Makita LXT have a cordless table saw in Australia?</a> · <a href="year-two-tools.html">Year-two tools</a> · <a href="matrix.html">Coverage matrix</a> · <a href="blog.html">Blog</a></p>
+    <p><a href="sds-max-vs-sds-plus.html">SDS-MAX vs SDS-plus</a> · <a href="dual-pack-outdoor.html">Dual-pack outdoor</a> · <a href="amazon-au-110v-chargers.html">Grey 110V chargers</a> · <a href="makita-table-saw.html">Makita LXT table saw?</a> · <a href="year-two-tools.html">Year-two tools</a> · <a href="matrix.html">Coverage matrix</a></p>
   </div>
 </main>
 {site_footer(updated)}
@@ -1207,7 +1248,7 @@ def build_year_two(data: dict) -> str:
     <h2>What to do</h2>
     <p>List the year-two tools you actually want. Open the matrix. If a must-have is <code>missing</code> or only on a higher-voltage line, factor that in before you commit packs.</p>
     <p class="card-cta"><a class="cta-link" href="matrix.html">Check coverage →</a></p>
-    <p>Related: <a href="traps.html">DeWalt XR vs FlexVolt</a> · <a href="makita-table-saw.html">Makita LXT table saw?</a></p>
+    <p>Related: <a href="sds-max-vs-sds-plus.html">SDS-MAX vs SDS-plus</a> · <a href="dual-pack-outdoor.html">Dual-pack outdoor</a> · <a href="traps.html">DeWalt XR vs FlexVolt</a> · <a href="makita-table-saw.html">Makita LXT table saw?</a></p>
   </div>
 
   <p class="disclosure-banner">As an Amazon Associate I earn from qualifying purchases. Amazon Search links live on the matrix for verified <strong>has</strong> cells only. <a href="disclosure.html">Full disclosure</a>.</p>
@@ -1216,6 +1257,244 @@ def build_year_two(data: dict) -> str:
 </body>
 </html>
 """
+
+
+
+def build_sds_max_vs_plus(data: dict) -> str:
+    """SDS-MAX vs SDS-plus AU trap. Facts from coverage only."""
+    updated = data.get("updated", "")
+    sdsmax = tool_by_id(data, "sds-max_rotary_hammer___breaker")
+    sdsplus = tool_by_id(data, "rotary_hammer_(sds)")
+
+    def st(tool: dict, pid: str) -> str:
+        return (tool["cells"].get(pid) or {}).get("status") or "unknown"
+
+    assert st(sdsmax, "dewalt_18v_au") == "missing"
+    assert st(sdsmax, "dewalt_flexvolt_au") == "has"
+    assert st(sdsmax, "m18_au") == "has"
+    assert st(sdsmax, "makita_lxt_au") == "has"
+    assert st(sdsmax, "ryobi_one_au") == "missing"
+    assert st(sdsplus, "dewalt_18v_au") == "has"
+
+    dw18 = evidence_first(sdsmax, "dewalt_18v_au")
+    dwfv = evidence_first(sdsmax, "dewalt_flexvolt_au")
+    m18 = evidence_first(sdsmax, "m18_au")
+    mak = evidence_first(sdsmax, "makita_lxt_au")
+    ryobi = evidence_first(sdsmax, "ryobi_one_au")
+    dw_plus = evidence_first(sdsplus, "dewalt_18v_au")
+    dw_fv_plus = evidence_first(sdsplus, "dewalt_flexvolt_au")
+
+    title = "SDS-MAX vs SDS-plus in Australia: the DeWalt FlexVolt trap | Which Pack"
+    desc = (
+        "SDS-plus and SDS-MAX are different chucks. DeWalt AU SDS-MAX hammers sampled are "
+        "54V FlexVolt (DCH614). XR rotary hammers on the AU catalog are SDS-plus."
+    )
+    post = post_by_path("sds-max-vs-sds-plus.html")
+    return f"""{head(title, desc, "sds-max-vs-sds-plus.html")}
+<body>
+{site_header("traps")}
+<main class="wrap narrow article">
+  <div class="page-hero article-hero">
+    <p class="post-meta"><time datetime="2026-09-05">5 September 2026</time></p>
+    <h1>SDS-MAX vs SDS-plus in Australia: the DeWalt FlexVolt trap</h1>
+    <p class="lede">SDS-plus and SDS-MAX are not the same chuck. On DeWalt AU, the SDS-MAX hammers we sampled sit on <strong>54V FlexVolt</strong>. The 18V XR rotary hammers on that catalog are SDS-plus. Buying an XR kit does not cover the SDS-MAX row.</p>
+  </div>
+  {featured_figure(post)}
+
+  <aside class="callout" aria-labelledby="sds-trap-summary">
+    <h2 id="sds-trap-summary"><span class="badge">Coverage trap</span> Different chuck, different voltage on DeWalt AU</h2>
+    <ul>
+      <li>DeWalt AU SDS-MAX sampled: 54V FlexVolt (DCH614N-XJ). Scored <code>missing</code> on 18V XR and <code>has</code> on FlexVolt.</li>
+      <li>DeWalt AU SDS-plus on XR: sampled DCH133N-XJ. Separate FlexVolt SDS-plus exists (DCH333NT-XJ). That is still SDS-plus, not SDS-MAX.</li>
+      <li>Verified {esc(updated)}. See the <a href="matrix.html">coverage matrix</a>.</li>
+    </ul>
+  </aside>
+
+  <div class="card">
+    <h2>What the matrix shows</h2>
+    <ul>
+      <li><strong>DeWalt 18V XR</strong>: SDS-MAX <code>missing</code>{(" · " + oem_link(dw18)) if dw18 else ""}. SDS-plus <code>has</code>{(" · " + oem_link(dw_plus)) if dw_plus else ""}.</li>
+      <li><strong>DeWalt FlexVolt 54V</strong>: SDS-MAX <code>has</code>{(" · " + oem_link(dwfv)) if dwfv else ""}. SDS-plus also <code>has</code>{(" · " + oem_link(dw_fv_plus)) if dw_fv_plus else ""}.</li>
+      <li><strong>Milwaukee M18</strong>: SDS-MAX <code>has</code> (M18FHACO7450C, not MX FUEL){(" · " + oem_link(m18)) if m18 else ""}.</li>
+      <li><strong>Makita LXT</strong>: SDS-MAX <code>has</code> (DHR400ZKN is 18Vx2){(" · " + oem_link(mak)) if mak else ""}.</li>
+      <li><strong>Ryobi ONE+</strong>: SDS-MAX <code>missing</code> (SDS+ hammers and a corded SDS listed; SDS-MAX string count 0){(" · " + oem_link(ryobi)) if ryobi else ""}.</li>
+    </ul>
+    <p>We do not invent cells. Evidence is manufacturer AU pages only.</p>
+  </div>
+
+  <div class="card">
+    <h2>Why this bites kit buyers</h2>
+    <p>Starter kits sell SDS-plus hammers for brick and light concrete. Year two on slab or demo often wants SDS-MAX. On DeWalt AU that jump is also a voltage jump. FlexVolt packs can run XR tools. An XR pack cannot run a 54V-only SDS-MAX machine.</p>
+  </div>
+
+  <aside class="matrix-closer" aria-labelledby="sds-matrix-closer">
+    <h2 id="sds-matrix-closer">Check SDS-MAX on your platform</h2>
+    <p>Open the matrix, filter the SDS-MAX row, and confirm has vs missing before you lock packs.</p>
+    <p class="card-cta"><a class="btn-primary" href="matrix.html">Open the AU coverage matrix</a></p>
+    <p class="disclosure-quiet">Related: <a href="traps.html">XR vs FlexVolt</a> · <a href="year-two-tools.html">Year-two tools</a> · <a href="blog.html">Blog</a></p>
+  </aside>
+
+  <p class="disclosure-banner">As an Amazon Associate I earn from qualifying purchases. Affiliate relationships do not determine coverage results. <a href="disclosure.html">Full disclosure</a>.</p>
+</main>
+{site_footer(updated)}
+</body>
+</html>
+"""
+
+
+def build_dual_pack_outdoor(data: dict) -> str:
+    """Dual-pack outdoor mower/trimmer trap. Facts from coverage only."""
+    updated = data.get("updated", "")
+    mower = tool_by_id(data, "18v-platform_lawn_mower")
+    trimmer = tool_by_id(data, "outdoor_string___line_trimmer")
+
+    def st(tool: dict, pid: str) -> str:
+        return (tool["cells"].get(pid) or {}).get("status") or "unknown"
+
+    # Platforms have the types; trap is pack count in notes, not missing cells.
+    assert st(mower, "m18_au") == "has"
+    assert st(mower, "dewalt_18v_au") == "has"
+    assert st(mower, "makita_lxt_au") == "has"
+    assert st(trimmer, "m18_au") == "has"
+    assert st(trimmer, "makita_lxt_au") == "has"
+
+    m18_m = evidence_first(mower, "m18_au")
+    dw18_m = evidence_first(mower, "dewalt_18v_au")
+    dwfv_m = evidence_first(mower, "dewalt_flexvolt_au")
+    mak_m = evidence_first(mower, "makita_lxt_au")
+    ryobi_m = evidence_first(mower, "ryobi_one_au")
+    m18_t = evidence_first(trimmer, "m18_au")
+    mak_t = evidence_first(trimmer, "makita_lxt_au")
+    dw18_t = evidence_first(trimmer, "dewalt_18v_au")
+
+    title = "Dual-pack outdoor tools: when a mower or trimmer needs two batteries | Which Pack"
+    desc = (
+        "AU outdoor trap: some Milwaukee and Makita mowers need two 18V packs. "
+        "Milwaukee M18F2 line trimmers need two M18 packs. Size the kit for that, not one battery."
+    )
+    post = post_by_path("dual-pack-outdoor.html")
+    return f"""{head(title, desc, "dual-pack-outdoor.html")}
+<body>
+{site_header("traps")}
+<main class="wrap narrow article">
+  <div class="page-hero article-hero">
+    <p class="post-meta"><time datetime="2026-09-05">5 September 2026</time></p>
+    <h1>Dual-pack outdoor tools: when a mower or trimmer needs two batteries</h1>
+    <p class="lede">A kit with one spare pack looks fine until you buy outdoor gear. On our AU matrix, several mowers and line trimmers need <strong>two 18V packs</strong> at once. That is a coverage trap, even when the cell is scored <code>has</code>.</p>
+  </div>
+  {featured_figure(post)}
+
+  <aside class="callout" aria-labelledby="dual-trap-summary">
+    <h2 id="dual-trap-summary"><span class="badge">Coverage trap</span> Has the tool. Needs two packs.</h2>
+    <ul>
+      <li>Milwaukee AU M18F2 line trimmer requires two M18 packs.</li>
+      <li>Milwaukee M18F2LM180 and Makita DLM432Z / DLM382Z mowers are dual-pack (18Vx2). Some Ryobi mowers are 2×18V.</li>
+      <li>DeWalt AU lists both a 2×18V XR mower and a 54V FlexVolt mower. Not an XR-missing trap. Still check pack count.</li>
+      <li>Verified {esc(updated)}.</li>
+    </ul>
+  </aside>
+
+  <div class="card">
+    <h2>Lawn mowers</h2>
+    <p>Every platform in the matrix scores <code>has</code> for 18V-platform lawn mower. The trap is how many packs the machine eats.</p>
+    <ul>
+      <li><strong>Milwaukee / Makita</strong>: dual-pack examples above{(" · " + oem_link(mak_m, "Makita DLM432Z")) if mak_m else ""}{(" · " + oem_link(m18_m)) if m18_m else ""}.</li>
+      <li><strong>DeWalt</strong>: 2×18V XR (DCMWSP156W2-XE) and 54V FlexVolt (DCMWP500N-XJ){(" · " + oem_link(dw18_m)) if dw18_m else ""}{(" · " + oem_link(dwfv_m)) if dwfv_m else ""}.</li>
+      <li><strong>Ryobi</strong>: some ONE+ mowers are 2×18V{(" · " + oem_link(ryobi_m)) if ryobi_m else ""}.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Line trimmers</h2>
+    <p>Milwaukee AU M18F2LT needs two M18 packs{(" · " + oem_link(m18_t)) if m18_t else ""}. Makita AU DUR192LZ is single 18V LXT. Dual-pack Makita DUR368 / DUR369 kits also exist{(" · " + oem_link(mak_t)) if mak_t else ""}. DeWalt AU sample DCMST561N-XE is 18V XR{(" · " + oem_link(dw18_t)) if dw18_t else ""}.</p>
+    <p>Amazon Lawn &amp; Garden commission is 5%, not the 10% Tools rate. Editorial note only. It does not change coverage.</p>
+  </div>
+
+  <div class="card">
+    <h2>What to do before you buy packs</h2>
+    <p>List the outdoor tools you actually want. Open the matrix notes. If a must-have needs two packs, budget two high-capacity batteries, not one plus a tiny spare.</p>
+  </div>
+
+  <aside class="matrix-closer" aria-labelledby="dual-matrix-closer">
+    <h2 id="dual-matrix-closer">Check outdoor rows on the matrix</h2>
+    <p>Filter mower and trimmer. Read the notes column for dual-pack language before you size a kit.</p>
+    <p class="card-cta"><a class="btn-primary" href="matrix.html">Open the AU coverage matrix</a></p>
+    <p class="disclosure-quiet">Related: <a href="year-two-tools.html">Year-two tools</a> · <a href="sds-max-vs-sds-plus.html">SDS-MAX vs SDS-plus</a> · <a href="blog.html">Blog</a></p>
+  </aside>
+
+  <p class="disclosure-banner">As an Amazon Associate I earn from qualifying purchases. Amazon Search links live on the matrix for verified <strong>has</strong> cells only. <a href="disclosure.html">Full disclosure</a>.</p>
+</main>
+{site_footer(updated)}
+</body>
+</html>
+"""
+
+
+def build_amazon_au_110v(data: dict) -> str:
+    """Grey 110V chargers on Amazon AU. Facts from coverage.traps only."""
+    updated = data.get("updated", "")
+    traps = data.get("traps") or []
+    # Sanity: expected trap strings present
+    joined = " ".join(traps)
+    assert "110" in joined and "230" in joined
+    assert "-XJ" in joined or "-XE" in joined
+
+    title = "Grey 110V chargers on Amazon AU: plug adapters do not fix voltage | Which Pack"
+    desc = (
+        "US chargers are typically 110–120V. Australia is 230–240V. Amazon AU can list US-spec tools "
+        "with the wrong charger. Local DeWalt SKUs use -XJ / -XE. Adapters are not transformers."
+    )
+    post = post_by_path("amazon-au-110v-chargers.html")
+    return f"""{head(title, desc, "amazon-au-110v-chargers.html")}
+<body>
+{site_header("traps")}
+<main class="wrap narrow article">
+  <div class="page-hero article-hero">
+    <p class="post-meta"><time datetime="2026-09-05">5 September 2026</time></p>
+    <h1>Grey 110V chargers on Amazon AU: plug adapters do not fix voltage</h1>
+    <p class="lede">Voltage and plugs are easy to miss in a product photo. US chargers are typically <strong>110–120V</strong>. Australia is <strong>230–240V</strong>. A plug adapter does not convert voltage. Grey Amazon AU listings can ship the US charger with a local-looking kit.</p>
+  </div>
+  {featured_figure(post)}
+
+  <aside class="callout" aria-labelledby="charger-trap-summary">
+    <h2 id="charger-trap-summary"><span class="badge">Coverage trap</span> Same cells. Wrong charger.</h2>
+    <ul>
+      <li>US chargers typically 110–120V. AU mains are 230–240V. Plug adapters do not convert voltage.</li>
+      <li>DeWalt US labels 20V MAX / 60V FlexVolt. AU labels 18V XR / 54V FlexVolt. Cells and tools are often shared. Chargers often are not.</li>
+      <li>Amazon AU can list US-spec kits with 110V chargers. Local DeWalt SKUs use -XJ / -XE suffixes.</li>
+      <li>Verified notes {esc(updated)}. No DIY electrical advice.</li>
+    </ul>
+  </aside>
+
+  <div class="card">
+    <h2>What we are warning about</h2>
+    <p>This site scores tool coverage, not every grey charger listing. The trap still matters before you buy a kit online. If the charger is US-spec, the packs may sit uncharged, or worse if someone forces the wrong supply. We are not electricians. Treat voltage mismatch as a hard stop.</p>
+  </div>
+
+  <div class="card">
+    <h2>How to spot local DeWalt SKUs</h2>
+    <p>On DeWalt AU, local cordless SKUs commonly end in <strong>-XJ</strong> or <strong>-XE</strong>. That is a catalog signal, not a guarantee for every third-party Amazon listing. Prefer OEM AU pages and the matrix evidence links when you care about platform coverage.</p>
+  </div>
+
+  <div class="card">
+    <h2>What this site still checks</h2>
+    <p>Which Pack maps which tool types each platform carries in Australia. Charger voltage is a purchase trap sitting beside that. Use both: confirm the tool type exists on your platform, then confirm the listing ships an AU-voltage charger.</p>
+  </div>
+
+  <aside class="matrix-closer" aria-labelledby="charger-matrix-closer">
+    <h2 id="charger-matrix-closer">Then check tool coverage</h2>
+    <p>Open the matrix for has / missing / unknown by platform. Shop Amazon AU from verified <strong>has</strong> cells only, and still read the charger spec on the listing.</p>
+    <p class="card-cta"><a class="btn-primary" href="matrix.html">Open the AU coverage matrix</a></p>
+    <p class="disclosure-quiet">Related: <a href="traps.html">XR vs FlexVolt</a> · <a href="sds-max-vs-sds-plus.html">SDS-MAX vs SDS-plus</a> · <a href="blog.html">Blog</a></p>
+  </aside>
+
+  <p class="disclosure-banner">As an Amazon Associate I earn from qualifying purchases. Affiliate relationships do not determine coverage results. <a href="disclosure.html">Full disclosure</a>.</p>
+</main>
+{site_footer(updated)}
+</body>
+</html>
+"""
+
 
 
 def build_method(updated: str) -> str:
@@ -2419,7 +2698,14 @@ def main() -> None:
     (thumbs / "table-saw.svg").write_text(THUMB_TABLE_SAW_SVG, encoding="utf-8")
     (thumbs / "year-two.svg").write_text(THUMB_YEAR_TWO_SVG, encoding="utf-8")
     images = ROOT / "images"
-    for stem in ("year-two", "flexvolt", "table-saw"):
+    for stem in (
+        "year-two",
+        "flexvolt",
+        "table-saw",
+        "sds-max",
+        "dual-pack",
+        "grey-charger",
+    ):
         webp = images / f"{stem}.webp"
         jpg = images / f"{stem}.jpg"
         if not webp.is_file() or not jpg.is_file():
@@ -2433,6 +2719,9 @@ def main() -> None:
     (ROOT / "traps.html").write_text(build_traps(data), encoding="utf-8")
     (ROOT / "makita-table-saw.html").write_text(build_makita_table_saw(data), encoding="utf-8")
     (ROOT / "year-two-tools.html").write_text(build_year_two(data), encoding="utf-8")
+    (ROOT / "sds-max-vs-sds-plus.html").write_text(build_sds_max_vs_plus(data), encoding="utf-8")
+    (ROOT / "dual-pack-outdoor.html").write_text(build_dual_pack_outdoor(data), encoding="utf-8")
+    (ROOT / "amazon-au-110v-chargers.html").write_text(build_amazon_au_110v(data), encoding="utf-8")
     (ROOT / "method.html").write_text(build_method(updated), encoding="utf-8")
     (ROOT / "disclosure.html").write_text(build_disclosure(updated), encoding="utf-8")
 
@@ -2443,6 +2732,9 @@ def main() -> None:
   <url><loc>{BASE}/blog.html</loc><lastmod>{updated}</lastmod></url>
   <url><loc>{BASE}/matrix.html</loc><lastmod>{updated}</lastmod></url>
   <url><loc>{BASE}/traps.html</loc><lastmod>{updated}</lastmod></url>
+  <url><loc>{BASE}/sds-max-vs-sds-plus.html</loc><lastmod>{updated}</lastmod></url>
+  <url><loc>{BASE}/dual-pack-outdoor.html</loc><lastmod>{updated}</lastmod></url>
+  <url><loc>{BASE}/amazon-au-110v-chargers.html</loc><lastmod>{updated}</lastmod></url>
   <url><loc>{BASE}/makita-table-saw.html</loc><lastmod>{updated}</lastmod></url>
   <url><loc>{BASE}/year-two-tools.html</loc><lastmod>{updated}</lastmod></url>
   <url><loc>{BASE}/method.html</loc><lastmod>{updated}</lastmod></url>
@@ -2489,29 +2781,54 @@ def main() -> None:
     assert "matrix.html" in year_html
     blog_html = (ROOT / "blog.html").read_text(encoding="utf-8")
     assert "traps.html" in blog_html and "year-two-tools.html" in blog_html
+    assert "sds-max-vs-sds-plus.html" in blog_html
+    assert "dual-pack-outdoor.html" in blog_html
+    assert "amazon-au-110v-chargers.html" in blog_html
     assert "images/year-two.webp" in blog_html
     assert "images/flexvolt.webp" in blog_html
     assert "images/table-saw.webp" in blog_html
+    assert "images/sds-max.webp" in blog_html
+    assert "images/dual-pack.webp" in blog_html
+    assert "images/grey-charger.webp" in blog_html
     assert "images/year-two.jpg" in blog_html
     assert "Stock photo via Unsplash" in blog_html or "images/year-two.webp" in blog_html
-    # Newest post card first inside the card grid (nav/footer may link traps earlier)
+    # Newest post cards first inside the card grid (nav/footer may link traps earlier)
     blog_cards = blog_html.split('class="post-list"', 1)[1]
     home_cards = home.split('class="post-list"', 1)[1]
+    assert blog_cards.find("sds-max-vs-sds-plus.html") < blog_cards.find("year-two-tools.html")
+    assert blog_cards.find("sds-max-vs-sds-plus.html") < blog_cards.find("dual-pack-outdoor.html")
+    assert blog_cards.find("dual-pack-outdoor.html") < blog_cards.find("amazon-au-110v-chargers.html")
+    assert blog_cards.find("amazon-au-110v-chargers.html") < blog_cards.find("year-two-tools.html")
     assert blog_cards.find("year-two-tools.html") < blog_cards.find("traps.html")
     assert blog_cards.find('datetime="2026-09-05"') < blog_cards.find('datetime="2026-09-04"')
-    assert home_cards.find("year-two-tools.html") < home_cards.find("traps.html")
+    assert home_cards.find("sds-max-vs-sds-plus.html") < home_cards.find("traps.html")
     assert "post-card-media" in home and "Latest posts" in home
     assert (ROOT / "images" / "flexvolt.webp").is_file()
     assert (ROOT / "images" / "flexvolt.jpg").is_file()
+    assert (ROOT / "images" / "sds-max.webp").is_file()
+    assert (ROOT / "images" / "dual-pack.jpg").is_file()
+    assert (ROOT / "images" / "grey-charger.webp").is_file()
     traps_feat = (ROOT / "traps.html").read_text(encoding="utf-8")
     assert "images/flexvolt.webp" in traps_feat and "post-featured" in traps_feat
     assert "Stock photo via Unsplash" in traps_feat
     assert "4 September 2026" in traps_feat
+    sds_html = (ROOT / "sds-max-vs-sds-plus.html").read_text(encoding="utf-8")
+    assert "SDS-MAX vs SDS-plus" in sds_html and "matrix.html" in sds_html
+    assert "images/sds-max.webp" in sds_html and "matrix-closer" in sds_html
+    dual_html = (ROOT / "dual-pack-outdoor.html").read_text(encoding="utf-8")
+    assert "Dual-pack outdoor" in dual_html and "two" in dual_html.lower()
+    assert "images/dual-pack.webp" in dual_html and "matrix-closer" in dual_html
+    charger_html = (ROOT / "amazon-au-110v-chargers.html").read_text(encoding="utf-8")
+    assert "110" in charger_html and "230" in charger_html
+    assert "images/grey-charger.webp" in charger_html and "matrix-closer" in charger_html
     sm = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
     assert "makita-table-saw.html" in sm
     assert "matrix.html" in sm
     assert "blog.html" in sm
     assert "year-two-tools.html" in sm
+    assert "sds-max-vs-sds-plus.html" in sm
+    assert "dual-pack-outdoor.html" in sm
+    assert "amazon-au-110v-chargers.html" in sm
     # Nav order: Blog primary
     assert 'href="blog.html"' in home
     assert "Blog" in (ROOT / "matrix.html").read_text(encoding="utf-8")
@@ -2521,6 +2838,9 @@ def main() -> None:
         "blog.html",
         "matrix.html",
         "traps.html",
+        "sds-max-vs-sds-plus.html",
+        "dual-pack-outdoor.html",
+        "amazon-au-110v-chargers.html",
         "makita-table-saw.html",
         "year-two-tools.html",
         "method.html",
