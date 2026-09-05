@@ -1396,7 +1396,7 @@ OG_SVG = """<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" vi
 
 
 def _png_rgb(width: int, height: int, pixel_at) -> bytes:
-    """Encode RGB PNG with stdlib only."""
+    """Encode RGB PNG with stdlib only (filter-none rows)."""
     import struct
     import zlib
 
@@ -1406,8 +1406,15 @@ def _png_rgb(width: int, height: int, pixel_at) -> bytes:
         for x in range(width):
             row += bytes(pixel_at(x, y))
         rows.append(bytes(row))
-    raw = b"".join(rows)
-    compressed = zlib.compress(raw, 9)
+    return _png_rgb_bytes(width, height, b"".join(rows))
+
+
+def _png_rgb_bytes(width: int, height: int, raw_rows: bytes) -> bytes:
+    """Encode pre-built filter-0 row bytes (each row starts with 0)."""
+    import struct
+    import zlib
+
+    compressed = zlib.compress(raw_rows, 9)
 
     def chunk(tag: bytes, data: bytes) -> bytes:
         return (
@@ -1421,67 +1428,189 @@ def _png_rgb(width: int, height: int, pixel_at) -> bytes:
     return b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", ihdr) + chunk(b"IDAT", compressed) + chunk(b"IEND", b"")
 
 
-def write_og_png(svg_path: pathlib.Path, png_path: pathlib.Path) -> None:
-    """Write og.svg plus a 1200x630 og.png."""
-    (ROOT / "og.svg").write_text(OG_SVG, encoding="utf-8")
-    # Prefer Chrome headless for crisp text from SVG
-    import shutil
-    import subprocess
+def _png_ihdr_size(png_path: pathlib.Path) -> tuple[int, int] | None:
+    """Return (width, height) from PNG IHDR, or None if unreadable."""
+    import struct
 
-    chrome = shutil.which("google-chrome") or shutil.which("google-chrome-stable") or shutil.which("chromium")
-    if chrome:
-        try:
-            r = subprocess.run(
-                [
-                    chrome,
-                    "--headless",
-                    "--disable-gpu",
-                    "--no-sandbox",
-                    f"--window-size=1200,630",
-                    f"--screenshot={png_path}",
-                    svg_path.as_uri(),
-                ],
-                capture_output=True,
-                timeout=60,
-            )
-            if r.returncode == 0 and png_path.exists() and png_path.stat().st_size > 1000:
-                return
-        except Exception:
-            pass
+    try:
+        data = png_path.read_bytes()
+    except OSError:
+        return None
+    if len(data) < 24 or data[:8] != b"\x89PNG\r\n\x1a\n":
+        return None
+    # First chunk should be IHDR
+    if data[12:16] != b"IHDR":
+        return None
+    w, h = struct.unpack(">II", data[16:24])
+    return w, h
 
-    def hex_rgb(h: str):
+
+# Compact 5x7 glyphs for OG card text (no external fonts / Chrome).
+_OG_GLYPHS: dict[str, list[int]] = {
+    " ": [0, 0, 0, 0, 0, 0, 0],
+    "A": [0b01110, 0b10001, 0b10001, 0b11111, 0b10001, 0b10001, 0b10001],
+    "B": [0b11110, 0b10001, 0b10001, 0b11110, 0b10001, 0b10001, 0b11110],
+    "C": [0b01110, 0b10001, 0b10000, 0b10000, 0b10000, 0b10001, 0b01110],
+    "D": [0b11110, 0b10001, 0b10001, 0b10001, 0b10001, 0b10001, 0b11110],
+    "E": [0b11111, 0b10000, 0b10000, 0b11110, 0b10000, 0b10000, 0b11111],
+    "F": [0b11111, 0b10000, 0b10000, 0b11110, 0b10000, 0b10000, 0b10000],
+    "G": [0b01110, 0b10001, 0b10000, 0b10111, 0b10001, 0b10001, 0b01110],
+    "H": [0b10001, 0b10001, 0b10001, 0b11111, 0b10001, 0b10001, 0b10001],
+    "I": [0b01110, 0b00100, 0b00100, 0b00100, 0b00100, 0b00100, 0b01110],
+    "K": [0b10001, 0b10010, 0b10100, 0b11000, 0b10100, 0b10010, 0b10001],
+    "L": [0b10000, 0b10000, 0b10000, 0b10000, 0b10000, 0b10000, 0b11111],
+    "M": [0b10001, 0b11011, 0b10101, 0b10001, 0b10001, 0b10001, 0b10001],
+    "N": [0b10001, 0b11001, 0b10101, 0b10011, 0b10001, 0b10001, 0b10001],
+    "O": [0b01110, 0b10001, 0b10001, 0b10001, 0b10001, 0b10001, 0b01110],
+    "P": [0b11110, 0b10001, 0b10001, 0b11110, 0b10000, 0b10000, 0b10000],
+    "R": [0b11110, 0b10001, 0b10001, 0b11110, 0b10100, 0b10010, 0b10001],
+    "S": [0b01111, 0b10000, 0b10000, 0b01110, 0b00001, 0b00001, 0b11110],
+    "T": [0b11111, 0b00100, 0b00100, 0b00100, 0b00100, 0b00100, 0b00100],
+    "U": [0b10001, 0b10001, 0b10001, 0b10001, 0b10001, 0b10001, 0b01110],
+    "V": [0b10001, 0b10001, 0b10001, 0b10001, 0b10001, 0b01010, 0b00100],
+    "W": [0b10001, 0b10001, 0b10001, 0b10101, 0b10101, 0b10101, 0b01010],
+    "X": [0b10001, 0b10001, 0b01010, 0b00100, 0b01010, 0b10001, 0b10001],
+    "Y": [0b10001, 0b10001, 0b01010, 0b00100, 0b00100, 0b00100, 0b00100],
+    "a": [0, 0b01110, 0b00001, 0b01111, 0b10001, 0b10001, 0b01111],
+    "b": [0b10000, 0b10000, 0b11110, 0b10001, 0b10001, 0b10001, 0b11110],
+    "c": [0, 0b01110, 0b10001, 0b10000, 0b10000, 0b10001, 0b01110],
+    "d": [0b00001, 0b00001, 0b01111, 0b10001, 0b10001, 0b10001, 0b01111],
+    "e": [0, 0b01110, 0b10001, 0b11111, 0b10000, 0b10001, 0b01110],
+    "f": [0b00110, 0b01001, 0b01000, 0b11100, 0b01000, 0b01000, 0b01000],
+    "g": [0, 0b01111, 0b10001, 0b10001, 0b01111, 0b00001, 0b01110],
+    "h": [0b10000, 0b10000, 0b11110, 0b10001, 0b10001, 0b10001, 0b10001],
+    "i": [0b00100, 0, 0b01100, 0b00100, 0b00100, 0b00100, 0b01110],
+    "k": [0b10000, 0b10000, 0b10010, 0b10100, 0b11000, 0b10100, 0b10010],
+    "l": [0b01100, 0b00100, 0b00100, 0b00100, 0b00100, 0b00100, 0b01110],
+    "m": [0, 0b11010, 0b10101, 0b10101, 0b10101, 0b10101, 0b10101],
+    "n": [0, 0b11110, 0b10001, 0b10001, 0b10001, 0b10001, 0b10001],
+    "o": [0, 0b01110, 0b10001, 0b10001, 0b10001, 0b10001, 0b01110],
+    "p": [0, 0b11110, 0b10001, 0b10001, 0b11110, 0b10000, 0b10000],
+    "r": [0, 0b10110, 0b11001, 0b10000, 0b10000, 0b10000, 0b10000],
+    "s": [0, 0b01111, 0b10000, 0b01110, 0b00001, 0b00001, 0b11110],
+    "t": [0b01000, 0b01000, 0b11100, 0b01000, 0b01000, 0b01001, 0b00110],
+    "u": [0, 0b10001, 0b10001, 0b10001, 0b10001, 0b10001, 0b01111],
+    "v": [0, 0b10001, 0b10001, 0b10001, 0b10001, 0b01010, 0b00100],
+    "w": [0, 0b10001, 0b10001, 0b10101, 0b10101, 0b10101, 0b01010],
+    "x": [0, 0b10001, 0b01010, 0b00100, 0b00100, 0b01010, 0b10001],
+    "y": [0, 0b10001, 0b10001, 0b10001, 0b01111, 0b00001, 0b01110],
+    "z": [0, 0b11111, 0b00010, 0b00100, 0b01000, 0b10000, 0b11111],
+    ",": [0, 0, 0, 0, 0, 0b00100, 0b01000],
+    ".": [0, 0, 0, 0, 0, 0b00100, 0b00100],
+    "·": [0, 0, 0b00100, 0, 0, 0, 0],
+    "-": [0, 0, 0, 0b11111, 0, 0, 0],
+    "+": [0, 0b00100, 0b00100, 0b11111, 0b00100, 0b00100, 0],
+}
+
+
+def _build_og_png_bytes() -> bytes:
+    """1200x630 Astra-warm OG card with original copy (stdlib only)."""
+    import random
+
+    def hex_rgb(h: str) -> tuple[int, int, int]:
         h = h.lstrip("#")
         return (int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16))
 
+    W, H = 1200, 630
     PAGE, WHITE, BORDER = hex_rgb("#F5F4EF"), hex_rgb("#FFFFFF"), hex_rgb("#D8DED7")
     ACCENT, TEXT, SEC = hex_rgb("#245C43"), hex_rgb("#202521"), hex_rgb("#566159")
-    HASF, MISSF, UNKF = hex_rgb("#EDF7F0"), hex_rgb("#EEF0EC"), hex_rgb("#FFF5DC")
+    HASF, HAS_T = hex_rgb("#EDF7F0"), hex_rgb("#17603A")
+    MISSF, MISS_T = hex_rgb("#EEF0EC"), hex_rgb("#454D46")
+    UNKF, UNK_T = hex_rgb("#FFF5DC"), hex_rgb("#765515")
 
-    def pixel_at(x, y):
-        c = PAGE
-        if 60 <= x < 1140 and 60 <= y < 570:
-            c = WHITE
-            if x in (60, 1139) or y in (60, 569):
-                c = BORDER
-        if 100 <= x < 108 and 140 <= y < 168:
-            c = ACCENT
-        if 120 <= x < 300 and 148 <= y < 160:
-            c = ACCENT
-        if 100 <= x < 720 and 218 <= y < 234:
-            c = TEXT
-        if 100 <= x < 860 and 278 <= y < 294:
-            c = TEXT
-        if 100 <= x < 680 and 358 <= y < 370:
-            c = SEC
-        if 100 <= x < 172 and 430 <= y < 462:
-            c = HASF
-        if 188 <= x < 292 and 430 <= y < 462:
-            c = MISSF
-        if 308 <= x < 420 and 430 <= y < 462:
-            c = UNKF
-        return c
+    buf = bytearray(W * H * 3)
 
-    png_path.write_bytes(_png_rgb(1200, 630, pixel_at))
+    def fill_rect(x0: int, y0: int, x1: int, y1: int, c: tuple[int, int, int]) -> None:
+        r, g, b = c
+        for y in range(max(0, y0), min(H, y1)):
+            o = y * W * 3
+            for x in range(max(0, x0), min(W, x1)):
+                i = o + x * 3
+                buf[i] = r
+                buf[i + 1] = g
+                buf[i + 2] = b
+
+    def blend_px(x: int, y: int, c: tuple[int, int, int], a: float) -> None:
+        if not (0 <= x < W and 0 <= y < H):
+            return
+        i = (y * W + x) * 3
+        inv = 1.0 - a
+        buf[i] = int(buf[i] * inv + c[0] * a)
+        buf[i + 1] = int(buf[i + 1] * inv + c[1] * a)
+        buf[i + 2] = int(buf[i + 2] * inv + c[2] * a)
+
+    def draw_text(
+        x: int,
+        y: int,
+        text: str,
+        color: tuple[int, int, int],
+        scale: int = 3,
+        tracking: int = 1,
+    ) -> None:
+        cx = x
+        for ch in text:
+            glyph = _OG_GLYPHS.get(ch)
+            if glyph is None:
+                glyph = [0b11111, 0b10001, 0b00110, 0b00100, 0b00100, 0, 0b00100]
+            for gy, bits in enumerate(glyph):
+                for gx in range(5):
+                    if bits & (1 << (4 - gx)):
+                        for sy in range(scale):
+                            for sx in range(scale):
+                                blend_px(cx + gx * scale + sx, y + gy * scale + sy, color, 1.0)
+                                if sx == 0:
+                                    blend_px(cx + gx * scale + sx - 1, y + gy * scale + sy, color, 0.25)
+                                if sy == 0:
+                                    blend_px(cx + gx * scale + sx, y + gy * scale + sy - 1, color, 0.25)
+            cx += (5 + tracking) * scale
+
+    fill_rect(0, 0, W, H, PAGE)
+    # Light deterministic grain so the asset isn't a tiny flat stub.
+    rng = random.Random(42)
+    for y in range(H):
+        for x in range(0, W, 3):
+            n = rng.randint(-3, 3)
+            i = (y * W + x) * 3
+            for k in range(3):
+                buf[i + k] = max(0, min(255, buf[i + k] + n))
+
+    fill_rect(60, 60, 1140, 570, BORDER)
+    fill_rect(62, 62, 1138, 568, WHITE)
+
+    draw_text(100, 150, "Which Pack", ACCENT, scale=4, tracking=1)
+    draw_text(100, 230, "Before you buy a kit,", TEXT, scale=5, tracking=1)
+    draw_text(100, 290, "check what else its platform can run.", TEXT, scale=5, tracking=1)
+    draw_text(100, 370, "AU coverage · Milwaukee · DeWalt · Makita · Ryobi", SEC, scale=3, tracking=1)
+
+    def pill(x: int, y: int, w: int, h: int, bg, label: str, fg) -> None:
+        fill_rect(x, y, x + w, y + h, bg)
+        tw = len(label) * (5 + 1) * 2
+        draw_text(x + (w - tw) // 2, y + (h - 7 * 2) // 2, label, fg, scale=2, tracking=1)
+
+    pill(100, 440, 72, 28, HASF, "HAS", HAS_T)
+    pill(188, 440, 96, 28, MISSF, "MISSING", MISS_T)
+    pill(300, 440, 104, 28, UNKF, "UNKNOWN", UNK_T)
+
+    rows = []
+    stride = W * 3
+    for y in range(H):
+        rows.append(b"\x00" + bytes(buf[y * stride : (y + 1) * stride]))
+    return _png_rgb_bytes(W, H, b"".join(rows))
+
+
+def write_og_png(svg_path: pathlib.Path, png_path: pathlib.Path) -> None:
+    """Write og.svg and a proper 1200x630 og.png via stdlib _png_rgb path.
+
+    Always regenerates a branded card (Astra warm tokens + original copy).
+    Does not use Chrome headless — that path previously overwrote the good
+    asset with a tiny flat geometric stub when screenshot failed.
+    """
+    (ROOT / "og.svg").write_text(OG_SVG, encoding="utf-8")
+    png_path.write_bytes(_build_og_png_bytes())
+    dims = _png_ihdr_size(png_path)
+    size = png_path.stat().st_size
+    if dims != (1200, 630) or size < 20_000:
+        raise RuntimeError(f"og.png invalid after build: dims={dims} size={size}")
 
 
 

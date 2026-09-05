@@ -37,7 +37,7 @@ Reads `coverage.json`, rewrites `index.html` / `traps.html` / `method.html` / `d
 1. **Requirement line** — `coverage.json` has no `requirement` field. Soft hints are derived from existing notes (dual-pack / SDS-MAX / 230mm+ chop) and scoped per platform where possible. Not a new coverage claim.
 2. **Model codes** — extracted best-effort from evidence URL slugs or Amazon `k=` when the key looks like a SKU. Category-only evidence → host + date only (no invented model).
 3. **Amazon “destination checked”** — links emit only when `status=has` and `amazon` is present in JSON (and platform ≠ Ryobi). Label is honest Search/View from URL shape; today all are Search.
-4. **`og.png`** — built via Chrome headless from `og.svg` when available; stdlib geometric PNG fallback otherwise.
+4. **`og.png`** — always rebuilt as 1200×630 via stdlib `_png_rgb` bitmap card (Astra warm tokens); no Chrome (avoids tiny stub overwrite).
 5. **Selected-tools filter** — checkboxes injected by JS only (progressive enhancement); matrix remains complete with JS off.
 6. **Trap callout** retained above the matrix (brief allows supporting pages; callout is calm, not a quiz/hero wall).
 
