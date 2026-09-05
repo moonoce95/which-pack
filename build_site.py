@@ -225,11 +225,11 @@ def amazon_label(url: str) -> str:
     path = urlparse(url).path or ""
     q = urlparse(url).query or ""
     if "/s?" in url or path.rstrip("/").endswith("/s") or q.startswith("k=") or "/s?" in (path + "?" + q):
-        return "Search"
+        return "Search Amazon AU"
     # Product detail pages typically /dp/ or /gp/product/
     if "/dp/" in url or "/gp/product/" in url:
-        return "View"
-    return "Search"
+        return "Shop Amazon AU"
+    return "Search Amazon AU"
 
 
 def extract_model(cell: dict) -> str | None:
@@ -285,25 +285,34 @@ def render_cell(platform_id: str, cell: dict, tool: dict, updated: str) -> str:
             parts.append(f'<div class="req">{esc(req)}</div>')
 
     if status == "has":
-        model = extract_model(cell)
-        evidence = cell.get("evidence") or []
-        detail_bits = []
-        if model:
-            detail_bits.append(f"<span class=\"model\">{esc(model)}</span>")
-        if evidence:
-            src = evidence[0]
-            detail_bits.append(
-                f'<a class="src" href="{esc(src)}" rel="noopener noreferrer">{esc(source_host(src))}</a>'
-            )
-        detail_bits.append(f'<span class="date">{esc(tool.get("last_verified") or updated)}</span>')
-        parts.append(f'<div class="details">{" · ".join(detail_bits)}</div>')
-
+        # Shop CTA is the loud action on has cells (never invent links; never for Ryobi).
         amz = cell.get("amazon")
         if amz and platform_id != "ryobi_one_au":
             label = amazon_label(amz)
             parts.append(
                 f'<a class="amz" rel="sponsored nofollow noopener" href="{esc(amz)}">'
-                f"Amazon · {esc(label)}</a>"
+                f"{esc(label)}</a>"
+            )
+
+        model = extract_model(cell)
+        evidence = cell.get("evidence") or []
+        meta_bits = []
+        if model:
+            meta_bits.append(f'<span class="model">{esc(model)}</span>')
+        if evidence:
+            src = evidence[0]
+            meta_bits.append(
+                f'<a class="src" href="{esc(src)}" rel="noopener noreferrer">{esc(source_host(src))}</a>'
+            )
+        verified = tool.get("last_verified") or updated
+        if verified:
+            meta_bits.append(f'<span class="date">Verified {esc(verified)}</span>')
+        if meta_bits:
+            parts.append(
+                '<details class="cell-meta">'
+                "<summary>Source and date</summary>"
+                f'<div class="meta-body">{" · ".join(meta_bits)}</div>'
+                "</details>"
             )
     return "<td>" + "".join(parts) + "</td>"
 
@@ -1996,35 +2005,91 @@ table.matrix {
   color: var(--secondary);
   line-height: 1.45;
 }
-.details {
-  margin-top: 10px;
-  font-size: 1.05rem;
-  color: var(--secondary);
-  line-height: 1.5;
-}
-.details .model { font-family: var(--mono); color: var(--text); font-weight: 600; font-size: 1.05rem; }
-.details .src { color: var(--link); text-decoration: none; }
-.details .src:hover { text-decoration: underline; }
-.details .date { white-space: nowrap; }
-
+/* Amazon shop CTA: loudest action on has cells */
 a.amz {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   margin-top: 12px;
-  font-size: 1.05rem;
+  font-size: 1.12rem;
   font-weight: 700;
-  color: var(--link);
+  letter-spacing: 0.01em;
+  color: #fff !important;
   text-decoration: none;
-  border: 1px solid var(--border);
-  background: var(--page);
+  border: 1px solid var(--accent);
+  background: var(--accent);
   border-radius: var(--radius-ctrl);
-  padding: 10px 14px;
+  padding: 12px 16px;
   white-space: nowrap;
   min-height: 48px;
   max-width: 100%;
   box-sizing: border-box;
+  box-shadow: 0 1px 2px rgba(32, 37, 33, 0.14);
 }
-a.amz:hover { border-color: var(--link); background: var(--has-fill); }
+a.amz:hover {
+  filter: brightness(1.06);
+  color: #fff !important;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Quiet OEM source / verified date behind details */
+.cell-meta {
+  margin-top: 10px;
+  font-size: 0.88rem;
+  color: var(--secondary);
+  line-height: 1.45;
+  max-width: 16rem;
+}
+.cell-meta summary {
+  cursor: pointer;
+  list-style: none;
+  color: var(--secondary);
+  font-size: 0.88rem;
+  font-weight: 550;
+  user-select: none;
+}
+.cell-meta summary::-webkit-details-marker { display: none; }
+.cell-meta summary::before {
+  content: "▸ ";
+  font-size: 0.8em;
+  opacity: 0.8;
+}
+.cell-meta[open] summary::before { content: "▾ "; }
+.cell-meta .meta-body {
+  margin-top: 6px;
+  padding: 6px 0 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem;
+  color: var(--secondary);
+  line-height: 1.45;
+  word-break: break-word;
+}
+.cell-meta .model {
+  font-family: var(--mono);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+.cell-meta .src {
+  color: var(--secondary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.cell-meta .src:hover { color: var(--link); }
+.cell-meta .date { white-space: nowrap; }
+
+/* Legacy details class kept for any residual markup */
+.details {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--secondary);
+  line-height: 1.5;
+}
+.details .model { font-family: var(--mono); color: var(--text); font-weight: 600; font-size: 0.9rem; }
+.details .src { color: var(--secondary); text-decoration: underline; text-underline-offset: 2px; }
+.details .src:hover { color: var(--link); }
+.details .date { white-space: nowrap; }
 
 .cta-link {
   display: inline-flex;
@@ -2251,12 +2316,16 @@ code {
     flex-shrink: 0;
   }
   .status { font-size: 1rem; padding: 7px 11px; }
-  .req, .details { font-size: 1.05rem; }
-  .details .model { font-size: 1.05rem; }
+  .req { font-size: 1.05rem; }
+  .cell-meta, .cell-meta summary { font-size: 0.88rem; }
+  .cell-meta .meta-body, .cell-meta .model { font-size: 0.85rem; }
   a.amz {
+    display: inline-flex;
+    width: 100%;
+    justify-content: center;
     min-height: 48px;
-    font-size: 1.05rem;
-    padding: 10px 14px;
+    font-size: 1.1rem;
+    padding: 12px 14px;
   }
   .note { max-width: 300px; min-width: 240px; font-size: 1.1rem; }
   .note .trap-tag { font-size: 0.95rem; }
@@ -2758,7 +2827,27 @@ def main() -> None:
     assert "disclosure-quiet" in home
     assert "Shop matching tools on Amazon AU" in home
     assert "blog.html" in home
-    assert ("Amazon · Search" in matrix or "Amazon · View" in matrix or "Amazon AU — Search" in matrix or "Amazon AU — View" in matrix)
+    assert (
+        "Search Amazon AU" in matrix
+        or "Shop Amazon AU" in matrix
+        or "Amazon · Search" in matrix
+        or "Amazon · View" in matrix
+    )
+    assert 'class="amz"' in matrix
+    assert 'class="cell-meta"' in matrix
+    assert "Source and date" in matrix
+    assert "Amazon · Search" not in matrix  # new human CTA labels
+    # Ryobi is last platform column (index 4): editorial only, never Amazon
+    import re as _re
+    rows = _re.findall(r"<tr[^>]*data-known=.*?</tr>", matrix, _re.S)
+    ryobi_amz = 0
+    for row in rows:
+        tds = _re.findall(r"<td>(?:(?!</td>).)*</td>", row, _re.S)
+        # platform cells only (plain <td>), notes use class="note"
+        plat_tds = [td for td in tds if not td.startswith('<td class=')]
+        if len(plat_tds) >= 5 and 'class="amz"' in plat_tds[4]:
+            ryobi_amz += 1
+    assert ryobi_amz == 0, f"Ryobi Amazon CTAs found: {ryobi_amz}"
     # First data row should be circular saw (reorder check)
     first = re.search(r"<tbody>\s*<tr[^>]*>\s*<th scope=\"row\">([^<]+)", matrix)
     assert first and first.group(1).strip() == "Circular Saw", first.group(1) if first else None
