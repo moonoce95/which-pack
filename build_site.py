@@ -861,11 +861,8 @@ def build_matrix(data: dict, tools: list[dict]) -> str:
 
   <section class="how-to-read" aria-labelledby="how-to-read-title">
     <h2 id="how-to-read-title">How to read this</h2>
-    <ol>
-      <li>Pick the platform you already own, or the kit you are about to buy.</li>
-      <li><strong>Has</strong> means that tool type exists on that AU line. <strong>Missing</strong> means it does not. <strong>Unknown</strong> means we have not verified it yet.</li>
-      <li>Yellow tags flag kit traps (wrong voltage or needs two packs). Notes explain what that means for buying.</li>
-    </ol>
+    <p>Pick your platform column (the kit you own or are about to buy). <strong>Has</strong> means that tool exists on that AU line. <strong>Missing</strong> means it does not. <strong>Unknown</strong> means we have not checked it yet.</p>
+    <p>Yellow tags flag kit traps: wrong voltage, or a tool that needs two packs. The Notes column says what that means before you spend.</p>
     <p class="how-to-shop"><a class="btn-primary" href="#controls">Jump to the matrix</a> <a class="btn-ghost" href="index.html">Back to shop overview</a></p>
   </section>
 
@@ -1526,16 +1523,15 @@ nav.primary a[aria-current="page"] {
   letter-spacing: -0.02em;
   font-weight: 700;
 }
-.how-to-read ol {
-  margin: 0;
-  padding-left: 1.25rem;
+.how-to-read p {
+  margin: 0 0 10px;
   color: var(--text);
-  font-size: 1.02rem;
+  font-size: 1.05rem;
   line-height: 1.55;
   max-width: 68ch;
 }
-.how-to-read li { margin: 0.4rem 0; }
-.how-to-read li strong { color: var(--text); }
+.how-to-read p:last-of-type { margin-bottom: 0; }
+.how-to-read strong { color: var(--text); }
 .how-to-shop {
   display: flex;
   flex-wrap: wrap;
@@ -1768,22 +1764,23 @@ a.amz:hover { border-color: var(--link); background: var(--has-fill); }
 
 .note {
   color: var(--text);
-  font-size: 0.95rem;
-  line-height: 1.5;
-  max-width: 340px;
-  min-width: 220px;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  max-width: 380px;
+  min-width: 260px;
 }
 .note .trap-tag {
-  display: inline-block;
-  margin: 0 0 8px;
-  font-size: 0.78rem;
+  display: block;
+  width: fit-content;
+  margin: 0 0 10px;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   text-transform: none;
   color: var(--warn-fg);
   background: var(--warn-bg);
   border: 1px solid var(--warn-border);
-  padding: 4px 8px;
+  padding: 4px 9px;
   border-radius: var(--radius-label);
 }
 
@@ -1936,7 +1933,7 @@ code {
   }
   .how-to-read { padding: 16px 14px; }
   .how-to-read h2 { font-size: 1.08rem; }
-  .how-to-read ol { font-size: 0.98rem; }
+  .how-to-read p { font-size: 1rem; }
   .how-to-shop { flex-direction: column; align-items: stretch; }
   .how-to-shop .btn-ghost { width: 100%; justify-content: center; }
   .legend { font-size: 0.9rem; }
