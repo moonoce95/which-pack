@@ -610,11 +610,11 @@ def json_ld_home() -> str:
 
 
 def build_home(updated: str) -> str:
-    """Blog-led homepage. Matrix is linked as closer, not the hero."""
+    """Blog-led homepage. Loud matrix CTA above the fold; posts for SEO entry."""
     title = "Which Pack: AU cordless coverage traps before you buy a kit"
     desc = (
-        "Plain notes on AU cordless platform traps: FlexVolt vs XR, Makita table saw gaps, "
-        "and year-two tools. Then check the coverage matrix."
+        "Check what Milwaukee, DeWalt, Makita or Ryobi kits can run in Australia. "
+        "Spot coverage gaps, then shop matching tools on Amazon AU."
     )
     posts_html = post_list_html(heading="Latest posts")
     return f"""{head(title, desc, "", json_ld_home())}
@@ -623,10 +623,11 @@ def build_home(updated: str) -> str:
 <main class="wrap">
   <section class="hero blog-hero" aria-labelledby="home-title">
     <div class="hero-copy">
-      <p class="eyebrow">AU cordless coverage notes</p>
-      <h1 id="home-title">AU cordless traps, before you buy the kit</h1>
-      <p class="lede">I keep a living coverage matrix for Milwaukee, DeWalt, Makita and Ryobi in Australia. Start with the trap posts. When you know what you need in year two, <a href="matrix.html">check coverage</a>.</p>
-      <p class="hero-actions"><a class="btn-primary" href="matrix.html">Check coverage</a> <a class="btn-ghost" href="blog.html">All posts</a></p>
+      <p class="eyebrow">AU cordless coverage checker</p>
+      <h1 id="home-title">See what your cordless kit can actually run</h1>
+      <p class="lede">Which Pack maps tool coverage for Milwaukee, DeWalt, Makita and Ryobi in Australia. Open the matrix, pick your platform, and spot the gaps before you lock a kit. Verified <strong>has</strong> cells link to Amazon AU search so you can shop matching tools.</p>
+      <p class="hero-actions"><a class="btn-primary" href="matrix.html">Check what your kit can run</a> <a class="btn-ghost" href="blog.html">Read trap posts</a></p>
+      <p class="disclosure-quiet">As an Amazon Associate I earn from qualifying purchases. <a href="disclosure.html">Details</a>.</p>
     </div>
     <figure class="hero-figure">
       <picture>
@@ -637,14 +638,13 @@ def build_home(updated: str) -> str:
     </figure>
   </section>
 
-  <p class="disclosure-banner">As an Amazon Associate I earn from qualifying purchases. Affiliate relationships do not determine coverage results. <a href="disclosure.html">Full disclosure</a>.</p>
-
   {posts_html}
 
   <aside class="matrix-closer" aria-labelledby="matrix-closer-title">
     <h2 id="matrix-closer-title">Then check the matrix</h2>
-    <p>Tool type × platform. Has, missing, or unknown from OEM AU pages. Amazon Search links only on verified <strong>has</strong> cells.</p>
-    <p class="card-cta"><a class="cta-link" href="matrix.html">Open the AU coverage matrix →</a></p>
+    <p>Tool type × platform. Has, missing, or unknown from OEM AU pages. Shop matching tools on Amazon AU from verified <strong>has</strong> cells only.</p>
+    <p class="card-cta"><a class="btn-primary" href="matrix.html">Open the AU coverage matrix</a></p>
+    <p class="disclosure-quiet">Amazon Associate links. Coverage results are editorial. <a href="disclosure.html">Full disclosure</a>.</p>
   </aside>
 </main>
 {site_footer(updated)}
@@ -1259,16 +1259,42 @@ nav.primary a[aria-current="page"] {
 }
 .hero-actions { margin: 0; }
 .btn-primary {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: var(--accent);
   color: #fff !important;
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.95rem;
-  padding: 10px 16px;
+  font-size: 1rem;
+  min-height: 44px;
+  padding: 12px 20px;
   border-radius: var(--radius-ctrl);
+  box-sizing: border-box;
 }
 .btn-primary:hover { filter: brightness(1.05); color: #fff !important; }
+.disclosure-quiet {
+  margin: 14px 0 0;
+  font-size: 0.8rem;
+  color: var(--secondary);
+  line-height: 1.45;
+  max-width: 52ch;
+}
+.disclosure-quiet a {
+  color: var(--secondary);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.matrix-closer .disclosure-quiet { margin-top: 12px; }
+.matrix-closer .card-cta .btn-primary { margin-top: 2px; }
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.hero-actions .btn-ghost { margin-left: 0; }
 .hero-figure { margin: 0; }
 .hero-figure figcaption {
   margin-top: 8px;
@@ -1287,15 +1313,16 @@ nav.primary a[aria-current="page"] {
 }
 
 .disclosure-banner {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 12px 16px;
-  margin: 0 0 18px;
-  font-size: 0.9rem;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  margin: 0 0 16px;
+  font-size: 0.82rem;
   color: var(--secondary);
+  line-height: 1.45;
 }
-.disclosure-banner a { font-weight: 550; }
+.disclosure-banner a { font-weight: 500; }
 
 .callout {
   background: var(--warn-bg);
@@ -1645,10 +1672,21 @@ code {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
     min-height: 44px;
     padding: 12px 18px;
-    font-size: 1rem;
+    font-size: 1.02rem;
   }
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-actions .btn-ghost {
+    width: 100%;
+    justify-content: center;
+    margin: 0;
+  }
+  .disclosure-quiet { font-size: 0.78rem; }
   .hero-figure { margin-top: 2px; }
   .hero-art { max-height: 148px; width: auto; margin-inline: auto; }
   .callout { padding: 14px; }
@@ -2209,9 +2247,12 @@ def main() -> None:
     assert "google-site-verification" in home
     assert 'rel="canonical"' in home
     assert "#F5F4EF" in (ROOT / "styles.css").read_text()
-    assert "AU cordless traps, before you buy the kit" in home
+    assert "See what your cordless kit can actually run" in home
     assert "matrix.html" in home
-    assert "Check coverage" in home
+    assert "Check what your kit can run" in home
+    assert "disclosure-banner" not in home
+    assert "disclosure-quiet" in home
+    assert "Shop matching tools on Amazon AU" in home
     assert "blog.html" in home
     assert ("Amazon · Search" in matrix or "Amazon · View" in matrix or "Amazon AU — Search" in matrix or "Amazon AU — View" in matrix)
     # First data row should be circular saw (reorder check)
